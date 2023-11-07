@@ -20,10 +20,7 @@ desvTip <- function(matriz,fil,d){
     for(i in 1:length(matrizt[,fila])) { 
         # Si el punto se encuentra fuera de los limites es outlier
         if(matrizt[i,fila]<lim[1] || matrizt[i,fila]>lim[2]) { 
-            print("el suceso"); 
-            print(i); 
-            print(matrizt[,fila][i]); 
-            print("es un dato anómalo")
+            print(paste("El suceso", i, ":", matrizt[, fila][i], "es un dato anómalo"))
         }
     }
 }

@@ -19,10 +19,7 @@ cajaBigotes <- function(matriz,fila,d){
     for(i in 1:length(matrizt$d)) {
         # Si el punto se encuentra fuera de los limites es outlier
         if(matrizt[i,fila]<limites[1] || matrizt[i,fila]>limites[2]) {
-            print("el suceso"); 
-            print(i); 
-            print(matrizt[i,fila]); 
-            print("es un dato anómalo")
+            print(paste("El suceso", i, ":", matrizt[i, fila], "es un dato anómalo"))
         }
     }
 }
