@@ -177,13 +177,15 @@ quantiler <- function(values, p) {
   v <- sort(values)
   
   # Calcular posición del cuantil
-  pos <- 1 + (n - 1) * p
+  np <- n * p
   
   # Calcular cuantil interpolando
-  int <- floor(pos)
-  float <- pos - int
-  
-  quantile <- (1 - float) * v[int] + float * v[int + 1]
+  if (np %% 10 == 0) {
+    quantile <- (v[np]+v[np+1])/2
+  } else {
+    int <- floor(np)
+    quantile <- v[int+1]
+  }
   
   return(quantile)
 }
