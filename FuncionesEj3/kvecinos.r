@@ -1,4 +1,4 @@
-kvecinos <- function(matriz){
+kvecinos <- function(matriz,k,d){
     # Traspuesta
     matrizt <- t(matriz)
     # Numero de filas
@@ -10,24 +10,23 @@ kvecinos <- function(matriz){
     for (i in 1:n) {
         for (j in 1:n) {
             if (i != j) {
-                distancias[i, j] <- distEuc(matrizt[i, ],matrizt[j, ])
+                distancias[i, j] <- round(distEuc(matrizt[i, ],matrizt[j, ]),2)
             }
         }
     }
 
     # Ordenacion de las distancias
-    for(i in 1:5){
+    for(i in 1:n){
         distancias[,i]=sort(distancias[,i])
     } 
     
-    distanciasordenadas=distancias
+    distanciasordenadas <- distancias
     print(distanciasordenadas)
 
     # Calculo de los outliers
-    for (i in 1:5) {
-        if (distanciasordenadas[4,i]>2.5) {
-            print(i)
-            print("Es un suceso anómalo")
+    for (i in 1:n) {
+        if (distanciasordenadas[k,i]>d) {
+            print(paste("Para k =",k," el suceso ",i," es anómalo"))
         }
     }
 }
