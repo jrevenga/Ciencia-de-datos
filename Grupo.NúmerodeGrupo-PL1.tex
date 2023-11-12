@@ -1,55 +1,280 @@
-\documentclass[]{article}
+\documentclass[a4paper, 12pt]{article}
 \usepackage[spanish]{babel}
-%opening
-\title{Fundamentos de la Ciencia de Datos. Prueba de Laboratorio 1 (PL1)}
-\author{Jorge Revenga}
+\usepackage[hmargin=2cm,vmargin=2.5cm]{geometry}
+\usepackage{enumerate}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage[backend=biber,style=apa, url=true, sortcites]{biblatex}
+\usepackage[table]{xcolor}
+\usepackage{minted}
+\usepackage{graphicx}
+\usepackage{fancyhdr}  % Agrega el paquete fancyhdr
+\usepackage{subcaption}
+
+\addbibresource{references.bib}
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black
+}
+
+\setlength{\arrayrulewidth}{0.4mm}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
 \begin{document}
+	\begin{titlepage}
+		\begin{center}
+			% logo
+			\includegraphics[width=0.5\textwidth]{logoUAH.png}~\\[2cm]
+			
+			\textsc{\Large \\Fundamentos de la Ciencia de Datos}\\[2cm]
+			
+			\HRule \\[0.4cm]
+			{\LARGE \bfseries Prueba de Laboratorio 1 (PL1) \\[0.4cm]}
+			\HRule \\[2cm]
+			
+			\large\textbf{Jorge Revenga Martín de Vidales}\\
+			\large\textbf{Ángel Salgado Aldao}\\
+			\large\textbf{Adrián García}\\
+			\large\textbf{}\\ Grado en Ingeniería Informática \\ Universidad de Alcalá
+			
+			\vfill
+			
+			{\large \today}
+		\end{center}
+	\end{titlepage}
 	
-\maketitle
+	% Configura los encabezados y pies de página
+	\pagestyle{fancy}
+	\fancyhf{} % Limpia todos los encabezados y pies de página actuales
+	% Encabezado
+	\fancyhead[RO,LE]{\textit{Fundamentos de la ciencia de datos}}
+	\fancyhead[LO,RE]{\textit{Prueba de Laboratorio 1 (PL1)}}
+	% Pie de página
+	\fancyfoot[LO,RE]{\textit{Universidad de Alcalá}}
+	\fancyfoot[RO,LE]{\thepage}  % Número de página en la esquina inferior derecha
+	\newpage
 	
-\begin{abstract}
-Un poco de texto de resumen
-\end{abstract}
+	\thispagestyle{plain}
+	\tableofcontents
 
-\section{Introducción}
 
-Un poco de texto sobre las funciones introductorias Contributors(), Help()...
-	
+\newpage
+\section{Introducción - Consideraciones previas}
+    \subsection{Funciones básicas}
+        Para utilizar una función en R se escribe el nombre de la función, seguido de los parámetros de entrada entre paréntesis e.g.: \emph{función(parámetros)}
+        
+        \begin{itemize}
+            \item[-]Función \emph{contributors()}: Muestra los creadores del programa (R)
+            
+            \item[-]Función \emph{help()}: Abre un HTML con información sobre la función \emph{help()} o de la función entre paréntesis de haberla. Para todas las funciones que programemos (para todas las que existan) en R debe poder usarse la función \emph{help()}.
+            
+            En el archivo HTML se distinguen varios elementos:
+            
+            \begin{itemize}
+                \item \emph{\textquotedblleft función \{paquete\}\textquotedblright}: la función de la que se obtiene información seguida del paquete al que pertenece.
+                \item Description: descripción de la función.
+                \item Usage: aparece la función y todos los argumentos que se le pueden introducir.
+                \item Arguments: Explicación de los argumentos o parámetros.
+                \item Details: Detalles adicionales de la función.
+                \item Offline help: Ayuda sin conexión.
+                \item Note: Nota del autor.
+                \item References: Referencias.
+                \item Examples: Ejemplos de uso de la función.
+            \end{itemize}
+            
+            \item[-]Función \emph{getwd()} se utiliza para obtener el directorio de trabajo actual (working directory)
+            
+            \item[-]Función \emph{Setwd(“C:/…”)} permite cambiar el nuevo directorio de trabajo en el que queramos trabajar
+            
+            \item[-] \emph{help.start()}: Manda a un compendio de todas las ayudas disponibles para trabajar con R
+            
+            \item[-]Función \emph{list.files()}: Muestra todos los archivos en el directorio. \emph{dir()} hace lo mismo    
+        \end{itemize}
+        
+    \newpage
+    
+    \subsection{Introducción de un archivo .txt en R}
+        Para introducir una tabla desde un archivo \emph{.txt} en R con seguridad de que vaya a cargar correctamente se deben seguir las siguientes reglas (pueden no ser todas necesarias en todos los casos)
+        
+        \begin{itemize}
+            \item Debe haber una tabulación entre dato y dato, más tabulaciones no lo rompen del todo
+            
+            \item Debe haber una primera columna que numere las filas. Excepto en la primera fila, que sólo habrá una tabulación, seguida de los nombres de las variables separados por tabulaciones
+            
+            \item Hay que introducir un enter al final del documento
+            
+            \item Los números decimales deben ser introducidos con puntos, no con comas
+            
+            \item Los datos tienen que ir juntos, los espacios deben ser separados con guiones u otros símbolos
+        \end{itemize}
+        
+
+    \subsection{Uso de Sweave}
+        Vamos a generar un archivo pdf con código R embedido en el mismo de forma automática, para esto haremos uso de Sweave
+        \begin{itemize}
+            \item \emph{rnwfile<-system.file(\textquotedblleft Sweave", \textquotedblleft example-1.Rnw", package=\textquotedblleft utils")}: obtiene la ubicación del archivo \textquotedblleft example-1.Rnw" que está incluido en el paquete "utils" y la almacena en la variable \textquotedblleft rnwfile'
+
+            \item \emph{Sweave(rnwfile)}: Genera un conjunto de documentos nuevos, entre ellos un .txt, un .pdf y demás, a partir de la variable definida
+
+            \item \emph{tools::texi2pdf(\textquotedblleft example-1.tex")}: Genera el .tex de sweave en un pdf. No funciona sin un compilador de latex (como miktex) en la máquina. Al descargar latex se puede seleccionar una opción para que se realice la carga automáticamente
+        \end{itemize}
+
+    \subsection{Paquetes por defecto al abrir R}
+        \begin{itemize}
+            \item \emph{getOption("defaultPackages")}: muestra los (6) paquetes por defecto que cargan al abrir R
+            \item \emph{library(help="base")}: Muestra las funciones del paquete "base" junto con una descripción básica, \emph{library(help=\textquotedblleft utils")} muestra funciones útiles para trabajar con R. Estos son parte de los 23 paquetes instalados por defecto
+            \item \emph{library()}: Muestra los paquetes en la biblioteca (los instalados manualmente + los de la biblioteca estándar)
+            \item \emph{library(paquete)}: Carga el paquete, también podemos hacerlo si nos vamos a paquetes/cargar paquete
+        \end{itemize}
+    \subsection{Instalar paquetes nuevos}
+        \begin{itemize}
+            \item Nos vamos a paquetes/seleccionar el espejo CRAN
+            \item Seleccionamos el repositorio que queremos utilizar y elegimos el paquete (También se puede instalar con install.packages(\textquotedblleft paquete"))
+            \item También se puede instalar desde el dispositivo local, para ello hay que irse a la página oficial de CRAN.
+                \begin{itemize}
+                    \item Para aprender se usan las viñetas y luego el manual
+                    \item Se descarga la versión r-release
+                    \item Se crea un directorio temporal (temp) y se mete ahí el zip descargado
+                    \item \emph{install.packages(\textquotedblleft c:direccion\_al\_zip/tmp/nombre.zip",repos=NULL)}: lo instala
+                \end{itemize} 
+            \item Para instalar el paquete Arules vamos a descargarlo, también hay que descargar el manual y las viñetas, luego usar install.packages para las dependencias
+        \end{itemize}
+    
 \section{Ejercicios con ayuda del profesor}
-Realización de cuatro ejercicios con ayuda del profesor en los que se van a realizar, utilizando el entorno R, un análisis de descripción de datos, un análisis de asociación y dos análisis de detección de datos anómalos, aplicando todos los conceptos teóricos vistos en cada lección.
+    Realización de cuatro ejercicios con ayuda del profesor en los que se van a realizar, utilizando el entorno R, un análisis de descripción de datos, un análisis de asociación y dos análisis de detección de datos anómalos, aplicando todos los conceptos teóricos vistos en cada lección.
+    
+    \subsection{Análisis de descripción de datos}
+        El primer conjunto de datos, que se empleará para realizar el análisis de descripción de datos, estará formado por datos de una característica cualitativa, nombre, y otra cuantitativa, radio, de los satélites menores de Urano, es decir, aquellos que tienen un radio menor de 50 Km, dichos datos, los primeros cualitativos nominales, y los segundos cuantitativos continuos, son: (Nombre, radio en Km): Cordelia, 13; Ofelia, 16; Bianca, 22; Crésida, 33; Desdémona, 29; Julieta, 42; Rosalinda, 27; Belinda, 34; Luna-1986U10, 20; Calíbano, 30; Luna-999U1, 20; Luna 1999U2, 15.
+        \paragraph{Solución:}
+        \begin{itemize}
+            \item \emph{s<-read.table(\textquotedblleft satelites.txt \textquotedblright)}: Se asigna los valores de la tabla satelites (almacenada en el directorio de trabajo) a la variable "s". Al teclear introducir el nombre de la variable como comando se deberían mostrar los datos
+            
+            \item \emph{dim(s)}: Devuelve las dimensiones de una matriz. En este caso \emph{[1] 12 2} quiere decir 12 filas, 2 columnas
+            
+            \item \emph{so=s[order(s\$radio),]}: ordena las filas de un DataFrame 's' según los valores de la variable \textquotedblleft Radio\textquotedblright. Para hacerlo, se usa la función \emph{order()} para obtener el orden de las filas en función de los valores de \textquotedblleft Radio\textquotedblright, y luego se aplica ese orden al DataFrame 's' utilizando los corchetes \emph{[ ]}. Como resultado, so contendrá las filas de s ordenadas según los valores de \textquotedblleft Radio\textquotedblright.
+        
+            \item \emph{so=s[rev(order(s\$radio)),]}: Añadiendo \emph{rev()} obtenemos las filas en orden decreciente
+        
+            \item \emph{length(s\$radio)}: Devuelve la longitud de la columna
+        
+            \item Para realizar el cálculo del rango:
+            \begin{itemize}
+                \item[-] \emph{rangor=max(s\$radio)-min(s\$radio) }: siguiendo lo visto en teoría, el resultado es 29
+                
+                \item[-] \emph{range(s\$radio)}: devuelve el número menor y el mayor, no la diferencia. Queremos una función que calcule el rango, por lo que primero la creamos utilizando el comando \emph{function()}.
+                
+                \item[-] Podemos definir la variable Radio=s\$radio para ahorrar tiempo
+                
+                \item[-] \emph{rango=function(Radio){max(Radio)-min(Radio)}}: En los paréntesis, especificamos los argumentos que la función recibirá, y entre llaves, definimos las instrucciones que llevará a cabo.
+                
+                \item[-] \emph{dump("rango", file=\textquotedblleft rango.R\textquotedblright)}: empleamos la función dump para guardar nuestra función en el archivo \textquotedblleft rango.R\textquotedblright. Para utilizarla posteriormente, la cargaremos utilizando el comando source (\emph{source("rango.R")}).
+                \
+            \end{itemize} 
+        
+            \item \emph{frecabsradio<-table(s\$radio)}: calcula la frecuencia absoluta para todos los valores
+        
+            \item \emph{frecabscumradio<-cumsum(s\$radio)}: calcula la frecuencia absoluta acumulada para todos los valores
+        
+            \item \emph{frecrel=function(radio){table(radio)/length(radio)}}: no tenemos función para la frecuencia relativa, por lo que la definimos. La función se puede escribir de forma diferente, ya que en este caso 'radio' no es una referencia a una variable sino un parámetro de entrada de la función, por lo que \emph{Frecrel<-function(x){table(x)/length(x)}} serviría de igual manera. \emph{X=s\$Radio} y \emph{Frecrelradio=frecrel(x)} calcula usando la función definida
+        
+            \item \emph{Frecrelacumradio<-cumsum(frecrelradio)}: no tenemos función para la frecuencia relativa acumulada tampoco, se puede calcular usando \emph{cumsum()} de la frecuencia relativa
+            
+            \item \emph{mr<-mean(radio)}: Calcula la media
+            
+            \item \emph{sdr<-sd(radio)}: Para la desviación estándar se usa la función sd, el problema yace en que esta función realiza la desviación típica muestral (la cual divide entre N-1 y no entre N) para realizar inferencias probabilísticas. Hay casos como es el de este ejercicio que tenemos todos los datos (la población entera) y nos interesa usar la desviación estándar poblacional
+            
+            \item \emph{sdr=sqrt((sdr\^2)*11/12))}: creamos la función, quitándole la raíz cuadrada con el \^2 para multiplicar después por N-1/N, para después añadirle la raiz cuadrada de nuevo. Este código puede ser fácilmente optimizado y definido en una función para su reutilización
+            
+            \item \emph{varr=var(radio)}: Calcula la varianza (en este caso se trata también de la varianza muestral)
+            
+            \item \emph{varr=varr*11/12}: Calculamos la varianza poblacional de la misma forma que la desviación típica, sin tener que preocuparnos por la raíz cuadrada
+        
+            \item \emph{Medianr<-median(s\$Radio)}: Para la mediana usamos la función \emph{median()}, pero esta función usa distribuciones de probabilidad en vez de usar ecuaciones y muchas veces no dará el resultado correcto
+        
+            \item \emph{cuart1=quantile(radio, 0.25)}: Calcula el primer cuartil, puede usarse para calcular cualquier centil (0.\%). Le ocurre el mismo problema que a la mediana
+        
+        \end{itemize}
+        
+    
+    \subsection{Análisis de asociación}
+        El segundo conjunto de datos, que se empleará para realizar el análisis de asociación, estará formado por las siguientes 6 cestas de la compra: {Pan, Agua, Leche, Naranjas}, {Pan, Agua, Café, Leche}, {Pan, Agua, Leche}, {Pan, Café, Leche}, {Pan, Agua}, {Leche}.
 
-\subsection{Análisis de descripción de datos}
-El primer conjunto de datos, que se empleará para realizar el análisis de descripción de datos, estará formado por datos de una característica cualitativa, nombre, y otra cuantitativa, radio, de los satélites menores de Urano, es decir, aquellos que tienen un radio menor de 50 Km, dichos datos, los primeros cualitativos nominales, y los segundos cuantitativos continuos, son: (Nombre, radio en Km): Cordelia, 13; Ofelia, 16; Bianca, 22; Crésida, 33; Desdémona, 29; Julieta, 42; Rosalinda, 27; Belinda, 34; Luna-1986U10, 20; Calíbano, 30; Luna-999U1, 20; Luna 1999U2, 15.
+        \paragraph{Solución}
+        \begin{itemize}
+            \item \emph{library(arules)}: Carga el paquete arules
+            \item \emph{search()}: Muestra los paquetes cargados
+            \item \emph{library(Matrix)}: Carga el paquete Matrix
+            \item \emph{muestra<-Matrix(c(1,1,0,1,1,1,1,1,1,0,1,1,0,1,0,1,0,1,1,0,1,1,0,0,0,0,0,0,1,0),6,5,byrow=TRUE,dimnames=list(c(\textquotedblleft suceso1",\textquotedblleft suceso2",\textquotedblleft suceso3",\textquotedblleft suceso4",\textquotedblleft suceso5",\textquotedblleft suceso6"), c(\textquotedblleft Pan",\textquotedblleft Agua",\textquotedblleft Café",\textquotedblleft Leche",\textquotedblleft Naranjas")),sparse=TRUE)}: Carga los datos del problema
+            \item \emph{muestrangCMatrix<-as(muestra,"nsparseMatrix")}: utilizamos la función as para convertir el objeto muestra a una representación de matriz dispersa (sparse matrix)
+            \item \emph{traspmuestrangCMatrix<-t(muestrangCMatrix)}: Trasponemos y tenemos la matriz como arules nos la pide
+            \item \emph{transacciones<-as(traspmuestrangCMatrix,"transactions")}
+            \item \emph{summary(transacciones)}: Muestra más info
+            \item \emph{asociaciones<-apriori(transacciones, parameter=list(support=0.5,confidence=0.8)}: Aplica el algoritmo apriori con umbral de soporte de 0.5 y de confianza de 0.8
+            \item \emph{inspect(asociaciones)}: Muestra las asociaciones que pasan el algoritmo
+        \end{itemize}
+    \subsection{Análisis de detección de datos anómalos}
+        Esto es un poco más de texto en el párrafo.
+    
+    \subsubsection{Técnicas con base estadística}
+    El tercer conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas con base estadística, estará formado por los siguientes 7 valores de resistencia y densidad para diferentes tipos de hormigón {Resistencia, Densidad}: {3, 2; 3.5, 12; 4.7, 4.1; 5.2, 4.9; 7.1, 6.1; 6.2, 5.2; 14, 5.3}. Aplicar las medidas de ordenación a la resistencia y las de dispersión a la densidad.
 
-\subsection{Análisis de asociación}
-El segundo conjunto de datos, que se empleará para realizar el análisis de asociación, estará formado por las siguientes 6 cestas de la compra: {Pan, Agua, Leche, Naranjas}, {Pan, Agua, Café, Leche}, {Pan, Agua, Leche}, {Pan, Café, Leche}, {Pan, Agua}, {Leche}.
+        \paragraph{Caja y Bigotes}
+        \begin{itemize}
+            \item \emph{(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c(\textquotedblleft r","d")))))}
+            \item \emph{(muestra=data.frame(muestra))}: 
+            \item \emph{(boxplot(muestra\$r,range=1.5,plot=FALSE))}: Boxplot de forma predeterminada muestra gráficamente la resolución con caja y bigotes, por lo que se añade \emph{plot=FALSE} para que no lo haga
+            \item \emph{(cuar1r<-quantile(muestra\$r, 0.25))}: Cálculo del primer cuartil
+            \item \emph{(cuar3r<-quantile(muestra\$r, 0.75))} Cálculo del tercer cuartil
+            \item \emph{(int=c(cuar1r-1.5*(cuar3r-cuar1r),cuar3r+1.5*(cuar3r-cuar1r)))}: calcula el rango
+            \item \emph{for(i in 1:length(muestra\$r)) {if(muestra\$r[i]<int[1] || muestra\$r[i]>int[2]){print(\textquotedblleft el suceso"); print(i); print(\textquotedblleft es un suceso anómalo o outlier")}}}
+        \end{itemize}
 
-\subsection{Análisis de detección de datos anómalos}
-Esto es un poco más de texto en el párrafo.
+        \paragraph{Desviación típica}
+        \begin{itemize}
+            \item \emph{sdd=sqrt(var(muestra\$d)*length(muestra\$d)-1)/length(muestra\$d)}
+            \item \emph{(intdes=c(mean(muestra\$d)-2*sdd,mean(muestra\$d)+2*sdd))}: 
+            \item \emph{for(i in 1:length(muestra\$d)) {if (muestra\$d[i]<intdes[1] || muestra\$d[i]>intdes[2]){print(\textquotedblleft el suceso");print(i);print(muestra\$d[i]);print(\textquotedblleft es un suceso anómalo o outlier")}}}
+        \end{itemize}
+    
+    \subsubsection{Técnicas basadas en la proximidad y en la densidad}
+    El cuarto conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas basadas en la proximidad y en la densidad, estará formado por las siguientes 5 calificaciones de estudiantes: 1. {4, 4}; 2. {4, 3}; 3. {5, 5}; 4. {1, 1}; 5. {5, 4} donde las características de las calificaciones son: (Teoría, Laboratorio).
 
-\subsubsection{Técnicas con base estadística}
-El tercer conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas con base estadística, estará formado por los siguientes 7 valores de resistencia y densidad para diferentes tipos de hormigón {Resistencia, Densidad}: {3, 2; 3.5, 12; 4.7, 4.1; 5.2, 4.9; 7.1, 6.1; 6.2, 5.2; 14, 5.3}. Aplicar las medidas de ordenación a la resistencia y las de dispersión a la densidad.
+        \paragraph{Vecinos próximos}
+        \begin{itemize}
+            \item \emph{(muestra=matrix(c(4,4,4,3,5,5,1,1,5,4,),2,5))}: obtenemos la matriz
+            \item \emph{(muestra=t(muestra))}
+            \item Calculamos las distancias euclídeas: \emph{(distancias=as.matrix(dist(muestra)))}
+            \item Hay que ordenar los valores \emph{(distancias=matrix(distancias,5,5))}
+            \\ \emph{for (i in 1:5){distancias[,i]=sort(distancias[,i])}; (distanciasordenadas=distancias)}
+            \item Como el primer vecino es él mismo, la distancia es cero, por lo que vamos a usar k=4 \emph{for(i in 1:5){if(distanciasordenadas[4,i]>2.5){print(i);print(\textquotedblleft es un suceso anómalo o outlier")}}}
+            \item \emph{(distanciasM=as.matrix(dist(muestra,method="manhattan")))}
+        \end{itemize}
 
-\subsubsection{Técnicas basadas en la proximidad y en la densidad}
-El cuarto conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas basadas en la proximidad y en la densidad, estará formado por las siguientes 5 calificaciones de estudiantes: 1. {4, 4}; 2. {4, 3}; 3. {5, 5}; 4. {1, 1}; 5. {5, 4} donde las características de las calificaciones son: (Teoría, Laboratorio).
-
+        \paragraph{Local Outlier Factor}
+            Existen varios paquetes para hacer este cálculo que utilizan métodos distintos al visto en teoría: RLof, DDoutlier, DMwR son algunos de ellos.
+    
 \section{Ejercicios de forma autónoma}
-Realización de cuatro ejercicios de forma autónoma por cada grupo de estudiantes en los que se van a realizar, utilizando el entorno R, un análisis de descripción de datos, un análisis de asociación y dos análisis de detección de datos anómalos, aplicando todos los conceptos teóricos vistos en cada lección:
-
-\subsection{Análisis de descripción de datos}
-El primer conjunto de datos, que se empleará para realizar el análisis de descripción de datos, estará formado por datos de una característica cuantitativa, distancia, desde el domicilio de cada estudiantes hasta la Universidad, dichos datos, cuantitativos continuos, son: 16.5, 34.8, 20.7, 6.2, 4.4, 3.4, 24, 24, 32, 30, 33, 27, 15, 9.4, 2.1, 34, 24, 12, 4.4, 28, 31.4, 21.6, 3.1, 4.5, 5.1, 4, 3.2, 25, 4.5, 20, 34, 12, 12, 12, 12, 5, 19, 30, 5.5, 38, 25, 3.7, 9, 30, 13, 30, 30, 26, 30, 30, 1, 26, 22, 10, 9.7, 11, 24.1, 33, 17.2, 27, 24, 27, 21, 28, 30, 4, 46, 29, 3.7, 2.7, 8.1, 19, 16.
-
-\subsection{Análisis de asociación}
-El segundo conjunto de datos, que se empleará para realizar el análisis de asociación, estará formado por las siguientes conjuntos de extras incluidos en 8 ventas de coches: {X, C, N, B}, {X, T, B, C), {N, C, X}, {N, T, X, B}, {X, C, B}, {N}, {X, B, C}, {T, A}. Donde: {X: Faros de Xenon, A: Alarma, T: Techo Solar, N: Navegador, B: Bluetooth, C: Control de Velocidad}, son los extras que se pueden incluir en cada coche
-		
-\subsection{Análisis de detección de datos anómalos}
-Esto es un poco más de texto en el párrafo.
-
-\subsubsection{Técnicas con base estadística}
-El tercer conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas con base estadística, estará formado por los siguientes 10 valores de velocidades de respuesta y temperaturas normalizadas de un microprocesador {Velocidad, Temperatura}: {10, 7.46; 8, 6.77; 13, 12.74; 9, 7.11; 11, 7.81; 14, 8.84; 6, 6.08; 4, 5.39; 12, 8.15; 7, 6.42; 5, 5.73}. Aplicar las medidas de ordenación a la velocidad y las de dispersión a la temperatura.
-
-\subsubsection{Técnicas basadas en la proximidad y en la densidad}
-El cuarto conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas basadas en la proximidad y en la densidad, estará formado por el número de Mujeres y Hombres inscritos en una serie de cinco seminarios que se han impartido sobre biología. Los datos son: {Mujeres, Hombres}: 1. {9, 9}; 2. {9, 7}; 3. {11, 11}; 4. {2, 1}; 5. {11, 9}.
-
+    Realización de cuatro ejercicios de forma autónoma por cada grupo de estudiantes en los que se van a realizar, utilizando el entorno R, un análisis de descripción de datos, un análisis de asociación y dos análisis de detección de datos anómalos, aplicando todos los conceptos teóricos vistos en cada lección:
+    
+    \subsection{Análisis de descripción de datos}
+        El primer conjunto de datos, que se empleará para realizar el análisis de descripción de datos, estará formado por datos de una característica cuantitativa, distancia, desde el domicilio de cada estudiantes hasta la Universidad, dichos datos, cuantitativos continuos, son: 16.5, 34.8, 20.7, 6.2, 4.4, 3.4, 24, 24, 32, 30, 33, 27, 15, 9.4, 2.1, 34, 24, 12, 4.4, 28, 31.4, 21.6, 3.1, 4.5, 5.1, 4, 3.2, 25, 4.5, 20, 34, 12, 12, 12, 12, 5, 19, 30, 5.5, 38, 25, 3.7, 9, 30, 13, 30, 30, 26, 30, 30, 1, 26, 22, 10, 9.7, 11, 24.1, 33, 17.2, 27, 24, 27, 21, 28, 30, 4, 46, 29, 3.7, 2.7, 8.1, 19, 16.
+    
+    \subsection{Análisis de asociación}
+        El segundo conjunto de datos, que se empleará para realizar el análisis de asociación, estará formado por las siguientes conjuntos de extras incluidos en 8 ventas de coches: {X, C, N, B}, {X, T, B, C), {N, C, X}, {N, T, X, B}, {X, C, B}, {N}, {X, B, C}, {T, A}. Donde: {X: Faros de Xenon, A: Alarma, T: Techo Solar, N: Navegador, B: Bluetooth, C: Control de Velocidad}, son los extras que se pueden incluir en cada coche
+    		
+        \subsection{Análisis de detección de datos anómalos}
+            Esto es un poco más de texto en el párrafo.
+        
+            \subsubsection{Técnicas con base estadística}
+            El tercer conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas con base estadística, estará formado por los siguientes 10 valores de velocidades de respuesta y temperaturas normalizadas de un microprocesador {Velocidad, Temperatura}: {10, 7.46; 8, 6.77; 13, 12.74; 9, 7.11; 11, 7.81; 14, 8.84; 6, 6.08; 4, 5.39; 12, 8.15; 7, 6.42; 5, 5.73}. Aplicar las medidas de ordenación a la velocidad y las de dispersión a la temperatura.
+            
+            \subsubsection{Técnicas basadas en la proximidad y en la densidad}
+            El cuarto conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas basadas en la proximidad y en la densidad, estará formado por el número de Mujeres y Hombres inscritos en una serie de cinco seminarios que se han impartido sobre biología. Los datos son: {Mujeres, Hombres}: 1. {9, 9}; 2. {9, 7}; 3. {11, 11}; 4. {2, 1}; 5. {11, 9}.
+        
 \end{document}
