@@ -264,17 +264,203 @@
     
     \subsection{Análisis de descripción de datos}
         El primer conjunto de datos, que se empleará para realizar el análisis de descripción de datos, estará formado por datos de una característica cuantitativa, distancia, desde el domicilio de cada estudiantes hasta la Universidad, dichos datos, cuantitativos continuos, son: 16.5, 34.8, 20.7, 6.2, 4.4, 3.4, 24, 24, 32, 30, 33, 27, 15, 9.4, 2.1, 34, 24, 12, 4.4, 28, 31.4, 21.6, 3.1, 4.5, 5.1, 4, 3.2, 25, 4.5, 20, 34, 12, 12, 12, 12, 5, 19, 30, 5.5, 38, 25, 3.7, 9, 30, 13, 30, 30, 26, 30, 30, 1, 26, 22, 10, 9.7, 11, 24.1, 33, 17.2, 27, 24, 27, 21, 28, 30, 4, 46, 29, 3.7, 2.7, 8.1, 19, 16.
+     \paragraph{Solución:}
+        \begin{itemize}
+            \item \emph{s$\leftarrow$ read.table(\textquotedblleft distancias.txt \textquotedblright)}: Se asigna los valores de la tabla distancias (almacenada en el directorio de trabajo) a la variable "s". Al teclear introducir el nombre de la variable como comando se deberían mostrar los datos
+        
+            \item Cálculo del rango con la función: \emph{ranger(distancias\$Km)}
+            \begin{itemize}
+                \item[-] Parámetros:
+                \begin{itemize}
+                    \item \emph{vector}: Vector de números.
+                \end{itemize}
+
+                \item[-]  Retorno: Devuelve el rango del vector introducido, es decir, la diferencia entre el número mayor y menor de dicho vector.
+                
+                \item[-] Explicación: Esta función se encarga de calcular el rango del vector introducido por parámetro. Va recorriendo el vector y durante cada iteración va comparando el valor actual con el máximo y el mínimo actuales, si dicho valor es menor o mayor que el mínimo o máximo respectivamente, actualiza el valor correspondiente. Una vez finalizado el recorrido calcula la diferencia entre el máximo y el mínimo final.
+                \
+            \end{itemize} 
+        
+            \item Cálculo de la frecuencia absoluta (\emph{f$_{i}$}) con la función: \emph{frecAbsr(distancias\$Km)}
+            \begin{itemize}
+                \item[-] Parámetros: 
+                \begin{itemize}
+                    \item \emph{vector}: Vector de datos.
+                \end{itemize}
+
+                \item[-] Retorno: Devuelve un dataframe con el número de apariciones totales de cada dato del vector. 
+
+                \item[-] Explicación: Esta función se encarga de contar el número de apariciones de cada elemento del vector. Recorre el vector incrementando en 1 la frecuencia de un elemento cada vez que se repita dicho elemento.
+            \end{itemize}
+        
+            \item Cálculo de la frecuencia absoluta acumulada (\emph{fa$_{i}$}) con la función: \emph{frecAbsAcumr(distancias\$Km)}
+            \begin{itemize}
+                \item[-] Parámetros: 
+                \begin{itemize}
+                    \item \emph{vector}: Vector de datos.
+                \end{itemize}
+
+                \item[-] Retorno: Devuelve un dataframe con el número de apariciones totales acumuladas de cada dato del vector. 
+
+                \item[-] Explicación: Esta función se encarga de calcular las frecuencias acumuladas de cada dato del vector. Calcula primero las frecuencias absolutas con \emph{frecAbsr(vector)} y recorre el dataframe resultado, sumando a la frecuencia absoluta del dato actual, la frecuencia absoluta acumulada del dato anterior.
+            \end{itemize}
+        
+            \item Cálculo de la frecuencia relativa (\emph{fr$_{i}$}) con la función: \emph{frecRelr(distancias\$Km)}
+            \begin{itemize}
+                \item[-] Parámetros: 
+                \begin{itemize}
+                    \item \emph{vector}: Vector de datos.
+                \end{itemize}
+
+                \item[-] Retorno: Devuelve un dataframe con el número de apariciones totales de cada dato en relación al numero de elementos del vector. 
+
+                \item[-] Explicación: Esta función se encarga de calcular las frecuencias relativas de cada dato del vector. Calcula previamente las frecuencias absolutas y después recorre el dataframe resultado, dividiendo la frecuencia absoluta de cada dato entre el número total de elementos, de la forma \emph{f$_{i}$/length(vector)}
+            \end{itemize}
+        
+            \item Cálculo de la frecuencia relativa acumulada (\emph{fra$_{i}$}) con la función: \emph{frecRelAcumr(distancias\$Km)}
+            \begin{itemize}
+                \item[-] Parámetros: 
+                \begin{itemize}
+                    \item \emph{vector}: Vector de datos.
+                \end{itemize}
+
+                \item[-] Retorno: Devuelve un dataframe con las frecuencias relativas acumuladas de cada dato del vector. 
+
+                \item[-] Explicación: Esta función se encarga de calcular las frecuencias relativas acumuladas de cada dato del vector. Calcula primero las frecuencias relativas con \emph{frecRelr(vector)} y recorre el dataframe resultado, sumando a la frecuencia relativa del dato actual, la frecuencia relativa acumulada del dato anterior.
+            \end{itemize}
+            
+            \item Cálculo de la media aritmética (\emph{$\bar{x}_{a}$}) con la función: \emph{meanr(distancias\$Km)}
+            \begin{itemize}
+                \item[-] Parámetros: 
+                \begin{itemize}
+                    \item \emph{vector}: Vector de números.
+                \end{itemize}
+
+                \item[-] Retorno: Devuelve un numero que representa la media aritmética 
+
+                \item[-] Explicación: Esta función se encarga de calcular la media aritmética, recorriendo el vector sumando todos los valores y después dividiéndolos entre el número total de elementos del vector, de la forma: \\
+                $\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i$
+            \end{itemize}
+            
+            \item Cálculo de la desviación típica (\emph{s}) con la función: \emph{sdr(distancias\$Km)}
+            \begin{itemize}
+                \item[-] Parámetros: 
+                \begin{itemize}
+                    \item \emph{vector}: Vector de números.
+                \end{itemize}
+
+                \item[-] Retorno: Devuelve un número que representa la desviación típica. 
+
+                \item[-] Explicación: Esta función se encarga de calcular la desviación típica. Primero calcula la media con la función \emph{meanr(vector)}, después va recorriendo el vector calculando la suma de cuadrados entre la diferencia de cada valor y la media, lo divide todo entre el número total de elementos del vector y por último realiza la raíz cuadrada de dicho resultado, de la forma: \\
+                $s = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2}$
+            \end{itemize}
+            
+            \item Cálculo de la varianza (\emph{s$^2$}) con la función: \emph{varr(distancias\$Km)}
+            \begin{itemize}
+                \item[-] Parámetros: 
+                \begin{itemize}
+                    \item \emph{vector}: Vector de números.
+                \end{itemize}
+
+                \item[-] Retorno: Devuelve un número que representa la varianza. 
+
+                \item[-] Explicación: Esta función se encarga de calcular la varianza. Primero calcula la desviación típica con la función \emph{sdr(vector)} y después eleva al cuadrado dicho resultado, de la forma: \\
+                $s^2 = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2}$
+            \end{itemize}
+            
+            \item Cálculo de la mediana (\emph{\~{x}}) con la función: \emph{medianr(distancias\$Km)}
+            \begin{itemize}
+                \item[-] Parámetros: 
+                \begin{itemize}
+                    \item \emph{vector}: Vector de números.
+                \end{itemize}
+
+                \item[-] Retorno: Devuelve un número que representa la mediana. 
+
+                \item[-] Explicación: Esta función se encarga de calcular la mediana. Primero ordena de forma creciente el vector con la función \emph{sort(vector)} y calcula la longitud del mismo, dependiendo de si la longitud es par o impar, calcula la mediana de la forma: \\
+                $\text{\emph{\~{x}}} = \begin{cases} 
+                    x_{\frac{n+1}{2}} & \text{si } n \text{ es impar} \\
+                    \frac{1}{2}(x_{\frac{n}{2}} + x_{\frac{n}{2}+1}) & \text{si} n \text{ es par}
+                \end{cases}$
+            \end{itemize}
+            
+            \item Cálculo de laos cuartiles (\emph{Q$_{i}$}) con la función: \emph{quantilerr(distancias\$Km,p)}
+            \begin{itemize}
+                \item[-] Parámetros: 
+                \begin{itemize}
+                    \item \emph{vector}: Vector de números.
+                    \item \emph{p}: Número decimal del cuantil.
+                \end{itemize}
+
+                \item[-] Retorno: Devuelve un número que representa el cuantil de \emph{p}. 
+
+                \item[-] Explicación: Esta función se encarga de calcular el cuantil. Primero ordena de forma creciente el vector con la función \emph{sort(vector)}, después calcula la posición del cuantil, de la forma: \\
+                $\text{\emph{{$Q_{p}$}}} = \begin{cases} 
+                    x_{\frac{np}{2}}+x_{\frac{np+1}{2}} & \text{si } np \in \mathbb{N} \\
+                    x_{\lfloor{np}\rfloor +1} & \text{si } np \notin \mathbb{N}
+                \end{cases}$
+            \end{itemize}
+        \end{itemize}
     
     \subsection{Análisis de asociación}
         El segundo conjunto de datos, que se empleará para realizar el análisis de asociación, estará formado por las siguientes conjuntos de extras incluidos en 8 ventas de coches: {X, C, N, B}, {X, T, B, C), {N, C, X}, {N, T, X, B}, {X, C, B}, {N}, {X, B, C}, {T, A}. Donde: {X: Faros de Xenon, A: Alarma, T: Techo Solar, N: Navegador, B: Bluetooth, C: Control de Velocidad}, son los extras que se pueden incluir en cada coche
     		
         \subsection{Análisis de detección de datos anómalos}
-            Esto es un poco más de texto en el párrafo.
         
             \subsubsection{Técnicas con base estadística}
             El tercer conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas con base estadística, estará formado por los siguientes 10 valores de velocidades de respuesta y temperaturas normalizadas de un microprocesador {Velocidad, Temperatura}: {10, 7.46; 8, 6.77; 13, 12.74; 9, 7.11; 11, 7.81; 14, 8.84; 6, 6.08; 4, 5.39; 12, 8.15; 7, 6.42; 5, 5.73}. Aplicar las medidas de ordenación a la velocidad y las de dispersión a la temperatura.
+
+            \paragraph{Solución:}
+            \begin{itemize}
+                \item Medidas de ordenación (Velocidad): Para este análisis de detección de outliers, se va a hacer uso de Caja y Bigotes. Esta técnica consiste en ordenar los elementos, calcular el primer y tercer cuartil y establecer unos límites, si algún valor no se encuentra dentro de estos límites, será considerado outlier. \\ Todo esto está implementado en la función: \emph{cajaBigotes(matriz,valor,d)}.
+                \begin{itemize}
+                    \item[-] Parámetros:
+                    \begin{itemize}
+                        \item \emph{matriz}: Una matriz de datos númericos.
+                        \item \emph{valor}: El nombre de la medidad (fila de la matriz) sobre la que queremos realizar el análisis.
+                        \item \emph{d}: Grado de outlier.
+                    \end{itemize}
+
+                    \item[-] Retorno: Imprime por pantalla todos aquellos valores que queden fuera de los límites establecidos, es decir, los outliers.
+
+                    \item[-] Explicación: Esta función calcula los outliers sobre una serie de valores. Recibe el grado de outlier (\emph{d}) y una matriz (\emph{matriz}) con dichos valores y lo primero que hace es crear un dataframe de la traspuesta de dicha matriz, para facilitar su tratamiento. Después a partir de \emph{valor}, obtiene la fila de la matriz que contiene los valores que vamos a evaluar. Una vez hecho esto hace uso de la función \emph{quantiler()}, la cual hemos implementado previamente, para calcular el primer y tercer cuartil, \emph{$Q_{1}$} y \emph{$Q_{3}$} respectivamente . Por último calcula los límites a partir de, \emph{$(Q_{1} - d \cdot (Q_{3} - Q_{1}), Q_{3} + d \cdot (Q_{3} - Q_{1}))$} e imprimirá por pantalla todos aquellos valores que se encuentren fuera de estos límites establecidos, ya que, serán considerados outliers.
+                \end{itemize}
+
+                \item Medidas de dispersión (Temperatura): Para este análisis de detección de outliers, se va a hacer uso de la Desviación Típica. Esta técnica consiste en calcular la media y la desviación típica de los valores a evaluar y establecer unos límites, si algún valor no se encuentra dentro de estos límites, será considerado outlier. \\
+                Todo esto está implementado en la función: \emph{desvTip(matriz,valor,d)}.
+                \begin{itemize}
+                    \item[-] Parámetros:
+                    \begin{itemize}
+                        \item \emph{matriz}: Una matriz de datos númericos.
+                        \item \emph{valor}: El nombre de la medidad (fila de la matriz) sobre la que queremos realizar el análisis.
+                        \item \emph{d}: Grado de outlier.
+                    \end{itemize}
+                    
+                    \item[-] Retorno: Imprime por pantalla todos aquellos valores que queden fuera de los límites establecidos, es decir, los outliers.
+                    
+                    \item[-] Explicación: Esta función calcula los outliers sobre una serie de valores. Recibe el grado de outlier (\emph{d}) y una matriz (\emph{matriz}) con dichos valores y lo primero que hace es crear un dataframe de la traspuesta de dicha matriz, para facilitar su tratamiento. Después a partir de \emph{valor}, obtiene la fila de la matriz que contiene los valores que vamos a evaluar. Una vez hecho esto hace uso de las funciónes \emph{meanr()} y \emph{sdr()}, las cuales hemos implementado previamente, para calcular la media \emph{$\bar{x}$$_{a}$} y la desviación típica \emph{s} respectivamente. Por último calcula los límites a partir de, \emph{$(\bar{x}_{a} - d \cdot s, \bar{x}_{a} + d \cdot s)$} e imprimirá por pantalla todos aquellos valores que se encuentren fuera de estos límites establecidos, ya que, serán considerados outliers.
+                \end{itemize}
+            \end{itemize}
             
             \subsubsection{Técnicas basadas en la proximidad y en la densidad}
             El cuarto conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas basadas en la proximidad y en la densidad, estará formado por el número de Mujeres y Hombres inscritos en una serie de cinco seminarios que se han impartido sobre biología. Los datos son: {Mujeres, Hombres}: 1. {9, 9}; 2. {9, 7}; 3. {11, 11}; 4. {2, 1}; 5. {11, 9}.
-        
+
+            \paragraph{Solución:}
+            \begin{itemize}
+                \item Técnicas basadas en proximidad (k-Vecinos): Para este análisis de detección de outliers, se va a hacer uso de la técnica k-vecinos. Esta técnica consiste en buscar sucesos muy separados al resto en función de sus distancias. Para ello se calculan las distancias euclídeas entre todos los puntos, para posteriormente ordenar estas distancias de forma creciente, solo se ordenará el número de distancias establecido por \emph{k}. Por último se comprueba si el vecino \emph{k} supera el grado de outlier establecido por \emph{d}, si lo hace, será considerado outlier.
+                \begin{itemize}
+                    \item[-] Parámetros:
+                    \begin{itemize}
+                        \item \emph{matriz}: Matriz de valores númericos.
+                        \item \emph{k}: Número de orden k.
+                        \item \emph{d}: Grado de outlier.
+                    \end{itemize}
+                    
+                    \item[-] Retorno: Imprime por pantalla todos aquellos sucesos cuyo \emph{k}, se encuentre a una distancia mayor que el grado de outlier \emph{d}, es decir, los outliers.
+                    
+                    \item[-] Explicación: Esta función calcula los outliers sobre una serie de sucesos. Recibe el número de orden \emph{k}, el grado de outlier (\emph{d}) y una matriz (\emph{matriz}) con dichos sucesos. El primer paso es calcular las distancias euclídeas de la forma, \emph{$\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$}, a partir de la función \emph{distEuc()}. Después se ordenan dichas distancias de menor a mayor. Por último se verifica dentro de las distancias ordenadas, si el vecino \emph{k} de cada punto, supera el valor establecido inicialmente por \emph{d}, si esto sucede se imprime dicho suceso por pantalla, ya que. será considerado outlier.
+                \end{itemize}
+                
+                \item Técnicas basadas en densidad (Local Outlier Factor):
+            \end{itemize}   
 \end{document}
