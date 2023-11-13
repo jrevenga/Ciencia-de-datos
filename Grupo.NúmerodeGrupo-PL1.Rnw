@@ -59,7 +59,7 @@
 		En el archivo HTML se distinguen varios elementos:
 		
 		\begin{itemize}
-			\item \texttt{función \{paquete\}}: la función de la que se obtiene información seguida del paquete al que pertenece.
+			\item función \{paquete\}: la función de la que se obtiene información seguida del paquete al que pertenece.
 			\item Description: descripción de la función.
 			\item Usage: aparece la función y todos los argumentos que se le pueden introducir.
 			\item Arguments: Explicación de los argumentos o parámetros.
@@ -101,7 +101,7 @@
 	Vamos a generar un archivo pdf con código R embedido en el mismo de forma automática, para esto haremos uso de Sweave.
 	
 	\begin{itemize}
-		\item \texttt{rnwfile <- system.file("Sweave", \string"example-1.Rnw", package =\string"utils")}: obtiene la ubicación del archivo ‘‘example-1.Rnw’’ que está incluido en el paquete ‘‘utils’’ y la almacena en la variable ‘‘rnwfile’’.
+		\item \texttt{rnwfile <- system.file("Sweave", \string"example-1.Rnw", package =\string"utils")}: obtiene la ubicación del archivo "example-1.Rnw" que está incluido en el paquete "utils" y la almacena en la variable "rnwfile".
 		
 		\item \texttt{Sweave(rnwfile)}: Genera un conjunto de documentos nuevos, entre ellos un .txt, un .pdf y demás, a partir de la variable definida.
 		
@@ -111,7 +111,7 @@
 	\subsection{Paquetes por defecto al abrir R}
 	\begin{itemize}
 		\item \texttt{getOption("defaultPackages")}: muestra los (6) paquetes por defecto que cargan al abrir R.
-		\item \texttt{library(help="base")}: Muestra las funciones del paquete ‘‘base" junto con una descripción básica, \texttt{library(help=\string"utils")} muestra funciones útiles para trabajar con R. Estos son parte de los 23 paquetes instalados por defecto.
+		\item \texttt{library(help="base")}: Muestra las funciones del paquete ""base" junto con una descripción básica, \texttt{library(help=\string"utils")} muestra funciones útiles para trabajar con R. Estos son parte de los 23 paquetes instalados por defecto.
 		\item \texttt{library()}: Muestra los paquetes en la biblioteca (los instalados manualmente + los de la biblioteca estándar).
 		\item \texttt{library(paquete)}: Carga el paquete, también podemos hacerlo si nos vamos a paquetes/cargar paquete.
 	\end{itemize}
@@ -146,7 +146,7 @@ s
 <<>>=
 dim(s)
 @
-		\item \texttt{so=s[order(s\$Radio),]}: ordena las filas de un DataFrame \texttt{s} según los valores de la variable ‘‘Radio''. Para hacerlo, se usa la función \texttt{order()} para obtener el orden de las filas en función de los valores de ‘‘Radio'', y luego se aplica ese orden al DataFrame 's' utilizando los corchetes \texttt{[ ]}. Como resultado, \texttt{so} contendrá las filas de s ordenadas según los valores de ‘‘Radio''.
+		\item \texttt{so=s[order(s\$Radio),]}: ordena las filas de un DataFrame \texttt{s} según los valores de la variable "Radio". Para hacerlo, se usa la función \texttt{order()} para obtener el orden de las filas en función de los valores de "Radio", y luego se aplica ese orden al DataFrame 's' utilizando los corchetes \texttt{[ ]}. Como resultado, \texttt{so} contendrá las filas de s ordenadas según los valores de "Radio".
 <<>>=
 so<-s[order(s$Radio),]
 so
@@ -180,7 +180,7 @@ Radio = s$Radio
 rango=function(Radio){max(Radio)-min(Radio)}
 rango(Radio)
 @
-			\item[-] \texttt{dump(‘‘rango’’, file=‘‘rango.R’’)}: empleamos la función dump para guardar nuestra función en el archivo ‘‘rango.R’’. Para utilizarla posteriormente, la cargaremos utilizando el comando source (\texttt{source(‘‘rango.R’’)}).
+			\item[-] \texttt{dump("rango", file="rango.R")}: empleamos la función dump para guardar nuestra función en el archivo "rango.R". Para utilizarla posteriormente, la cargaremos utilizando el comando source (\texttt{source("rango.R")}).
 <<>>=
 dump("rango", file="rango.R")
 source("rango.R")
@@ -271,6 +271,8 @@ cuartl
 		\item \texttt{summary(transacciones)}: Muestra más información.
 		\item \texttt{asociaciones<-apriori (transacciones, parameter=list (support = 0.5, \\confidence = 0.8))}: Aplica el algoritmo apriori con umbral de soporte de 0.5 y de confianza de 0.8
 		\item \texttt{inspect(asociaciones)}: Muestra las asociaciones que pasan el algoritmo.
+	\end{itemize}
+	\paragraph{Ejecución}
 <<>>=
 library(arules)
 search()
@@ -287,44 +289,75 @@ asociaciones<-apriori(transacciones, parameter=list(support=0.5,
 confidence=0.8))
 inspect(asociaciones)
 @
-	\end{itemize}
 	\subsection{Análisis de detección de datos anómalos}
-	Esto es un poco más de texto en el párrafo.
 	
 	\subsubsection{Técnicas con base estadística}
 	El tercer conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas con base estadística, estará formado por los siguientes 7 valores de resistencia y densidad para diferentes tipos de hormigón {Resistencia, Densidad}: {3, 2; 3.5, 12; 4.7, 4.1; 5.2, 4.9; 7.1, 6.1; 6.2, 5.2; 14, 5.3}. Aplicar las medidas de ordenación a la resistencia y las de dispersión a la densidad.
 	
 	\paragraph{Caja y Bigotes}
+
 	\begin{itemize}
-		\item \texttt{(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c(‘‘r","d")))))}
-		\item \texttt{(muestra=data.frame(muestra))}: 
+		\item \texttt{(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,\\dimnames=list(c("r","d")))))}: cargamos los datos
+		\item \texttt{(muestra=data.frame(muestra))}: Convertimos la matriz a un data.frame
 		\item \texttt{(boxplot(muestra\$r,range=1.5,plot=FALSE))}: Boxplot de forma predeterminada muestra gráficamente la resolución con caja y bigotes, por lo que se añade \texttt{plot=FALSE} para que no lo haga
 		\item \texttt{(cuar1r<-quantile(muestra\$r, 0.25))}: Cálculo del primer cuartil
 		\item \texttt{(cuar3r<-quantile(muestra\$r, 0.75))} Cálculo del tercer cuartil
-		\item \texttt{(int=c(cuar1r-1.5*(cuar3r-cuar1r),cuar3r+1.5*(cuar3r-cuar1r)))}: calcula el rango
-		\item \texttt{for(i in 1:length(muestra\$r)) {if(muestra\$r[i]<int[1] || muestra\$r[i]>int[2]){print(‘‘el suceso"); print(i); print(‘‘es un suceso anómalo o outlier")}}}
+		\item \texttt{(int=c(cuar1r-1.5*(cuar3r-cuar1r),cuar3r+1.5*(cuar3r-cuar1r)))}: calcula el rango de los datos que no son outliers
+		\item \texttt{for(i in 1:length(muestra\$r)) {if(muestra\$r[i]<int[1] || muestra\$r[i]>int[2])\\ {print("el suceso"); print(i); print("es un suceso anómalo o outlier")}}}
 	\end{itemize}
+
+	\paragraph{Ejecución}
+<<>>=
+(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,
+dimnames=list(c("r","d")))))
+(muestra=data.frame(muestra))
+(boxplot(muestra$r,range=1.5,plot=FALSE))
+(cuar1r<-quantile(muestra$r, 0.25))
+(cuar3r<-quantile(muestra$r, 0.75))
+(int=c(cuar1r-1.5*(cuar3r-cuar1r),cuar3r+1.5*(cuar3r-cuar1r)))
+for(i in 1:length(muestra$r)) {if(muestra$r[i]<int[1] || muestra$r[i]>int[2])
+{print("el suceso"); print(i); print("es un suceso anómalo o outlier")}}
+@
 	
 	\paragraph{Desviación típica}
 	\begin{itemize}
-		\item \texttt{sdd=sqrt(var(muestra\$d)*length(muestra\$d)-1)/length(muestra\$d)}
-		\item \texttt{(intdes=c(mean(muestra\$d)-2*sdd,mean(muestra\$d)+2*sdd))}: 
-		\item \texttt{for(i in 1:length(muestra\$d)) {if (muestra\$d[i]<intdes[1] || muestra\$d[i]>intdes[2]){print(‘‘el suceso");print(i);print(muestra\$d[i]);print(‘‘es un suceso anómalo o outlier")}}}
+		\item \texttt{sdd=sqrt(var(muestra\$d)*length(muestra\$d)-1)/length(muestra\$d)}: calculamos la desviación estándar poblacional a partir del dataframe del apartado anterior y la función var() que calcula la varianza muestral
+		\item \texttt{(intdes=c(mean(muestra\$d)-2*sdd,mean(muestra\$d)+2*sdd))}: calcula el rango de los datos que no son outliers
+		\item \texttt{for(i in 1:length(muestra\$d)) {if (muestra\$d[i]<intdes[1] || \\ muestra\$d[i]>intdes[2]) {print("el suceso");print(i);print(muestra\$d[i]);print("es un suceso anómalo o outlier")}}}
 	\end{itemize}
-	
+	\paragraph{Ejecución}
+<<>>=
+sdd=sqrt(var(muestra$d)*length(muestra$d)-1)/length(muestra$d)
+(intdes=c(mean(muestra$d)-2*sdd,mean(muestra$d)+2*sdd))
+for(i in 1:length(muestra$d)) 
+{if (muestra$d[i]<intdes[1] || muestra$d[i]>intdes[2]){print("el suceso")
+;print(i);print(muestra$d[i]);print("es un suceso anómalo o outlier")}}
+@
 	\subsubsection{Técnicas basadas en la proximidad y en la densidad}
 	El cuarto conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas basadas en la proximidad y en la densidad, estará formado por las siguientes 5 calificaciones de estudiantes: 1. {4, 4}; 2. {4, 3}; 3. {5, 5}; 4. {1, 1}; 5. {5, 4} donde las características de las calificaciones son: (Teoría, Laboratorio).
 	
 	\paragraph{Vecinos próximos}
 	\begin{itemize}
-		\item \texttt{(muestra=matrix(c(4,4,4,3,5,5,1,1,5,4,),2,5))}: obtenemos la matriz
-		\item \texttt{(muestra=t(muestra))}
+		\item \texttt{(muestra=matrix(c(4,4,4,3,5,5,1,1,5,4),2,5))}: obtenemos la matriz
+		\item \texttt{(muestra=t(muestra))}: Trasponemos la matriz
 		\item Calculamos las distancias euclídeas: \texttt{(distancias=as.matrix(dist(muestra)))}
 		\item Hay que ordenar los valores \texttt{(distancias=matrix(distancias,5,5))}
 		\\ \texttt{for (i in 1:5){distancias[,i]=sort(distancias[,i])}; (distanciasordenadas=distancias)}
-		\item Como el primer vecino es él mismo, la distancia es cero, por lo que vamos a usar k=4 \texttt{for(i in 1:5){if(distanciasordenadas[4,i]>2.5){print(i);print(‘‘es un suceso anómalo o outlier")}}}
-		\item \texttt{(distanciasM=as.matrix(dist(muestra,method="manhattan")))}
+		\item Como el primer vecino es él mismo, la distancia es cero, por lo que vamos a usar k=4 \texttt{for(i in 1:5){if(distanciasordenadas[4,i]>2.5){print(i);print("es un suceso anómalo o outlier")}}}
+		\item \texttt{(distanciasM=as.matrix(dist(muestra,method="manhattan")))}: Cálculo de distancias de Manhattan
 	\end{itemize}
+	\paragraph{Ejecución}
+<<>>=
+(muestra=matrix(c(4,4,4,3,5,5,1,1,5,4),2,5))
+(muestra=t(muestra))
+(distancias=as.matrix(dist(muestra)))
+(distancias=matrix(distancias,5,5))
+for (i in 1:5){distancias[,i]=sort(distancias[,i])};
+ (distanciasordenadas=distancias)
+for(i in 1:5){if(distanciasordenadas[4,i]>2.5)
+{print(i);print("es un suceso anómalo o outlier")}}
+(distanciasM=as.matrix(dist(muestra,method="manhattan")))
+@
 	
 	\paragraph{Local Outlier Factor}
 	Existen varios paquetes para hacer este cálculo que utilizan métodos distintos al visto en teoría: RLof, DDoutlier, DMwR son algunos de ellos.
