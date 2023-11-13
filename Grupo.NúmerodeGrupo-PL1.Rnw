@@ -10,7 +10,6 @@
 
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
-\usepackage{Sweave}
 \begin{document}
 	\begin{titlepage}
 		\begin{center}
