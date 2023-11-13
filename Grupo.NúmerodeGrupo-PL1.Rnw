@@ -1,6 +1,6 @@
 \documentclass[a4paper, 12pt]{article}
 \usepackage[spanish]{babel}
-\usepackage[hmargin=2cm,vmargin=2.5cm]{geometry}
+\usepackage[hmargin=2.5cm,vmargin=2.5cm]{geometry}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -131,68 +131,128 @@
 	
 	\section{Ejercicios con ayuda del profesor}
 	Realización de cuatro ejercicios con ayuda del profesor en los que se van a realizar, utilizando el entorno R, un análisis de descripción de datos, un análisis de asociación y dos análisis de detección de datos anómalos, aplicando todos los conceptos teóricos vistos en cada lección.
-	
+
 	\subsection{Análisis de descripción de datos}
-	El primer conjunto de datos, que se empleará para realizar el análisis de descripción de datos, estará formado por datos de una característica cualitativa, nombre, y otra cuantitativa, radio, de los satélites menores de Urano, es decir, aquellos que tienen un radio menor de 50 Km, dichos datos, los primeros cualitativos nominales, y los segundos cuantitativos continuos, son: (Nombre, radio en Km): Cordelia, 13; Ofelia, 16; Bianca, 22; Crésida, 33; Desdémona, 29; Julieta, 42; Rosalinda, 27; Belinda, 34; Luna-1986U10, 20; Calíbano, 30; Luna-999U1, 20; Luna 1999U2, 15.
+	El primer conjunto de datos, que se empleará para realizar el análisis de descripción de datos, estará formado por datos de una característica cualitativa, nombre, y otra cuantitativa, Radio, de los satélites menores de Urano, es decir, aquellos que tienen un Radio menor de 50 Km, dichos datos, los primeros cualitativos nominales, y los segundos cuantitativos continuos, son: (Nombre, Radio en Km): Cordelia, 13; Ofelia, 16; Bianca, 22; Crésida, 33; Desdémona, 29; Julieta, 42; Rosalinda, 27; Belinda, 34; Luna-1986U10, 20; Calíbano, 30; Luna-999U1, 20; Luna 1999U2, 15.
 	
-	<<>>=
-	s<-read.table("satelites.txt")
-	s
-	dim(s)
-	so<-s[order(s$Radio),]
-	so
-	so<-s[rev(order(s$Radio)),]
-	so
-	length(s$Radio)
-	@
 	\paragraph{Solución:}
 	\begin{itemize}
 		\item \texttt{s<-read.table(\string"satelites.txt")}: Se asigna los valores de la tabla satelites (almacenada en el directorio de trabajo) a la variable \texttt{s}. Al teclear introducir el nombre de la variable como comando se deberían mostrar los datos.
-		
+<<>>=
+s<-read.table("satelites.txt")
+s
+@
 		\item \texttt{dim(s)}: Devuelve las dimensiones de una matriz. En este caso \texttt{[1] 12 2} quiere decir 12 filas, 2 columnas.
-		
+<<>>=
+dim(s)
+@
 		\item \texttt{so=s[order(s\$Radio),]}: ordena las filas de un DataFrame \texttt{s} según los valores de la variable ‘‘Radio''. Para hacerlo, se usa la función \texttt{order()} para obtener el orden de las filas en función de los valores de ‘‘Radio'', y luego se aplica ese orden al DataFrame 's' utilizando los corchetes \texttt{[ ]}. Como resultado, \texttt{so} contendrá las filas de s ordenadas según los valores de ‘‘Radio''.
-		
-		\item \texttt{so=s[rev(order(s\$radio)),]}: Añadiendo \texttt{rev()} obtenemos las filas en orden decreciente
-		
-		\item \texttt{length(s\$radio)}: Devuelve la longitud de la columna
-		
+<<>>=
+so<-s[order(s$Radio),]
+so
+@
+		\item \texttt{so=s[rev(order(s\$Radio)),]}: Añadiendo \texttt{rev()} obtenemos las filas en orden decreciente
+<<>>=
+so<-s[rev(order(s$Radio)),]
+so
+@
+		\item \texttt{length(s\$Radio)}: Devuelve la longitud de la columna
+<<>>=
+length(s$Radio)
+@
 		\item Para realizar el cálculo del rango:
 		\begin{itemize}
-			\item[-] \texttt{rangor=max(s\$radio)-min(s\$radio) }: siguiendo lo visto en teoría, el resultado es 29
-			
-			\item[-] \texttt{range(s\$radio)}: devuelve el número menor y el mayor, no la diferencia. Queremos una función que calcule el rango, por lo que primero la creamos utilizando el comando \texttt{function()}.
-			
-			\item[-] Podemos definir la variable Radio=s\$radio para ahorrar tiempo
-			
-			\item[-] \texttt{rango=function(Radio){max(Radio)-min(Radio)}}: En los paréntesis, especificamos los argumentos que la función recibirá, y entre llaves, definimos las instrucciones que llevará a cabo.
-			
+			\item[-] \texttt{rangor=max(s\$Radio)-min(s\$Radio) }: siguiendo lo visto en teoría, el resultado es 29
+<<>>=
+rangor=max(s$Radio)-min(s$Radio)
+rangor
+@
+			\item[-] \texttt{range(s\$Radio)}: devuelve el número menor y el mayor, no la diferencia. Queremos una función que calcule el rango, por lo que primero la creamos utilizando el comando \texttt{function()}.
+<<>>=
+range(s$Radio)
+@
+			\item[-] Podemos definir la variable Radio=s\$Radio para ahorrar tiempo
+<<>>=
+Radio = s$Radio
+@
+			\item[-] \texttt{rango=function(Radio)\{max(Radio)-min(Radio)\}}: En los paréntesis, especificamos los argumentos que la función recibirá, y entre llaves, definimos las instrucciones que llevará a cabo.
+<<>>=
+rango=function(Radio){max(Radio)-min(Radio)}
+rango(Radio)
+@
 			\item[-] \texttt{dump(‘‘rango’’, file=‘‘rango.R’’)}: empleamos la función dump para guardar nuestra función en el archivo ‘‘rango.R’’. Para utilizarla posteriormente, la cargaremos utilizando el comando source (\texttt{source(‘‘rango.R’’)}).
-			\
-		\end{itemize} 
+<<>>=
+dump("rango", file="rango.R")
+source("rango.R")
+@
+		\end{itemize}
+		\newpage
 		
-		\item \texttt{frecabsradio<-table(s\$radio)}: calcula la frecuencia absoluta para todos los valores
-		
-		\item \texttt{frecabscumradio<-cumsum(s\$radio)}: calcula la frecuencia absoluta acumulada para todos los valores
-		
-		\item \texttt{frecrel=function(radio){table(radio)/length(radio)}}: no tenemos función para la frecuencia relativa, por lo que la definimos. La función se puede escribir de forma diferente, ya que en este caso 'radio' no es una referencia a una variable sino un parámetro de entrada de la función, por lo que \texttt{frecrel<-function(x)\{table(x)/length(x)\}} serviría de igual manera. \texttt{X=s\$Radio} y \texttt{Frecrelradio=frecrel(x)} calcula usando la función definida
-		
-		\item \texttt{Frecrelacumradio<-cumsum(frecrelradio)}: no tenemos función para la frecuencia relativa acumulada tampoco, se puede calcular usando \texttt{cumsum()} de la frecuencia relativa
-		
-		\item \texttt{mr<-mean(radio)}: Calcula la media
-		
-		\item \texttt{sdr<-sd(radio)}: Para la desviación estándar se usa la función sd, el problema yace en que esta función realiza la desviación típica muestral (la cual divide entre N-1 y no entre N) para realizar inferencias probabilísticas. Hay casos como es el de este ejercicio que tenemos todos los datos (la población entera) y nos interesa usar la desviación estándar poblacional
-		
-		\item \texttt{sdr=sqrt((sdr\^2)*11/12))}: creamos la función, quitándole la raíz cuadrada con el \^2 para multiplicar después por N-1/N, para después añadirle la raiz cuadrada de nuevo. Este código puede ser fácilmente optimizado y definido en una función para su reutilización
-		
-		\item \texttt{varr=var(radio)}: Calcula la varianza (en este caso se trata también de la varianza muestral)
-		
+		\item \texttt{frecabsradio<-table(s\$Radio)}: calcula la frecuencia absoluta para todos los valores
+<<>>=
+frecabsradio<-table(s$Radio)
+frecabsradio
+@
+		\item \texttt{frecabscumradio<-cumsum(s\$Radio)}: calcula la frecuencia absoluta acumulada para todos los valores
+<<>>=
+frecabsacumradio<-cumsum(frecabsradio)
+frecabsacumradio
+@
+		\item \texttt{frecrel<-function(x)\{table(x)/length(x)\}}: no tenemos función para la frecuencia relativa, por lo que la definimos. La función se puede escribir de forma diferente, ya que en este caso 'Radio' no es una referencia a una variable sino un parámetro de entrada de la función, por lo que \texttt{frecrel<-function(x)\{table(x) /length(x)\}} serviría de igual manera. \texttt{x=s\$Radio} y \texttt{frecrelradio=frecrel(x)} calcula usando la función definida.
+\small
+<<>>=
+frecrel<-function(x){table(x)/length(x)}
+dump("frecrel", file="frecrel.R")
+source("frecrel.R")
+x=s$Radio
+frecrelradio=frecrel(x)
+frecrelradio
+@
+\normalsize
+		\item \texttt{frecrelacumradio<-cumsum(frecrelradio)}: no tenemos función para la frecuencia relativa acumulada tampoco, se puede calcular usando \texttt{cumsum()} de la frecuencia relativa
+\small
+<<>>=
+frecelacumradio <- cumsum(frecrelradio)
+frecelacumradio
+@
+\normalsize
+
+		\newpage
+		\item \texttt{mr<-mean(Radio)}: Calcula la media
+<<>>=
+mr<-mean(s$Radio)
+mr
+@
+		\item \texttt{sdr<-sd(Radio)}: Para la desviación estándar se usa la función sd, el problema yace en que esta función realiza la desviación típica muestral (la cual divide entre N-1 y no entre N) para realizar inferencias probabilísticas. Hay casos como es el de este ejercicio que tenemos todos los datos (la población entera) y nos interesa usar la desviación estándar poblacional
+<<>>=
+sdr<-sd(s$Radio)
+sdr
+@
+		\item \texttt{sdr=sqrt((sdr\^2)*11/12)}: creamos la función, quitándole la raíz cuadrada con el \^2 para multiplicar después por N-1/N, para después añadirle la raiz cuadrada de nuevo. Este código puede ser fácilmente optimizado y definido en una función para su reutilización
+<<>>=
+sdr=sqrt((sdr^2)*11/12)
+sdr
+@
+		\item \texttt{varr=var(Radio)}: Calcula la varianza (en este caso se trata también de la varianza muestral)
+<<>>=
+varr=var(x)
+varr
+@
 		\item \texttt{varr=varr*11/12}: Calculamos la varianza poblacional de la misma forma que la desviación típica, sin tener que preocuparnos por la raíz cuadrada
-		
+<<>>=
+varr=varr*11/12
+varr
+@
 		\item \texttt{Medianr<-median(s\$Radio)}: Para la mediana usamos la función \texttt{median()}, pero esta función usa distribuciones de probabilidad en vez de usar ecuaciones y muchas veces no dará el resultado correcto
-		
-		\item \texttt{cuart1=quantile(radio, 0.25)}: Calcula el primer cuartil, puede usarse para calcular cualquier centil (0.\%). Le ocurre el mismo problema que a la mediana
-		
+<<>>=
+medianr<-median(x)
+medianr
+@
+		\item \texttt{cuart1=quantile(Radio, 0.25)}: Calcula el primer cuartil, puede usarse para calcular cualquier centil (0.\%). Le ocurre el mismo problema que a la mediana
+<<>>=
+cuartl=quantile(x,0.25)
+cuartl
+@
 	\end{itemize}
 	
 	
@@ -201,16 +261,32 @@
 	
 	\paragraph{Solución}
 	\begin{itemize}
-		\item \texttt{library(arules)}: Carga el paquete arules
-		\item \texttt{search()}: Muestra los paquetes cargados
-		\item \texttt{library(Matrix)}: Carga el paquete Matrix
-		\item \texttt{muestra<-Matrix(c(1,1,0,1,1,1,1,1,1,0,1,1,0,1,0,1,0,1,1,0,1,1,0,0,0,0,0,0,1,0),6,5,byrow=TRUE,dimnames=list(c(‘‘suceso1",‘‘suceso2",‘‘suceso3",‘‘suceso4",‘‘suceso5",‘‘suceso6"), c(‘‘Pan",‘‘Agua",‘‘Café",‘‘Leche",‘‘Naranjas")),sparse=TRUE)}: Carga los datos del problema
+		\item \texttt{library(arules)}: Carga el paquete arules.
+		\item \texttt{search()}: Muestra los paquetes cargados.
+		\item \texttt{library(Matrix)}: Carga el paquete Matrix.
+		\item \texttt{muestra<-Matrix(c(1,1,0,1,1, 1,1,1,1,0, 1,1,0,1,0, 1,0,1,1,0, 1,1,0,\\0,0, 0,0,0,1,0) ,6,5, byrow=TRUE, dimnames=list(c(‘‘suceso1’’ , ‘‘suceso2’’ , ‘‘suceso3’’ , ‘‘suceso4’’ , ‘‘suceso5’’ , ‘‘suceso6’’ ), c(‘‘Pan’’ , ‘‘Agua’’ , ‘‘Café’’ , ‘‘Leche’’ , ‘‘Naranjas’’)), sparse=TRUE)}: Carga los datos del problema
 		\item \texttt{muestrangCMatrix<-as(muestra,"nsparseMatrix")}: utilizamos la función as para convertir el objeto muestra a una representación de matriz dispersa (sparse matrix)
-		\item \texttt{traspmuestrangCMatrix<-t(muestrangCMatrix)}: Trasponemos y tenemos la matriz como arules nos la pide
-		\item \texttt{transacciones<-as(traspmuestrangCMatrix,"transactions")}
-		\item \texttt{summary(transacciones)}: Muestra más info
-		\item \texttt{asociaciones<-apriori(transacciones, parameter=list(support=0.5,confidence=0.8)}: Aplica el algoritmo apriori con umbral de soporte de 0.5 y de confianza de 0.8
-		\item \texttt{inspect(asociaciones)}: Muestra las asociaciones que pasan el algoritmo
+		\item \texttt{traspmuestrangCMatrix<-t(muestrangCMatrix)}: Trasponemos y tenemos la matriz como arules nos la pide.
+		\item \texttt{transacciones<-as(traspmuestrangCMatrix,"transactions")}.
+		\item \texttt{summary(transacciones)}: Muestra más información.
+		\item \texttt{asociaciones<-apriori (transacciones, parameter=list (support = 0.5, \\confidence = 0.8))}: Aplica el algoritmo apriori con umbral de soporte de 0.5 y de confianza de 0.8
+		\item \texttt{inspect(asociaciones)}: Muestra las asociaciones que pasan el algoritmo.
+<<>>=
+library(arules)
+search()
+library(Matrix)
+muestra<-Matrix(c(1,1,0,1,1, 1,1,1,1,0, 1,1,0,1,0, 1,0,1,1,0, 1,1,0,
+0,0, 0,0,0,1,0),6,5,byrow=TRUE,dimnames=list(c("suceso1", "suceso2",
+"suceso3", "suceso4", "suceso5", "suceso6"), c("Pan", "Agua", "Café",
+"Leche", "Naranjas")), sparse=TRUE)
+muestrangCMatrix<-as(muestra, "nsparseMatrix")
+traspmuestrangCMatrix<-t(muestrangCMatrix)
+transacciones<-as(traspmuestrangCMatrix, "transactions")
+summary(transacciones)
+asociaciones<-apriori(transacciones, parameter=list(support=0.5,
+confidence=0.8))
+inspect(asociaciones)
+@
 	\end{itemize}
 	\subsection{Análisis de detección de datos anómalos}
 	Esto es un poco más de texto en el párrafo.
