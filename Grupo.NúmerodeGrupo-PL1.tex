@@ -1648,11 +1648,7 @@ $names
 \end{Soutput}
 \end{Schunk}
 
-	\subsection{Análisis de detección de datos anómalos}
-		
-		\subsubsection{Técnicas con base estadística}
-		El tercer conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas con base estadística, estará formado por los siguientes 10 valores de velocidades de respuesta y temperaturas normalizadas de un microprocesador {Velocidad, Temperatura}: {10, 7.46; 8, 6.77; 13, 12.74; 9, 7.11; 11, 7.81; 14, 8.84; 6, 6.08; 4, 5.39; 12, 8.15; 7, 6.42; 5, 5.73}. Aplicar las medidas de ordenación a la velocidad y las de dispersión a la temperatura.
-		
+	\subsection{Análisis de detección de datos anómalos - Técnicas con base estadística}
 		\paragraph{Solución:}
 		\begin{itemize}
 			\item Medidas de ordenación (Velocidad): Para este análisis de detección de outliers, se va a hacer uso de Caja y Bigotes. Esta técnica consiste en ordenar los elementos, calcular el primer y tercer cuartil y establecer unos límites, si algún valor no se encuentra dentro de estos límites, será considerado outlier. \\ Todo esto está implementado en la función: \texttt{cajaBigotes(matriz,valor,d)}.
@@ -1783,7 +1779,7 @@ $names
 			\end{itemize}
 		\end{itemize}
 		
-		\subsubsection{Técnicas basadas en la proximidad y en la densidad}
+		\subsection{Análisis de detección de datos anómalos - Técnicas basadas en la proximidad y en la densidad}
 		El cuarto conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas basadas en la proximidad y en la densidad, estará formado por el número de Mujeres y Hombres inscritos en una serie de cinco seminarios que se han impartido sobre biología. Los datos son: {Mujeres, Hombres}: 1. {9, 9}; 2. {9, 7}; 3. {11, 11}; 4. {2, 1}; 5. {11, 9}.
 		
 		\paragraph{Solución:}
