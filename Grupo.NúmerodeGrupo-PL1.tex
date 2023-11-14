@@ -60,7 +60,7 @@
 		En el archivo HTML se distinguen varios elementos:
 		
 		\begin{itemize}
-			\item función \{paquete\}: la función de la que se obtiene información seguida del paquete al que pertenece.
+			\item \texttt{función \{paquete\}}: la función de la que se obtiene información seguida del paquete al que pertenece.
 			\item Description: descripción de la función.
 			\item Usage: aparece la función y todos los argumentos que se le pueden introducir.
 			\item Arguments: Explicación de los argumentos o parámetros.
@@ -102,7 +102,7 @@
 	Vamos a generar un archivo pdf con código R embedido en el mismo de forma automática, para esto haremos uso de Sweave.
 	
 	\begin{itemize}
-		\item \texttt{rnwfile <- system.file("Sweave", \string"example-1.Rnw", package =\string"utils")}: obtiene la ubicación del archivo "example-1.Rnw" que está incluido en el paquete "utils" y la almacena en la variable "rnwfile".
+		\item \texttt{rnwfile <- system.file("Sweave", \string"example-1.Rnw", package =\string"utils")}: obtiene la ubicación del archivo ‘‘example-1.Rnw’’ que está incluido en el paquete ‘‘utils’’ y la almacena en la variable ‘‘rnwfile’’.
 		
 		\item \texttt{Sweave(rnwfile)}: Genera un conjunto de documentos nuevos, entre ellos un .txt, un .pdf y demás, a partir de la variable definida.
 		
@@ -112,7 +112,7 @@
 	\subsection{Paquetes por defecto al abrir R}
 	\begin{itemize}
 		\item \texttt{getOption("defaultPackages")}: muestra los (6) paquetes por defecto que cargan al abrir R.
-		\item \texttt{library(help="base")}: Muestra las funciones del paquete ""base" junto con una descripción básica, \texttt{library(help=\string"utils")} muestra funciones útiles para trabajar con R. Estos son parte de los 23 paquetes instalados por defecto.
+		\item \texttt{library(help="base")}: Muestra las funciones del paquete ‘‘base" junto con una descripción básica, \texttt{library(help=\string"utils")} muestra funciones útiles para trabajar con R. Estos son parte de los 23 paquetes instalados por defecto.
 		\item \texttt{library()}: Muestra los paquetes en la biblioteca (los instalados manualmente + los de la biblioteca estándar).
 		\item \texttt{library(paquete)}: Carga el paquete, también podemos hacerlo si nos vamos a paquetes/cargar paquete.
 	\end{itemize}
@@ -169,7 +169,7 @@
 [1] 12  2
 \end{Soutput}
 \end{Schunk}
-		\item \texttt{so=s[order(s\$Radio),]}: ordena las filas de un DataFrame \texttt{s} según los valores de la variable "Radio". Para hacerlo, se usa la función \texttt{order()} para obtener el orden de las filas en función de los valores de "Radio", y luego se aplica ese orden al DataFrame 's' utilizando los corchetes \texttt{[ ]}. Como resultado, \texttt{so} contendrá las filas de s ordenadas según los valores de "Radio".
+		\item \texttt{so=s[order(s\$Radio),]}: ordena las filas de un DataFrame \texttt{s} según los valores de la variable ‘‘Radio''. Para hacerlo, se usa la función \texttt{order()} para obtener el orden de las filas en función de los valores de ‘‘Radio'', y luego se aplica ese orden al DataFrame 's' utilizando los corchetes \texttt{[ ]}. Como resultado, \texttt{so} contendrá las filas de s ordenadas según los valores de ‘‘Radio''.
 \begin{Schunk}
 \begin{Sinput}
 > so<-s[order(s$Radio),]
@@ -259,7 +259,7 @@
 [1] 29
 \end{Soutput}
 \end{Schunk}
-			\item[-] \texttt{dump("rango", file="rango.R")}: empleamos la función dump para guardar nuestra función en el archivo "rango.R". Para utilizarla posteriormente, la cargaremos utilizando el comando source (\texttt{source("rango.R")}).
+			\item[-] \texttt{dump(‘‘rango’’, file=‘‘rango.R’’)}: empleamos la función dump para guardar nuestra función en el archivo ‘‘rango.R’’. Para utilizarla posteriormente, la cargaremos utilizando el comando source (\texttt{source(‘‘rango.R’’)}).
 \begin{Schunk}
 \begin{Sinput}
 > dump("rango", file="rango.R")
@@ -304,8 +304,10 @@
 \end{Sinput}
 \begin{Soutput}
 x
-        13         15         16         20         22         27         29         30         33         34         42 
-0.08333333 0.08333333 0.08333333 0.16666667 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 0.08333333 
+        13         15         16         20         22         27         29 
+0.08333333 0.08333333 0.08333333 0.16666667 0.08333333 0.08333333 0.08333333 
+        30         33         34         42 
+0.08333333 0.08333333 0.08333333 0.08333333 
 \end{Soutput}
 \end{Schunk}
 \normalsize
@@ -317,8 +319,10 @@ x
 > frecelacumradio
 \end{Sinput}
 \begin{Soutput}
-        13         15         16         20         22         27         29         30         33         34         42 
-0.08333333 0.16666667 0.25000000 0.41666667 0.50000000 0.58333333 0.66666667 0.75000000 0.83333333 0.91666667 1.00000000 
+        13         15         16         20         22         27         29 
+0.08333333 0.16666667 0.25000000 0.41666667 0.50000000 0.58333333 0.66666667 
+        30         33         34         42 
+0.75000000 0.83333333 0.91666667 1.00000000 
 \end{Soutput}
 \end{Schunk}
 \normalsize
@@ -413,15 +417,16 @@ x
 		\item \texttt{summary(transacciones)}: Muestra más información.
 		\item \texttt{asociaciones<-apriori (transacciones, parameter=list (support = 0.5, \\confidence = 0.8))}: Aplica el algoritmo apriori con umbral de soporte de 0.5 y de confianza de 0.8
 		\item \texttt{inspect(asociaciones)}: Muestra las asociaciones que pasan el algoritmo.
-	\end{itemize}
-	\paragraph{Ejecución}
 \begin{Schunk}
 \begin{Sinput}
 > library(arules)
 > search()
 \end{Sinput}
 \begin{Soutput}
- [1] ".GlobalEnv"        "package:arules"    "package:Matrix"    "package:stats"     "package:graphics"  "package:grDevices" "package:utils"     "package:datasets"  "package:methods"   "Autoloads"         "package:base"     
+ [1] ".GlobalEnv"        "package:arules"    "package:Matrix"   
+ [4] "package:stats"     "package:graphics"  "package:grDevices"
+ [7] "package:utils"     "package:datasets"  "package:methods"  
+[10] "Autoloads"         "package:base"     
 \end{Soutput}
 \begin{Sinput}
 > library(Matrix)
@@ -471,8 +476,10 @@ includes extended transaction information - examples:
 Apriori
 
 Parameter specification:
- confidence minval smax arem  aval originalSupport maxtime support minlen maxlen target  ext
-        0.8    0.1    1 none FALSE            TRUE       5     0.5      1     10  rules TRUE
+ confidence minval smax arem  aval originalSupport maxtime support minlen
+        0.8    0.1    1 none FALSE            TRUE       5     0.5      1
+ maxlen target  ext
+     10  rules TRUE
 
 Algorithmic control:
  filter tree heap memopt load sort verbose
@@ -502,236 +509,72 @@ creating S4 object  ... done [0.00s].
 [7] {Agua, Leche} => {Pan}   0.5000000 1.0000000  0.5000000 1.20 3    
 \end{Soutput}
 \end{Schunk}
+	\end{itemize}
 	\subsection{Análisis de detección de datos anómalos}
+	Esto es un poco más de texto en el párrafo.
 	
 	\subsubsection{Técnicas con base estadística}
 	El tercer conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas con base estadística, estará formado por los siguientes 7 valores de resistencia y densidad para diferentes tipos de hormigón {Resistencia, Densidad}: {3, 2; 3.5, 12; 4.7, 4.1; 5.2, 4.9; 7.1, 6.1; 6.2, 5.2; 14, 5.3}. Aplicar las medidas de ordenación a la resistencia y las de dispersión a la densidad.
 	
 	\paragraph{Caja y Bigotes}
-
 	\begin{itemize}
-		\item \texttt{(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,\\dimnames=list(c("r","d")))))}: cargamos los datos
-		\item \texttt{(muestra=data.frame(muestra))}: Convertimos la matriz a un data.frame
+		\item \texttt{(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c(‘‘r","d")))))}
+		\item \texttt{(muestra=data.frame(muestra))}: 
 		\item \texttt{(boxplot(muestra\$r,range=1.5,plot=FALSE))}: Boxplot de forma predeterminada muestra gráficamente la resolución con caja y bigotes, por lo que se añade \texttt{plot=FALSE} para que no lo haga
 		\item \texttt{(cuar1r<-quantile(muestra\$r, 0.25))}: Cálculo del primer cuartil
 		\item \texttt{(cuar3r<-quantile(muestra\$r, 0.75))} Cálculo del tercer cuartil
-		\item \texttt{(int=c(cuar1r-1.5*(cuar3r-cuar1r),cuar3r+1.5*(cuar3r-cuar1r)))}: calcula el rango de los datos que no son outliers
-		\item \texttt{for(i in 1:length(muestra\$r)) {if(muestra\$r[i]<int[1] || muestra\$r[i]>int[2])\\ {print("el suceso"); print(i); print("es un suceso anómalo o outlier")}}}
+		\item \texttt{(int=c(cuar1r-1.5*(cuar3r-cuar1r),cuar3r+1.5*(cuar3r-cuar1r)))}: calcula el rango
+		\item \texttt{for(i in 1:length(muestra\$r)) {if(muestra\$r[i]<int[1] || muestra\$r[i]>int[2]){print(‘‘el suceso"); print(i); print(‘‘es un suceso anómalo o outlier")}}}
 	\end{itemize}
-
-	\paragraph{Ejecución}
-\begin{Schunk}
-\begin{Sinput}
-> (muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,
-+ dimnames=list(c("r","d")))))
-\end{Sinput}
-\begin{Soutput}
-        r    d
-[1,]  3.0  2.0
-[2,]  3.5 12.0
-[3,]  4.7  4.1
-[4,]  5.2  4.9
-[5,]  7.1  6.1
-[6,]  6.2  5.2
-[7,] 14.0  5.3
-\end{Soutput}
-\begin{Sinput}
-> (muestra=data.frame(muestra))
-\end{Sinput}
-\begin{Soutput}
-     r    d
-1  3.0  2.0
-2  3.5 12.0
-3  4.7  4.1
-4  5.2  4.9
-5  7.1  6.1
-6  6.2  5.2
-7 14.0  5.3
-\end{Soutput}
-\begin{Sinput}
-> (boxplot(muestra$r,range=1.5,plot=FALSE))
-\end{Sinput}
-\begin{Soutput}
-$stats
-     [,1]
-[1,] 3.00
-[2,] 4.10
-[3,] 5.20
-[4,] 6.65
-[5,] 7.10
-
-$n
-[1] 7
-
-$conf
-         [,1]
-[1,] 3.677181
-[2,] 6.722819
-
-$out
-[1] 14
-
-$group
-[1] 1
-
-$names
-[1] "1"
-\end{Soutput}
-\begin{Sinput}
-> (cuar1r<-quantile(muestra$r, 0.25))
-\end{Sinput}
-\begin{Soutput}
-25% 
-4.1 
-\end{Soutput}
-\begin{Sinput}
-> (cuar3r<-quantile(muestra$r, 0.75))
-\end{Sinput}
-\begin{Soutput}
- 75% 
-6.65 
-\end{Soutput}
-\begin{Sinput}
-> (int=c(cuar1r-1.5*(cuar3r-cuar1r),cuar3r+1.5*(cuar3r-cuar1r)))
-\end{Sinput}
-\begin{Soutput}
-   25%    75% 
- 0.275 10.475 
-\end{Soutput}
-\begin{Sinput}
-> for(i in 1:length(muestra$r)) {if(muestra$r[i]<int[1] || muestra$r[i]>int[2])
-+ {print("el suceso"); print(i); print("es un suceso anómalo o outlier")}}
-\end{Sinput}
-\begin{Soutput}
-[1] "el suceso"
-[1] 7
-[1] "es un suceso anómalo o outlier"
-\end{Soutput}
-\end{Schunk}
 	
 	\paragraph{Desviación típica}
 	\begin{itemize}
-		\item \texttt{sdd=sqrt(var(muestra\$d)*length(muestra\$d)-1)/length(muestra\$d)}: calculamos la desviación estándar poblacional a partir del dataframe del apartado anterior y la función var() que calcula la varianza muestral
-		\item \texttt{(intdes=c(mean(muestra\$d)-2*sdd,mean(muestra\$d)+2*sdd))}: calcula el rango de los datos que no son outliers
-		\item \texttt{for(i in 1:length(muestra\$d)) {if (muestra\$d[i]<intdes[1] || \\ muestra\$d[i]>intdes[2]) {print("el suceso");print(i);print(muestra\$d[i]);print("es un suceso anómalo o outlier")}}}
+		\item \texttt{sdd=sqrt(var(muestra\$d)*length(muestra\$d)-1)/length(muestra\$d)}
+		\item \texttt{(intdes=c(mean(muestra\$d)-2*sdd,mean(muestra\$d)+2*sdd))}: 
+		\item \texttt{for(i in 1:length(muestra\$d)) {if (muestra\$d[i]<intdes[1] || muestra\$d[i]>intdes[2]){print(‘‘el suceso");print(i);print(muestra\$d[i]);print(‘‘es un suceso anómalo o outlier")}}}
 	\end{itemize}
-	\paragraph{Ejecución}
-\begin{Schunk}
-\begin{Sinput}
-> sdd=sqrt(var(muestra$d)*length(muestra$d)-1)/length(muestra$d)
-> (intdes=c(mean(muestra$d)-2*sdd,mean(muestra$d)+2*sdd))
-\end{Sinput}
-\begin{Soutput}
-[1] 3.341975 7.972310
-\end{Soutput}
-\begin{Sinput}
-> for(i in 1:length(muestra$d)) 
-+ {if (muestra$d[i]<intdes[1] || muestra$d[i]>intdes[2]){print("el suceso")
-+ ;print(i);print(muestra$d[i]);print("es un suceso anómalo o outlier")}}
-\end{Sinput}
-\begin{Soutput}
-[1] "el suceso"
-[1] 1
-[1] 2
-[1] "es un suceso anómalo o outlier"
-[1] "el suceso"
-[1] 2
-[1] 12
-[1] "es un suceso anómalo o outlier"
-\end{Soutput}
-\end{Schunk}
+	
 	\subsubsection{Técnicas basadas en la proximidad y en la densidad}
 	El cuarto conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas basadas en la proximidad y en la densidad, estará formado por las siguientes 5 calificaciones de estudiantes: 1. {4, 4}; 2. {4, 3}; 3. {5, 5}; 4. {1, 1}; 5. {5, 4} donde las características de las calificaciones son: (Teoría, Laboratorio).
 	
 	\paragraph{Vecinos próximos}
 	\begin{itemize}
-		\item \texttt{(muestra=matrix(c(4,4,4,3,5,5,1,1,5,4),2,5))}: obtenemos la matriz
-		\item \texttt{(muestra=t(muestra))}: Trasponemos la matriz
+		\item \texttt{(muestra=matrix(c(4,4,4,3,5,5,1,1,5,4,),2,5))}: obtenemos la matriz
+		\item \texttt{(muestra=t(muestra))}
 		\item Calculamos las distancias euclídeas: \texttt{(distancias=as.matrix(dist(muestra)))}
 		\item Hay que ordenar los valores \texttt{(distancias=matrix(distancias,5,5))}
 		\\ \texttt{for (i in 1:5){distancias[,i]=sort(distancias[,i])}; (distanciasordenadas=distancias)}
-		\item Como el primer vecino es él mismo, la distancia es cero, por lo que vamos a usar k=4 \texttt{for(i in 1:5){if(distanciasordenadas[4,i]>2.5){print(i);print("es un suceso anómalo o outlier")}}}
-		\item \texttt{(distanciasM=as.matrix(dist(muestra,method="manhattan")))}: Cálculo de distancias de Manhattan
+		\item Como el primer vecino es él mismo, la distancia es cero, por lo que vamos a usar k=4 \texttt{for(i in 1:5){if(distanciasordenadas[4,i]>2.5){print(i);print(‘‘es un suceso anómalo o outlier")}}}
+		\item \texttt{(distanciasM=as.matrix(dist(muestra,method="manhattan")))}
 	\end{itemize}
-	\paragraph{Ejecución}
-\begin{Schunk}
-\begin{Sinput}
-> (muestra=matrix(c(4,4,4,3,5,5,1,1,5,4),2,5))
-\end{Sinput}
-\begin{Soutput}
-     [,1] [,2] [,3] [,4] [,5]
-[1,]    4    4    5    1    5
-[2,]    4    3    5    1    4
-\end{Soutput}
-\begin{Sinput}
-> (muestra=t(muestra))
-\end{Sinput}
-\begin{Soutput}
-     [,1] [,2]
-[1,]    4    4
-[2,]    4    3
-[3,]    5    5
-[4,]    1    1
-[5,]    5    4
-\end{Soutput}
-\begin{Sinput}
-> (distancias=as.matrix(dist(muestra)))
-\end{Sinput}
-\begin{Soutput}
-         1        2        3        4        5
-1 0.000000 1.000000 1.414214 4.242641 1.000000
-2 1.000000 0.000000 2.236068 3.605551 1.414214
-3 1.414214 2.236068 0.000000 5.656854 1.000000
-4 4.242641 3.605551 5.656854 0.000000 5.000000
-5 1.000000 1.414214 1.000000 5.000000 0.000000
-\end{Soutput}
-\begin{Sinput}
-> (distancias=matrix(distancias,5,5))
-\end{Sinput}
-\begin{Soutput}
-         [,1]     [,2]     [,3]     [,4]     [,5]
-[1,] 0.000000 1.000000 1.414214 4.242641 1.000000
-[2,] 1.000000 0.000000 2.236068 3.605551 1.414214
-[3,] 1.414214 2.236068 0.000000 5.656854 1.000000
-[4,] 4.242641 3.605551 5.656854 0.000000 5.000000
-[5,] 1.000000 1.414214 1.000000 5.000000 0.000000
-\end{Soutput}
-\begin{Sinput}
-> for (i in 1:5){distancias[,i]=sort(distancias[,i])};
->  (distanciasordenadas=distancias)
-\end{Sinput}
-\begin{Soutput}
-         [,1]     [,2]     [,3]     [,4]     [,5]
-[1,] 0.000000 0.000000 0.000000 0.000000 0.000000
-[2,] 1.000000 1.000000 1.000000 3.605551 1.000000
-[3,] 1.000000 1.414214 1.414214 4.242641 1.000000
-[4,] 1.414214 2.236068 2.236068 5.000000 1.414214
-[5,] 4.242641 3.605551 5.656854 5.656854 5.000000
-\end{Soutput}
-\begin{Sinput}
-> for(i in 1:5){if(distanciasordenadas[4,i]>2.5)
-+ {print(i);print("es un suceso anómalo o outlier")}}
-\end{Sinput}
-\begin{Soutput}
-[1] 4
-[1] "es un suceso anómalo o outlier"
-\end{Soutput}
-\begin{Sinput}
-> (distanciasM=as.matrix(dist(muestra,method="manhattan")))
-\end{Sinput}
-\begin{Soutput}
-  1 2 3 4 5
-1 0 1 2 6 1
-2 1 0 3 5 2
-3 2 3 0 8 1
-4 6 5 8 0 7
-5 1 2 1 7 0
-\end{Soutput}
-\end{Schunk}
 	
 	\paragraph{Local Outlier Factor}
 	Existen varios paquetes para hacer este cálculo que utilizan métodos distintos al visto en teoría: RLof, DDoutlier, DMwR son algunos de ellos.
-	
+	\begin{itemize}
+		\item[-] Parámetros:
+		\begin{itemize}
+			\item \texttt{datos}: Matriz de valores númericos.
+			\item \texttt{k}: Número de orden k.
+			\item \texttt{dist}: Método de cálculo de las distancias.
+		\end{itemize}
+
+		\item[-] Retorno: Imprime por pantalla los valores lof de cada punto.
+		
+		\item[-] Explicación: Utilizamos el paquete Rlof, el cual contiene una función llamada \emph{lof(datos,k,dist)}, el cual recibe los puntos que va a evaluar, el número de vecinos cercanos (\emph{k}) y el método que se emplea para calcular las distancias (al ser LOF usamos \emph{manhattan}). \\
+		Esta función hace uso de varias funciones externas para el calculo del LOF, primero llama a \texttt{f.dist.knn()} la cual ordena las distancias entre vecinos de menor a mayor, antes de esto llama a la función \texttt{distmc()} para que calcule esas distancias previamente (empleando manhattan). Después \texttt{lof()} llama a \texttt{f.reachability()} que calcula las densidades locales de cada punto. Por último calcula las densidades relativas medias de cada punto. Una vez obtenidos los resultados los imprime por pantalla, aquellos que sean >1 serán posibles outliers, en nuestro caso a pesar de que los puntos 1 y 5 sean >1, el punto 4 es mucho mayor, siendo así el outlier.\\ 
+\begin{Schunk}
+\begin{Sinput}
+> library(Rlof)
+> datos <- matrix(c(9, 9, 9, 7, 11, 11, 2, 1, 11, 9), ncol=2, byrow=TRUE)
+> outliersLof <- lof(datos, k=3, method="manhattan")
+> outliersLof
+\end{Sinput}
+\begin{Soutput}
+[1] 1.0952381 0.9166667 0.9166667 2.9464286 1.0952381
+\end{Soutput}
+\end{Schunk}
+	\end{itemize}
+
 	\section{Ejercicios de forma autónoma}
 	Realización de cuatro ejercicios de forma autónoma por cada grupo de estudiantes en los que se van a realizar, utilizando el entorno R, un análisis de descripción de datos, un análisis de asociación y dos análisis de detección de datos anómalos, aplicando todos los conceptos teóricos vistos en cada lección:
 	
@@ -878,7 +721,7 @@ $names
 	\subsection{Análisis de asociación}
 	El segundo conjunto de datos, que se empleará para realizar el análisis de asociación, estará formado por las siguientes conjuntos de extras incluidos en 8 ventas de coches: {X, C, N, B}, {X, T, B, C), {N, C, X}, {N, T, X, B}, {X, C, B}, {N}, {X, B, C}, {T, A}. Donde: {X: Faros de Xenon, A: Alarma, T: Techo Solar, N: Navegador, B: Bluetooth, C: Control de Velocidad}, son los extras que se pueden incluir en cada coche
 		
-		\subsection{Análisis de detección de datos anómalos}
+	\subsection{Análisis de detección de datos anómalos}
 		
 		\subsubsection{Técnicas con base estadística}
 		El tercer conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas con base estadística, estará formado por los siguientes 10 valores de velocidades de respuesta y temperaturas normalizadas de un microprocesador {Velocidad, Temperatura}: {10, 7.46; 8, 6.77; 13, 12.74; 9, 7.11; 11, 7.81; 14, 8.84; 6, 6.08; 4, 5.39; 12, 8.15; 7, 6.42; 5, 5.73}. Aplicar las medidas de ordenación a la velocidad y las de dispersión a la temperatura.
@@ -897,6 +740,48 @@ $names
 				\item[-] Retorno: Imprime por pantalla todos aquellos valores que queden fuera de los límites establecidos, es decir, los outliers.
 				
 				\item[-] Explicación: Esta función calcula los outliers sobre una serie de valores. Recibe el grado de outlier (\texttt{d}) y una matriz (\texttt{matriz}) con dichos valores y lo primero que hace es crear un dataframe de la traspuesta de dicha matriz, para facilitar su tratamiento. Después a partir de \texttt{valor}, obtiene la fila de la matriz que contiene los valores que vamos a evaluar. Una vez hecho esto hace uso de la función \texttt{quantiler()}, la cual hemos implementado previamente, para calcular el primer y tercer cuartil, \texttt{$Q_{1}$} y \texttt{$Q_{3}$} respectivamente . Por último calcula los límites a partir de, \texttt{$(Q_{1} - d \cdot (Q_{3} - Q_{1}), Q_{3} + d \cdot (Q_{3} - Q_{1}))$} e imprimirá por pantalla todos aquellos valores que se encuentren fuera de estos límites establecidos, ya que, serán considerados outliers.
+\begin{Schunk}
+\begin{Sinput}
+> quantiler <- function(values, p) {
++   n <- length(values)  
++   v <- sort(values)
++   # Calcular posición del cuantil
++   np <- n * p
++   # Calcular cuantil interpolando
++   if (np %% 10 == 0) {
++     quantile <- (v[np]+v[np+1])/2
++   } else {
++     int <- floor(np)
++     quantile <- v[int+1]
++   }
++   return(quantile)
++ }
+> cajaBigotes <- function(matriz,col,d){
++     # Dataframe
++     matriz <- data.frame(matriz)
++     # Obtiene indice de la col a evaluar
++     col <- which(colnames(matriz) == col)
++     # Calculo de 1er y 3er cuartil de los valores de dicha col
++     cuart1 <- quantiler(matriz[,col],0.25)
++     cuart3 <- quantiler(matriz[,col],0.75)
++     # Calculo de los limites
++     limites <- c(cuart1-d*(cuart3-cuart1),cuart3+d*(cuart3-cuart1))
++     # Calculo de los outliers
++     for(i in 1:length(matriz[, col])) {
++         # Si el punto se encuentra fuera de los limites es outlier
++         if(matriz[i,col]<limites[1] || matriz[i,col]>limites[2]) {
++             print(paste("El suceso", i, ":", matriz[i, col], "es un dato anómalo"))
++         }
++     }
++ }
+> datos <- t(matrix(c(10, 7.46, 8, 6.77, 13, 12.74, 9, 7.11, 11, 7.81, 14, 8.84, 6, 6.08, 4, 5.39, 12, 8.15, 7, 6.42, 5, 5.73),2,11, dimnames=list(c("r","d"))))
+> outliers <- cajaBigotes(datos,"r",0.25)
+\end{Sinput}
+\begin{Soutput}
+[1] "El suceso 6 : 14 es un dato anómalo"
+[1] "El suceso 8 : 4 es un dato anómalo"
+\end{Soutput}
+\end{Schunk}
 			\end{itemize}
 			
 			\item Medidas de dispersión (Temperatura): Para este análisis de detección de outliers, se va a hacer uso de la Desviación Típica. Esta técnica consiste en calcular la media y la desviación típica de los valores a evaluar y establecer unos límites, si algún valor no se encuentra dentro de estos límites, será considerado outlier. \\
@@ -912,6 +797,55 @@ $names
 				\item[-] Retorno: Imprime por pantalla todos aquellos valores que queden fuera de los límites establecidos, es decir, los outliers.
 				
 				\item[-] Explicación: Esta función calcula los outliers sobre una serie de valores. Recibe el grado de outlier (\texttt{d}) y una matriz (\texttt{matriz}) con dichos valores y lo primero que hace es crear un dataframe de la traspuesta de dicha matriz, para facilitar su tratamiento. Después a partir de \texttt{valor}, obtiene la fila de la matriz que contiene los valores que vamos a evaluar. Una vez hecho esto hace uso de las funciónes \texttt{meanr()} y \texttt{sdr()}, las cuales hemos implementado previamente, para calcular la media \texttt{$\bar{x}$$_{a}$} y la desviación típica \texttt{s} respectivamente. Por último calcula los límites a partir de, \texttt{$(\bar{x}_{a} - d \cdot s, \bar{x}_{a} + d \cdot s)$} e imprimirá por pantalla todos aquellos valores que se encuentren fuera de estos límites establecidos, ya que, serán considerados outliers.
+\begin{Schunk}
+\begin{Sinput}
+> sdr <- function(vector) {
++     # Calculo de la media de los elementos del vector
++     mean <- meanr(vector)
++     # Suma de cuadrados
++     for (value in vector) {
++         sum <- (value-mean)^2
++     }
++     # Calculo desviacion estandar
++     sd <- sqrt(sum/length(vector))
++     return(sd)
++ }
+> meanr <- function(vector) {
++   sum <- 0
++   # Suma de los elementos del vector
++   for (value in vector) {
++     sum <- sum + value
++   }
++   # Calculo de la media
++   mean <- sum / length(vector)   
++   return(mean)
++ }
+> desvTip <- function(matriz,col,d){
++     # Dataframe
++     matriz <- data.frame(matriz)
++     # Obtiene indice de la col a evaluar
++     col <- which(colnames(matriz) == col)
++     # Calculo de la media de los valores de dicha col
++     media <- meanr(matriz[,col])
++     # Calculo de la desviacion de los valores de dicha col
++     sd <- sdr(matriz[,col])
++     # Calculo de los limites
++     limites <- c(media-d*sd,media+d*sd)
++     # Calculo de los outliers
++     for(i in 1:length(matriz[,col])) { 
++         # Si el punto se encuentra fuera de los limites es outlier
++         if(matriz[i,col]<limites[1] || matriz[i,col]>limites[2]) { 
++             print(paste("El suceso", i, ":", matriz[, col][i], "es un dato anómalo"))
++         }
++     }
++ }
+> datos <- t(matrix(c(10, 7.46, 8, 6.77, 13, 12.74, 9, 7.11, 11, 7.81, 14, 8.84, 6, 6.08, 4, 5.39, 12, 8.15, 7, 6.42, 5, 5.73),2,11, dimnames=list(c("r","d"))))
+> outliers <- desvTip(datos,"d",9)
+\end{Sinput}
+\begin{Soutput}
+[1] "El suceso 3 : 12.74 es un dato anómalo"
+\end{Soutput}
+\end{Schunk}
 			\end{itemize}
 		\end{itemize}
 		
@@ -932,8 +866,78 @@ $names
 				\item[-] Retorno: Imprime por pantalla todos aquellos sucesos cuyo \texttt{k}, se encuentre a una distancia mayor que el grado de outlier \texttt{d}, es decir, los outliers.
 				
 				\item[-] Explicación: Esta función calcula los outliers sobre una serie de sucesos. Recibe el número de orden \texttt{k}, el grado de outlier (\texttt{d}) y una matriz (\texttt{matriz}) con dichos sucesos. El primer paso es calcular las distancias euclídeas de la forma, \texttt{$\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$}, a partir de la función \texttt{distEuc()}. Después se ordenan dichas distancias de menor a mayor. Por último se verifica dentro de las distancias ordenadas, si el vecino \texttt{k} de cada punto, supera el valor establecido inicialmente por \texttt{d}, si esto sucede se imprime dicho suceso por pantalla, ya que. será considerado outlier.
+
 			\end{itemize}
-			
+\begin{Schunk}
+\begin{Sinput}
+> kvecinos <- function(matriz,k,d){
++     # Traspuesta
++     matrizt <- t(matriz)
++     # Numero de filas
++     n <- nrow(matrizt)
++     # Matriz distancias
++     distancias <- matrix(0, n, n)
++      
++     # Calculo distancias euclideas
++     for (i in 1:n) {
++         for (j in 1:n) {
++             if (i != j) {
++                 distancias[i, j] <- round(distEuc(matrizt[i, ],matrizt[j, ]),2)
++             }
++         }
++     }
++  
++     # Ordenacion de las distancias
++     for(i in 1:n){
++         distancias[,i]=sort(distancias[,i])
++     } 
++      
++     distanciasordenadas <- distancias
++ 
++     # Calculo de los outliers
++     for (i in 1:n) {
++         if (distanciasordenadas[k+1,i]>d) {
++             print(paste("Para k =",k," el suceso ",i," es anómalo"))
++         }
++     }
++ }
+> distEuc <- function(x1, x2) {
++     # Calcular la distancia euclidiana
++     distancia <- sqrt(sum((x1 - x2)^2))
++    
++     return(distancia)
++ }
+> datos <- matrix(c(9, 9, 9, 7, 11, 11, 2, 1, 11, 9), ncol=5, byrow=TRUE)
+> outliers <- kvecinos(datos,3,9.5)
+\end{Sinput}
+\begin{Soutput}
+[1] "Para k = 3  el suceso  3  es anómalo"
+\end{Soutput}
+\end{Schunk}
 			\item Técnicas basadas en densidad (Local Outlier Factor):
+			\begin{itemize}
+				\item[-] Parámetros:
+				\begin{itemize}
+					\item \texttt{datos}: Matriz de valores númericos.
+					\item \texttt{k}: Número de orden k.
+					\item \texttt{dist}: Método de cálculo de las distancias.
+				\end{itemize}
+
+				\item[-] Retorno: Imprime por pantalla los valores lof de cada punto.
+				
+				\item[-] Explicación: Utilizamos el paquete Rlof, el cual contiene una función llamada \emph{lof(datos,k,dist)}, el cual recibe los puntos que va a evaluar, el número de vecinos cercanos (\emph{k}) y el método que se emplea para calcular las distancias (al ser LOF usamos \emph{manhattan}). \\
+				Esta función hace uso de varias funciones externas para el calculo del LOF, primero llama a \texttt{f.dist.knn()} la cual ordena las distancias entre vecinos de menor a mayor, antes de esto llama a la función \texttt{distmc()} para que calcule esas distancias previamente (empleando manhattan). Después \texttt{lof()} llama a \texttt{f.reachability()} que calcula las densidades locales de cada punto. Por último calcula las densidades relativas medias de cada punto. Una vez obtenidos los resultados los imprime por pantalla, aquellos que sean >1 serán posibles outliers, en nuestro caso a pesar de que los puntos 1 y 5 sean >1, el punto 4 es mucho mayor, siendo así el outlier.\\ 
+\begin{Schunk}
+\begin{Sinput}
+> library(Rlof)
+> datos <- matrix(c(9, 9, 9, 7, 11, 11, 2, 1, 11, 9), ncol=2, byrow=TRUE)
+> outliersLof <- lof(datos, k=3, method="manhattan")
+> outliersLof
+\end{Sinput}
+\begin{Soutput}
+[1] 1.0952381 0.9166667 0.9166667 2.9464286 1.0952381
+\end{Soutput}
+\end{Schunk}
+			\end{itemize}
 		\end{itemize}   
 	\end{document}

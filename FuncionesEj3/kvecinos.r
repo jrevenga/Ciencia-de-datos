@@ -25,7 +25,7 @@ kvecinos <- function(matriz,k,d){
 
     # Calculo de los outliers
     for (i in 1:n) {
-        if (distanciasordenadas[k,i]>d) {
+        if (distanciasordenadas[k+1,i]>d) {
             print(paste("Para k =",k," el suceso ",i," es anómalo"))
         }
     }
@@ -37,3 +37,4 @@ distEuc <- function(x1, x2) {
     
     return(distancia)
 }
+
