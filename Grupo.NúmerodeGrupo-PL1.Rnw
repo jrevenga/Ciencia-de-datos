@@ -400,7 +400,27 @@ outliersLof
 			\item[-]  Retorno: Devuelve el rango del vector introducido, es decir, la diferencia entre el número mayor y menor de dicho vector.
 			
 			\item[-] Explicación: Esta función se encarga de calcular el rango del vector introducido por parámetro. Va recorriendo el vector y durante cada iteración va comparando el valor actual con el máximo y el mínimo actuales, si dicho valor es menor o mayor que el mínimo o máximo respectivamente, actualiza el valor correspondiente. Una vez finalizado el recorrido calcula la diferencia entre el máximo y el mínimo final.
-			\
+<<>>=
+ranger <- function(vector) {
+  max_value <- vector[1]
+  min_value <- vector[1]
+  # Encontrar el máximo y mínimo recorriendo el vector
+  for (value in 2:length(vector)) {
+    if (vector[value] > max_value) {
+      max_value <- vector[value]
+    }
+    if (vector[value] < min_value) {
+      min_value <- vector[value]
+    }
+  }
+  # Calcular el rango
+  range <- max_value - min_value
+  return(range)
+}
+datos <- read.table("distancias.txt")
+rango <- ranger(datos$Km)
+rango
+@
 		\end{itemize} 
 		
 		\item Cálculo de la frecuencia absoluta (\texttt{f$_{i}$}) con la función: \texttt{frecAbsr(distancias\$Km)}
@@ -413,6 +433,26 @@ outliersLof
 			\item[-] Retorno: Devuelve un dataframe con el número de apariciones totales de cada dato del vector. 
 			
 			\item[-] Explicación: Esta función se encarga de contar el número de apariciones de cada elemento del vector. Recorre el vector incrementando en 1 la frecuencia de un elemento cada vez que se repita dicho elemento.
+<<>>=
+frecAbsr <- function(vector) {
+  vector <- sort(vector)
+  v_frecs <- list()
+  # Conteo de las frecuencias de cada valor
+  for (value in vector) {
+    if (value %in% names(v_frecs)) {
+      v_frecs[[as.character(value)]] <- v_frecs[[as.character(value)]] + 1
+    } else {
+      v_frecs[[as.character(value)]] <- 1
+    }
+  }
+  # Marco de datos con las frecuencias absolutas
+  res <- data.frame(Valor = as.numeric(names(v_frecs)), FrecAbs = unname(unlist(v_frecs)))
+  return(res)
+}
+datos <- read.table("distancias.txt")
+frecAbs <- frecAbsr(datos$Km)
+frecAbs
+@
 		\end{itemize}
 		
 		\item Cálculo de la frecuencia absoluta acumulada (\texttt{fa$_{i}$}) con la función: \texttt{frecAbsAcumr(distancias\$Km)}
@@ -425,6 +465,39 @@ outliersLof
 			\item[-] Retorno: Devuelve un dataframe con el número de apariciones totales acumuladas de cada dato del vector. 
 			
 			\item[-] Explicación: Esta función se encarga de calcular las frecuencias acumuladas de cada dato del vector. Calcula primero las frecuencias absolutas con \texttt{frecAbsr(vector)} y recorre el dataframe resultado, sumando a la frecuencia absoluta del dato actual, la frecuencia absoluta acumulada del dato anterior.
+<<>>=
+frecAbsr <- function(vector) {
+  vector <- sort(vector)
+  v_frecs <- list()
+  # Conteo de las frecuencias de cada valor
+  for (value in vector) {
+    if (value %in% names(v_frecs)) {
+      v_frecs[[as.character(value)]] <- v_frecs[[as.character(value)]] + 1
+    } else {
+      v_frecs[[as.character(value)]] <- 1
+    }
+  }
+  # Marco de datos con las frecuencias absolutas
+  res <- data.frame(Valor = as.numeric(names(v_frecs)), FrecAbs = unname(unlist(v_frecs)))
+  return(res)
+}
+frecAbsAcumr <- function(vector) {
+  # Frecuencias absolutas del vector
+  frec_Abs <- frecAbsr(vector)
+  # Inicializar la frecuencia acumulada
+  frec_Abs$FrecAbsAcum <- rep(0, nrow(frec_Abs))
+  # Calculo de las frecuencias absolutas acumuladas
+  for (i in seq_along(frec_Abs$FrecAbsAcum)) {
+    frec_Abs$FrecAbsAcum[i] <- sum(frec_Abs$FrecAbs[1:i])
+  }
+  # Marco de datos con las frecuencias absolutas acumuladas
+  res <- data.frame(Valor = frec_Abs$Valor, FrecAbsAcum = frec_Abs$FrecAbsAcum)
+  return(res)
+}
+datos <- read.table("distancias.txt")
+frecAbsAcum <- frecAbsAcumr(datos$Km)
+frecAbsAcum
+@
 		\end{itemize}
 		
 		\item Cálculo de la frecuencia relativa (\texttt{fr$_{i}$}) con la función: \texttt{frecRelr(distancias\$Km)}
@@ -437,6 +510,36 @@ outliersLof
 			\item[-] Retorno: Devuelve un dataframe con el número de apariciones totales de cada dato en relación al numero de elementos del vector. 
 			
 			\item[-] Explicación: Esta función se encarga de calcular las frecuencias relativas de cada dato del vector. Calcula previamente las frecuencias absolutas y después recorre el dataframe resultado, dividiendo la frecuencia absoluta de cada dato entre el número total de elementos, de la forma \texttt{f$_{i}$/length(vector)}
+<<>>=
+frecAbsr <- function(vector) {
+  vector <- sort(vector)
+  v_frecs <- list()
+  # Conteo de las frecuencias de cada valor
+  for (value in vector) {
+    if (value %in% names(v_frecs)) {
+      v_frecs[[as.character(value)]] <- v_frecs[[as.character(value)]] + 1
+    } else {
+      v_frecs[[as.character(value)]] <- 1
+    }
+  }
+  # Marco de datos con las frecuencias absolutas
+  res <- data.frame(Valor = as.numeric(names(v_frecs)), FrecAbs = unname(unlist(v_frecs)))
+  return(res)
+}
+frecRelr <- function(vector) {
+  # Frecuencias absolutas del vector
+  frec_Abs <- frecAbsr(vector)
+  # Calculo de frecuencias relativas
+  frec_Rel <- frec_Abs$FrecAbs / length(vector)
+  frec_Abs$FrecRel <- frec_Rel
+  # Marco de datos con las frecuencias relativas
+  res <- data.frame(Valor = frec_Abs$Valor, FrecRel = frec_Abs$FrecRel)
+  return(res)
+}
+datos <- read.table("distancias.txt")
+frecRel <- frecRelr(datos$Km)
+frecRel
+@
 		\end{itemize}
 		
 		\item Cálculo de la frecuencia relativa acumulada (\texttt{fra$_{i}$}) con la función: \texttt{frecRelAcumr(distancias\$Km)}
@@ -449,6 +552,49 @@ outliersLof
 			\item[-] Retorno: Devuelve un dataframe con las frecuencias relativas acumuladas de cada dato del vector. 
 			
 			\item[-] Explicación: Esta función se encarga de calcular las frecuencias relativas acumuladas de cada dato del vector. Calcula primero las frecuencias relativas con \texttt{frecRelr(vector)} y recorre el dataframe resultado, sumando a la frecuencia relativa del dato actual, la frecuencia relativa acumulada del dato anterior.
+<<>>=
+frecAbsr <- function(vector) {
+  vector <- sort(vector)
+  v_frecs <- list()
+  # Conteo de las frecuencias de cada valor
+  for (value in vector) {
+    if (value %in% names(v_frecs)) {
+      v_frecs[[as.character(value)]] <- v_frecs[[as.character(value)]] + 1
+    } else {
+      v_frecs[[as.character(value)]] <- 1
+    }
+  }
+  # Marco de datos con las frecuencias absolutas
+  res <- data.frame(Valor = as.numeric(names(v_frecs)), FrecAbs = unname(unlist(v_frecs)))
+  return(res)
+}
+frecRelr <- function(vector) {
+  # Frecuencias absolutas del vector
+  frec_Abs <- frecAbsr(vector)
+  # Calculo de frecuencias relativas
+  frec_Rel <- frec_Abs$FrecAbs / length(vector)
+  frec_Abs$FrecRel <- frec_Rel
+  # Marco de datos con las frecuencias relativas
+  res <- data.frame(Valor = frec_Abs$Valor, FrecRel = frec_Abs$FrecRel)
+  return(res)
+}
+frecRelAcumr <- function(vector) {
+  # Frecuencias relativas del vector
+  frec_Rel <- frecRelr(vector)
+  # Inicializar la frecuencia acumulada
+  frec_Rel$FrecRelAcum <- rep(0, nrow(frec_Rel))
+  # Calculo de las frecuencias relativas acumuladas
+  for (i in seq_along(frec_Rel$FrecRelAcum)) {
+    frec_Rel$FrecRelAcum[i] <- sum(frec_Rel$FrecRel[1:i])
+  }
+  # Marco de datos con las frecuencias relativas acumuladas
+  res <- data.frame(Valor = frec_Rel$Valor, frecRelAcum = frec_Rel$FrecRelAcum)
+  return(res)
+}
+datos <- read.table("distancias.txt")
+frecRelAcum <- frecRelAcumr(datos$Km)
+frecRelAcum
+@
 		\end{itemize}
 		
 		\item Cálculo de la media aritmética (\texttt{$\bar{x}_{a}$}) con la función: \texttt{meanr(distancias\$Km)}
@@ -462,6 +608,21 @@ outliersLof
 			
 			\item[-] Explicación: Esta función se encarga de calcular la media aritmética, recorriendo el vector sumando todos los valores y después dividiéndolos entre el número total de elementos del vector, de la forma: \\
 			$\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i$
+<<>>=
+meanr <- function(vector) {
+  sum <- 0
+  # Suma de los elementos del vector
+  for (value in vector) {
+    sum <- sum + value
+  }
+  # Calculo de la media
+  mean <- sum / length(vector) 
+  return(mean)
+}
+datos <- read.table("distancias.txt")
+mean <- meanr(datos$Km)
+mean
+@
 		\end{itemize}
 		
 		\item Cálculo de la desviación típica (\texttt{s}) con la función: \texttt{sdr(distancias\$Km)}
@@ -475,6 +636,32 @@ outliersLof
 			
 			\item[-] Explicación: Esta función se encarga de calcular la desviación típica. Primero calcula la media con la función \texttt{meanr(vector)}, después va recorriendo el vector calculando la suma de cuadrados entre la diferencia de cada valor y la media, lo divide todo entre el número total de elementos del vector y por último realiza la raíz cuadrada de dicho resultado, de la forma: \\
 			$s = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2}$
+<<>>=
+meanr <- function(vector) {
+  sum <- 0
+  # Suma de los elementos del vector
+  for (value in vector) {
+    sum <- sum + value
+  }
+  # Calculo de la media
+  mean <- sum / length(vector) 
+  return(mean)
+}
+sdr <- function(vector) {
+    # Calculo de la media de los elementos del vector
+    mean <- meanr(vector)
+    # Suma de cuadrados
+    for (value in vector) {
+        sum <- (value-mean)^2
+    }
+    # Calculo desviacion estandar
+    sd <- sqrt(sum/length(vector))
+    return(sd)
+}
+datos <- read.table("distancias.txt")
+desv <- sdr(datos$Km)
+desv
+@
 		\end{itemize}
 		
 		\item Cálculo de la varianza (\texttt{s$^2$}) con la función: \texttt{varr(distancias\$Km)}
@@ -488,6 +675,39 @@ outliersLof
 			
 			\item[-] Explicación: Esta función se encarga de calcular la varianza. Primero calcula la desviación típica con la función \texttt{sdr(vector)} y después eleva al cuadrado dicho resultado, de la forma: \\
 			$s^2 = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2}$
+<<>>=
+meanr <- function(vector) {
+  sum <- 0
+  # Suma de los elementos del vector
+  for (value in vector) {
+    sum <- sum + value
+  }
+  # Calculo de la media
+  mean <- sum / length(vector) 
+  return(mean)
+}
+sdr <- function(vector) {
+    # Calculo de la media de los elementos del vector
+    mean <- meanr(vector)
+    # Suma de cuadrados
+    for (value in vector) {
+        sum <- (value-mean)^2
+    }
+    # Calculo desviacion estandar
+    sd <- sqrt(sum/length(vector))
+    return(sd)
+}
+varr <- function(values) {
+    # Calculo desviacion estandar
+    sd <- sdr(values)
+    # Calculo varianza
+    var <- sd^2
+    return(var)
+}
+datos <- read.table("distancias.txt")
+var <- varr(datos$Km)
+var
+@
 		\end{itemize}
 		
 		\item Cálculo de la mediana (\texttt{\~{x}}) con la función: \texttt{medianr(distancias\$Km)}
@@ -504,6 +724,24 @@ outliersLof
 				x_{\frac{n+1}{2}} & \text{si } n \text{ es impar} \\
 				\frac{1}{2}(x_{\frac{n}{2}} + x_{\frac{n}{2}+1}) & \text{si} n \text{ es par}
 			\end{cases}$
+<<>>=
+medianr <- function(vector) {
+  n <- length(vector)
+  v <- sort(vector)
+  # Comprobar si el numero de elementos del vector es impar o par
+  if(n%%2==1) {
+    # Si es impar la mediana es el elemento del medio
+    median <- v[(n+1)/2]
+  }else {
+    # Si es par la mediana es la media de los 2 elementos del medio
+    median <- (v[n/2] + v[(n/2)+1]) / 2
+  }
+  return(median)
+}
+datos <- read.table("distancias.txt")
+median <- medianr(datos$Km)
+median
+@
 		\end{itemize}
 		
 		\item Cálculo de laos cuartiles (\texttt{Q$_{i}$}) con la función: \texttt{quantilerr(distancias\$Km,p)}
@@ -521,6 +759,30 @@ outliersLof
 				x_{\frac{np}{2}}+x_{\frac{np+1}{2}} & \text{si } np \in \mathbb{N} \\
 				x_{\lfloor{np}\rfloor +1} & \text{si } np \notin \mathbb{N}
 			\end{cases}$
+<<>>=
+quantiler <- function(values, p) {
+  n <- length(values)
+  if (p < 0 || p > 1) {
+    stop("El cuantil debe estar en el rango de 0 a 1.")
+  }
+  v <- sort(values)
+  # Calcular posición del cuantil
+  np <- n * p
+  # Calcular cuantil interpolando
+  if (np %% 10 == 0) {
+    quantile <- (v[np]+v[np+1])/2
+  } else {
+    int <- floor(np)
+    quantile <- v[int+1]
+  }
+  return(quantile)
+}
+datos <- read.table("distancias.txt")
+quantile1 <- quantiler(datos$Km,0.25)
+quantile1
+quantile3 <- quantiler(datos$Km,0.75)
+quantile3
+@
 		\end{itemize}
 	\end{itemize}
 	
