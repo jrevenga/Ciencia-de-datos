@@ -59,7 +59,7 @@
 		En el archivo HTML se distinguen varios elementos:
 		
 		\begin{itemize}
-			\item \texttt{función \{paquete\}}: la función de la que se obtiene información seguida del paquete al que pertenece.
+			\item función \{paquete\}: la función de la que se obtiene información seguida del paquete al que pertenece.
 			\item Description: descripción de la función.
 			\item Usage: aparece la función y todos los argumentos que se le pueden introducir.
 			\item Arguments: Explicación de los argumentos o parámetros.
@@ -271,6 +271,7 @@ cuartl
 		\item \texttt{summary(transacciones)}: Muestra más información.
 		\item \texttt{asociaciones<-apriori (transacciones, parameter=list (support = 0.5, \\confidence = 0.8))}: Aplica el algoritmo apriori con umbral de soporte de 0.5 y de confianza de 0.8
 		\item \texttt{inspect(asociaciones)}: Muestra las asociaciones que pasan el algoritmo.
+	\end{itemize}
 <<>>=
 library(arules)
 search()
@@ -283,48 +284,78 @@ muestrangCMatrix<-as(muestra, "nsparseMatrix")
 traspmuestrangCMatrix<-t(muestrangCMatrix)
 transacciones<-as(traspmuestrangCMatrix, "transactions")
 summary(transacciones)
-asociaciones<-apriori(transacciones, parameter=list(support=0.5,
-confidence=0.8))
+asociaciones<-apriori (transacciones, parameter=list (support = 0.5,
+confidence = 0.8))
 inspect(asociaciones)
 @
-	\end{itemize}
-	\subsection{Análisis de detección de datos anómalos}
-	Esto es un poco más de texto en el párrafo.
+	\subsection{Análisis de detección de datos anómalos - Técnicas con base estadística}
 	
-	\subsubsection{Técnicas con base estadística}
 	El tercer conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas con base estadística, estará formado por los siguientes 7 valores de resistencia y densidad para diferentes tipos de hormigón {Resistencia, Densidad}: {3, 2; 3.5, 12; 4.7, 4.1; 5.2, 4.9; 7.1, 6.1; 6.2, 5.2; 14, 5.3}. Aplicar las medidas de ordenación a la resistencia y las de dispersión a la densidad.
 	
 	\paragraph{Caja y Bigotes}
+
 	\begin{itemize}
-		\item \texttt{(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,dimnames=list(c(‘‘r","d")))))}
-		\item \texttt{(muestra=data.frame(muestra))}: 
+		\item \texttt{(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,\\dimnames=list(c("r","d")))))}: cargamos los datos
+		\item \texttt{(muestra=data.frame(muestra))}: Convertimos la matriz a un data.frame
 		\item \texttt{(boxplot(muestra\$r,range=1.5,plot=FALSE))}: Boxplot de forma predeterminada muestra gráficamente la resolución con caja y bigotes, por lo que se añade \texttt{plot=FALSE} para que no lo haga
 		\item \texttt{(cuar1r<-quantile(muestra\$r, 0.25))}: Cálculo del primer cuartil
 		\item \texttt{(cuar3r<-quantile(muestra\$r, 0.75))} Cálculo del tercer cuartil
-		\item \texttt{(int=c(cuar1r-1.5*(cuar3r-cuar1r),cuar3r+1.5*(cuar3r-cuar1r)))}: calcula el rango
-		\item \texttt{for(i in 1:length(muestra\$r)) {if(muestra\$r[i]<int[1] || muestra\$r[i]>int[2]){print(‘‘el suceso"); print(i); print(‘‘es un suceso anómalo o outlier")}}}
+		\item \texttt{(int=c(cuar1r-1.5*(cuar3r-cuar1r),cuar3r+1.5*(cuar3r-cuar1r)))}: calcula el rango de los datos que no son outliers
+		\item \texttt{for(i in 1:length(muestra\$r)) {if(muestra\$r[i]<int[1] || muestra\$r[i]>int[2])\\ {print("el suceso"); print(i); print("es un suceso anómalo o outlier")}}}
 	\end{itemize}
+
+	\paragraph{Ejecución}
+<<>>=
+(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,
+dimnames=list(c("r","d")))))
+(muestra=data.frame(muestra))
+(boxplot(muestra$r,range=1.5,plot=FALSE))
+(cuar1r<-quantile(muestra$r, 0.25))
+(cuar3r<-quantile(muestra$r, 0.75))
+(int=c(cuar1r-1.5*(cuar3r-cuar1r),cuar3r+1.5*(cuar3r-cuar1r)))
+for(i in 1:length(muestra$r)) {if(muestra$r[i]<int[1] || muestra$r[i]>int[2])
+{print("el suceso"); print(i); print("es un suceso anómalo o outlier")}}
+@
 	
 	\paragraph{Desviación típica}
 	\begin{itemize}
-		\item \texttt{sdd=sqrt(var(muestra\$d)*length(muestra\$d)-1)/length(muestra\$d)}
-		\item \texttt{(intdes=c(mean(muestra\$d)-2*sdd,mean(muestra\$d)+2*sdd))}: 
-		\item \texttt{for(i in 1:length(muestra\$d)) {if (muestra\$d[i]<intdes[1] || muestra\$d[i]>intdes[2]){print(‘‘el suceso");print(i);print(muestra\$d[i]);print(‘‘es un suceso anómalo o outlier")}}}
+		\item \texttt{sdd=sqrt(var(muestra\$d)*length(muestra\$d)-1)/length(muestra\$d)}: calculamos la desviación estándar poblacional a partir del dataframe del apartado anterior y la función var() que calcula la varianza muestral
+		\item \texttt{(intdes=c(mean(muestra\$d)-2*sdd,mean(muestra\$d)+2*sdd))}: calcula el rango de los datos que no son outliers
+		\item \texttt{for(i in 1:length(muestra\$d)) {if (muestra\$d[i]<intdes[1] || \\ muestra\$d[i]>intdes[2]) {print(´´el suces´´);print(i);print(muestra\$d[i]);\\print(´´es un suceso anómalo o outlier´´)}}}
 	\end{itemize}
-	
-	\subsubsection{Técnicas basadas en la proximidad y en la densidad}
+	\paragraph{Ejecución}
+<<>>=
+sdd=sqrt(var(muestra$d)*length(muestra$d)-1)/length(muestra$d)
+(intdes=c(mean(muestra$d)-2*sdd,mean(muestra$d)+2*sdd))
+for(i in 1:length(muestra$d)) 
+{if (muestra$d[i]<intdes[1] || muestra$d[i]>intdes[2]){print("el suceso")
+;print(i);print(muestra$d[i]);print("es un suceso anómalo o outlier")}}
+@
+	\subsection{Análisis de detección de datos anómalos - Técnicas basadas en la proximidad y en la densidad}
 	El cuarto conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas basadas en la proximidad y en la densidad, estará formado por las siguientes 5 calificaciones de estudiantes: 1. {4, 4}; 2. {4, 3}; 3. {5, 5}; 4. {1, 1}; 5. {5, 4} donde las características de las calificaciones son: (Teoría, Laboratorio).
 	
 	\paragraph{Vecinos próximos}
 	\begin{itemize}
-		\item \texttt{(muestra=matrix(c(4,4,4,3,5,5,1,1,5,4,),2,5))}: obtenemos la matriz
-		\item \texttt{(muestra=t(muestra))}
+		\item \texttt{(muestra=matrix(c(4,4,4,3,5,5,1,1,5,4),2,5))}: obtenemos la matriz
+		\item \texttt{(muestra=t(muestra))}: Trasponemos la matriz
 		\item Calculamos las distancias euclídeas: \texttt{(distancias=as.matrix(dist(muestra)))}
 		\item Hay que ordenar los valores \texttt{(distancias=matrix(distancias,5,5))}
 		\\ \texttt{for (i in 1:5){distancias[,i]=sort(distancias[,i])}; (distanciasordenadas=distancias)}
-		\item Como el primer vecino es él mismo, la distancia es cero, por lo que vamos a usar k=4 \texttt{for(i in 1:5){if(distanciasordenadas[4,i]>2.5){print(i);print(‘‘es un suceso anómalo o outlier")}}}
-		\item \texttt{(distanciasM=as.matrix(dist(muestra,method="manhattan")))}
+		\item Como el primer vecino es él mismo, la distancia es cero, por lo que vamos a usar k=4 \texttt{for(i in 1:5){if(distanciasordenadas[4,i]>2.5){print(i);print("es un suceso anómalo o outlier")}}}
+		\item \texttt{(distanciasM=as.matrix(dist(muestra,method="manhattan")))}: Cálculo de distancias de Manhattan
 	\end{itemize}
+	\paragraph{Ejecución}
+<<>>=
+(muestra=matrix(c(4,4,4,3,5,5,1,1,5,4),2,5))
+(muestra=t(muestra))
+(distancias=as.matrix(dist(muestra)))
+(distancias=matrix(distancias,5,5))
+for (i in 1:5){distancias[,i]=sort(distancias[,i])};
+ (distanciasordenadas=distancias)
+for(i in 1:5){if(distanciasordenadas[4,i]>2.5)
+{print(i);print("es un suceso anómalo o outlier")}}
+(distanciasM=as.matrix(dist(muestra,method="manhattan")))
+@
 	
 	\paragraph{Local Outlier Factor}
 	Existen varios paquetes para hacer este cálculo que utilizan métodos distintos al visto en teoría: RLof, DDoutlier, DMwR son algunos de ellos.
@@ -340,13 +371,15 @@ inspect(asociaciones)
 		
 		\item[-] Explicación: Utilizamos el paquete Rlof, el cual contiene una función llamada \emph{lof(datos,k,dist)}, el cual recibe los puntos que va a evaluar, el número de vecinos cercanos (\emph{k}) y el método que se emplea para calcular las distancias (al ser LOF usamos \emph{manhattan}). \\
 		Esta función hace uso de varias funciones externas para el calculo del LOF, primero llama a \texttt{f.dist.knn()} la cual ordena las distancias entre vecinos de menor a mayor, antes de esto llama a la función \texttt{distmc()} para que calcule esas distancias previamente (empleando manhattan). Después \texttt{lof()} llama a \texttt{f.reachability()} que calcula las densidades locales de cada punto. Por último calcula las densidades relativas medias de cada punto. Una vez obtenidos los resultados los imprime por pantalla, aquellos que sean >1 serán posibles outliers, en nuestro caso a pesar de que los puntos 1 y 5 sean >1, el punto 4 es mucho mayor, siendo así el outlier.\\ 
+	\end{itemize}
+	\paragraph{Ejecución}
 <<>>=
 library(Rlof)
 datos <- matrix(c(9, 9, 9, 7, 11, 11, 2, 1, 11, 9), ncol=2, byrow=TRUE)
 outliersLof <- lof(datos, k=3, method="manhattan")
 outliersLof
 @	
-	\end{itemize}
+	
 
 	\section{Ejercicios de forma autónoma}
 	Realización de cuatro ejercicios de forma autónoma por cada grupo de estudiantes en los que se van a realizar, utilizando el entorno R, un análisis de descripción de datos, un análisis de asociación y dos análisis de detección de datos anómalos, aplicando todos los conceptos teóricos vistos en cada lección:
@@ -492,8 +525,210 @@ outliersLof
 	\end{itemize}
 	
 	\subsection{Análisis de asociación}
-	El segundo conjunto de datos, que se empleará para realizar el análisis de asociación, estará formado por las siguientes conjuntos de extras incluidos en 8 ventas de coches: {X, C, N, B}, {X, T, B, C), {N, C, X}, {N, T, X, B}, {X, C, B}, {N}, {X, B, C}, {T, A}. Donde: {X: Faros de Xenon, A: Alarma, T: Techo Solar, N: Navegador, B: Bluetooth, C: Control de Velocidad}, son los extras que se pueden incluir en cada coche
+	El segundo conjunto de datos, que se empleará para realizar el análisis de asociación, estará formado por las siguientes conjuntos de extras incluidos en 8 ventas de coches: \{X, C, N, B\}, \{X, T, B, C\}, \{N, C, X\}, \{N, T, X, B\}, \{X, C, B\}, \{N\}, \{X, B, C\}, \{T, A\}. Donde: {X: Faros de Xenon, A: Alarma, T: Techo Solar, N: Navegador, B: Bluetooth, C: Control de Velocidad}, son los extras que se pueden incluir en cada coche
 		
+	\paragraph{Solución}
+<<>>=
+# Define los sucesos
+transactions <- list(
+	c("X", "C", "N", "B"),
+	c("X", "T", "B", "C"),
+	c("N", "C", "X"),
+	c("N", "T", "X", "B"),
+	c("X", "C", "B"),
+	c("N"),
+	c("X", "B", "C"),
+	c("T", "A")
+)
+
+# Define soporte y confianza
+soporte <- 0.5
+confianza <- 0.8
+
+calculate_support <- function(itemset, transactions) {
+	# Función para calcular el soporte de un conjunto de 
+	# elementos en las transacciones
+	count <- sum(sapply(transactions, function(transaction) 
+	all(itemset %in% transaction)))
+	return(count / length(transactions))
+}
+
+filtar_sucesos_elementales <- function(transactions, soporte) {
+	# Obtener todos los elementos únicos en los sucesos
+	sucesos_elementales <- unique(unlist(transactions))
+
+	# Inicializar lista para almacenar sucesos después de 
+	#aplicar el umbral de soporte
+	sucesos_filtrados <- list()
+
+	# Calcular el soporte para cada elemento y filtrar
+	for (suceso in sucesos_elementales) {
+	soporte_suceso <- calculate_support(c(suceso), transactions)
+	if (soporte_suceso >= soporte) {
+		sucesos_filtrados <- c(sucesos_filtrados, list(c(suceso)))
+	}
+	}
+
+	return(sucesos_filtrados)
+}
+
+apriori_gen <- function(conjuntos_anteriores, k) {
+	#Identifica los candidatos para cada dimensión
+	# Inicialización de la lista que contendrá los sucesos candidatos.
+	sucesos_candidatos <- list()
+
+  # Verificación de que haya al menos dos conjuntos anteriores.
+  if (length(conjuntos_anteriores) < 2) {
+    return(sucesos_candidatos)
+  }
+  
+  # Iteración sobre cada par único de conjuntos anteriores.
+  for (i in 1:(length(conjuntos_anteriores) - 1)) {
+    for (j in (i + 1):length(conjuntos_anteriores)) {
+	  conjunto_a <- conjuntos_anteriores[[i]]
+	  conjunto_b <- conjuntos_anteriores[[j]]
+
+	  # Generación de candidatos para k = 2.
+	  if (k == 2) {
+	    if (conjunto_a[1] != conjunto_b[1]) {
+		  nuevo_conjunto <- c(conjunto_a, conjunto_b[1])
+		  sucesos_candidatos <- append(sucesos_candidatos, list(nuevo_conjunto))
+	    }
+	  } else if (k > 2) {
+	    # Generación de candidatos para k > 2.
+	    if (identical(conjunto_a[1:(k-2)], conjunto_b[1:(k-2)]) && conjunto_a[(k-1)] != conjunto_b[(k-1)]) {
+		  nuevo_conjunto <- c(conjunto_a, conjunto_b[(k-1)])
+		  sucesos_candidatos <- append(sucesos_candidatos, list(nuevo_conjunto))
+	    }
+	  }
+    }
+  }
+
+  # Llamada recursiva para generar candidatos de dimensión k + 1.
+  sucesos_candidatos_recursivo <- apriori_gen(sucesos_candidatos, k + 1)
+  sucesos_candidatos <- append(sucesos_candidatos, sucesos_candidatos_recursivo)
+
+  # Devolver la lista de sucesos candidatos generados.
+  return(sucesos_candidatos)
+}
+
+filtrar_sucesos_con_hash_tree <- function(sucesos_candidatos, transactions) {
+  #Se filtran los sucesos candidatos en función del soporte
+  # Inicialización de la lista que contendrá los sucesos filtrados.
+  sucesos_filtrados <- list()
+
+  # Iteración sobre cada suceso candidato.
+  for (suceso in sucesos_candidatos) {
+    # Cálculo del soporte del suceso utilizando una función llamada calculate_support.
+    soporte_suceso <- calculate_support(suceso, transactions)
+    
+    # Verificación de que el soporte del suceso cumple con el umbral especificado.
+    if (soporte_suceso >= soporte) {
+      # Agregar el suceso a la lista de sucesos filtrados.
+      sucesos_filtrados <- c(sucesos_filtrados, list(suceso))
+    }
+  }
+
+  # Devolver la lista de sucesos filtrados.
+  return(sucesos_filtrados)
+}
+
+
+calcular_confianza <- function(regla, transactions) {
+  #Calcula la confianza de una regla de asociación
+  # Obtener el antecedente y el consecuente de la regla
+  antecedente <- regla$antecedente
+  consecuente <- regla$consecuente
+
+  # Paso 2: Calcular el soporte de la regla y el soporte del antecedente
+  soporte_regla <- calculate_support(c(antecedente, consecuente), transactions)
+  soporte_antecedente <- calculate_support(antecedente, transactions)
+
+  # Paso 3: Calcular la confianza de la regla
+  confianza_regla <- soporte_regla / soporte_antecedente
+
+  # Paso 4: Devolver la confianza de la regla
+  return(confianza_regla)
+}
+
+ap_genrules <- function(sucesos_filtrados, transactions, confianza) {
+  # Genera reglas de asociación a partir de sucesos filtrados basándose
+  # en un umbral de confianza.
+
+  # Inicialización de la lista que contendrá las reglas generadas.
+  reglas <- list()
+  
+  # Iteración sobre cada suceso en la lista de sucesos filtrados.
+  for (i in 1:length(sucesos_filtrados)) {
+    suceso <- sucesos_filtrados[[i]]
+    k <- length(suceso)
+    
+    # Verificación de que el suceso tiene al menos dos elementos.
+    if (k >= 2) {
+      # Generación de todos los conjuntos anteriores de tamaño k-1.
+      conjuntos_anteriores <- combn(suceso, k - 1, simplify = FALSE)
+      
+      # Iteración sobre cada conjunto anterior.
+      for (conjunto_anterior in conjuntos_anteriores) {
+        antecedente <- conjunto_anterior
+        consecuente <- setdiff(suceso, antecedente)
+        
+        # Cálculo de la confianza de la regla utilizando calcular_confianza.
+        confianza_regla <- calcular_confianza(list(antecedente = antecedente, consecuente = consecuente), transactions)
+        
+        # Verificación de que la confianza de la regla cumple con el umbral especificado.
+        if (confianza_regla >= (confianza - 0.001)) {
+          # Agregar la regla a la lista de reglas generadas.
+          reglas <- append(reglas, list(list(antecedente = antecedente,
+                                             consecuente = consecuente,
+                                             soporte = calculate_support(suceso, transactions),
+                                             confianza = confianza_regla)))
+        }
+      }
+    }
+  }
+  
+  # Devolver la lista de reglas generadas.
+  return(reglas)
+}
+
+
+
+apriori_ej <- function(transactions, soporte, confianza) {
+	# Paso A:
+	# Paso A.1: Filtrar sucesos elementales que llegan al soporte
+	sucesos_elem_candidatos <- filtar_sucesos_elementales(transactions, soporte)
+	# Paso A.2:
+		# Paso A.2.1: Identificar sucesos candidatos en cada dimensión
+		sucesos_candidatos <- apriori_gen(sucesos_elem_candidatos, 2)
+		# Paso A.2.2: Calcular soporte de los sucesos candidatos y filtrar
+		sucesos_filtrados <- filtrar_sucesos_con_hash_tree(sucesos_candidatos,
+		transactions)
+
+	# Paso B: Aplicar la función ap-genrules para establecer asociaciones con el umbral de confianza
+	rules <- ap_genrules(sucesos_filtrados, transactions, confianza)
+
+	return(rules)
+}
+
+# Llamar a la función Apriori
+resultados <- apriori_ej(transactions, soporte, confianza)
+
+# Imprimir las reglas de asociación
+for (i in 1:length(resultados)) {
+	antecedente <- unlist(resultados[[i]]$antecedente)
+	consecuente <- unlist(resultados[[i]]$consecuente)
+	soporte <- resultados[[i]]$soporte
+	confianza <- resultados[[i]]$confianza
+	
+	cat(
+	sprintf("[%d] {%s} => {%s}  support: %.7f  confidence: %.7f\n",
+			i, paste(antecedente, collapse = ", "), paste(consecuente, collapse = ", "),
+			soporte, confianza)
+	)
+}
+@
+
 	\subsection{Análisis de detección de datos anómalos}
 		
 		\subsubsection{Técnicas con base estadística}
