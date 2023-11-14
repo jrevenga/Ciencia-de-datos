@@ -257,7 +257,7 @@ cuartl
 	
 	
 	\subsection{Análisis de asociación}
-	El segundo conjunto de datos, que se empleará para realizar el análisis de asociación, estará formado por las siguientes 6 cestas de la compra: {Pan, Agua, Leche, Naranjas}, {Pan, Agua, Café, Leche}, {Pan, Agua, Leche}, {Pan, Café, Leche}, {Pan, Agua}, {Leche}.
+	El segundo conjunto de datos, que se empleará para realizar el análisis de asociación, estará formado por las siguientes 6 cestas de la compra: \{Pan, Agua, Leche, Naranjas\}, \{Pan, Agua, Café, Leche\}, \{Pan, Agua, Leche\}, \{Pan, Café, Leche\}, \{Pan, Agua\}, \{Leche\}.
 	
 	\paragraph{Solución}
 	\begin{itemize}
@@ -295,33 +295,33 @@ inspect(asociaciones)
 	\paragraph{Caja y Bigotes}
 
 	\begin{itemize}
-		\item \texttt{(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,\\dimnames=list(c("r","d")))))}: cargamos los datos
+		\item \texttt{(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3)\\,2,7, dimnames=list(c("r","d")))))}: cargamos los datos
 		\item \texttt{(muestra=data.frame(muestra))}: Convertimos la matriz a un data.frame
 		\item \texttt{(boxplot(muestra\$r,range=1.5,plot=FALSE))}: Boxplot de forma predeterminada muestra gráficamente la resolución con caja y bigotes, por lo que se añade \texttt{plot=FALSE} para que no lo haga
 		\item \texttt{(cuar1r<-quantile(muestra\$r, 0.25))}: Cálculo del primer cuartil
 		\item \texttt{(cuar3r<-quantile(muestra\$r, 0.75))} Cálculo del tercer cuartil
 		\item \texttt{(int=c(cuar1r-1.5*(cuar3r-cuar1r),cuar3r+1.5*(cuar3r-cuar1r)))}: calcula el rango de los datos que no son outliers
-		\item \texttt{for(i in 1:length(muestra\$r)) {if(muestra\$r[i]<int[1] || muestra\$r[i]>int[2])\\ {print("el suceso"); print(i); print("es un suceso anómalo o outlier")}}}
+		\item \texttt{for(i in 1:length(muestra\$r)) {if(muestra\$r[i]<int[1] || muestra\$r[i]>\\int[2]) {print(``el suceso''); print(i); print(``es un outlier'')}}}
 	\end{itemize}
 
 	\paragraph{Ejecución}
 <<>>=
-(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3),2,7,
-dimnames=list(c("r","d")))))
+(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3)
+,2,7,dimnames=list(c("r","d")))))
 (muestra=data.frame(muestra))
 (boxplot(muestra$r,range=1.5,plot=FALSE))
 (cuar1r<-quantile(muestra$r, 0.25))
 (cuar3r<-quantile(muestra$r, 0.75))
 (int=c(cuar1r-1.5*(cuar3r-cuar1r),cuar3r+1.5*(cuar3r-cuar1r)))
 for(i in 1:length(muestra$r)) {if(muestra$r[i]<int[1] || muestra$r[i]>int[2])
-{print("el suceso"); print(i); print("es un suceso anómalo o outlier")}}
+{print("el suceso"); print(i); print("es un outlier")}}
 @
 	
 	\paragraph{Desviación típica}
 	\begin{itemize}
 		\item \texttt{sdd=sqrt(var(muestra\$d)*length(muestra\$d)-1)/length(muestra\$d)}: calculamos la desviación estándar poblacional a partir del dataframe del apartado anterior y la función var() que calcula la varianza muestral
 		\item \texttt{(intdes=c(mean(muestra\$d)-2*sdd,mean(muestra\$d)+2*sdd))}: calcula el rango de los datos que no son outliers
-		\item \texttt{for(i in 1:length(muestra\$d)) {if (muestra\$d[i]<intdes[1] || \\ muestra\$d[i]>intdes[2]) {print(´´el suces´´);print(i);print(muestra\$d[i]);\\print(´´es un suceso anómalo o outlier´´)}}}
+		\item \texttt{for(i in 1:length(muestra\$d)) {if (muestra\$d[i]<intdes[1] || muestra\$d[i]>\\intdes[2]) {print(´´el suces'');print(i);print(muestra\$d[i]);\\print(´´es un outlier'')}}}
 	\end{itemize}
 	\paragraph{Ejecución}
 <<>>=
@@ -329,7 +329,7 @@ sdd=sqrt(var(muestra$d)*length(muestra$d)-1)/length(muestra$d)
 (intdes=c(mean(muestra$d)-2*sdd,mean(muestra$d)+2*sdd))
 for(i in 1:length(muestra$d)) 
 {if (muestra$d[i]<intdes[1] || muestra$d[i]>intdes[2]){print("el suceso")
-;print(i);print(muestra$d[i]);print("es un suceso anómalo o outlier")}}
+;print(i);print(muestra$d[i]);print("es un outlier")}}
 @
 	\subsection{Análisis de detección de datos anómalos - Técnicas basadas en la proximidad y en la densidad}
 	El cuarto conjunto de datos, que se empleará para realizar el análisis de detección de datos anómalos utilizando técnicas basadas en la proximidad y en la densidad, estará formado por las siguientes 5 calificaciones de estudiantes: 1. {4, 4}; 2. {4, 3}; 3. {5, 5}; 4. {1, 1}; 5. {5, 4} donde las características de las calificaciones son: (Teoría, Laboratorio).
@@ -339,9 +339,8 @@ for(i in 1:length(muestra$d))
 		\item \texttt{(muestra=matrix(c(4,4,4,3,5,5,1,1,5,4),2,5))}: obtenemos la matriz
 		\item \texttt{(muestra=t(muestra))}: Trasponemos la matriz
 		\item Calculamos las distancias euclídeas: \texttt{(distancias=as.matrix(dist(muestra)))}
-		\item Hay que ordenar los valores \texttt{(distancias=matrix(distancias,5,5))}
-		\\ \texttt{for (i in 1:5){distancias[,i]=sort(distancias[,i])}; (distanciasordenadas=distancias)}
-		\item Como el primer vecino es él mismo, la distancia es cero, por lo que vamos a usar k=4 \texttt{for(i in 1:5){if(distanciasordenadas[4,i]>2.5){print(i);print("es un suceso anómalo o outlier")}}}
+		\item Hay que ordenar los valores \texttt{(distancias=matrix(distancias,5,5))} \texttt{for (i in 1:5){distancias[,i]=sort(distancias[,i])}; (distanciasordenadas = distancias)}
+		\item Como el primer vecino es él mismo, la distancia es cero, por lo que vamos a usar k=4 \texttt{for(i in 1:5){if(distanciasordenadas[4,i]>2.5){print(i);print(``es un outlier'')}}}
 		\item \texttt{(distanciasM=as.matrix(dist(muestra,method="manhattan")))}: Cálculo de distancias de Manhattan
 	\end{itemize}
 	\paragraph{Ejecución}
@@ -369,7 +368,7 @@ for(i in 1:5){if(distanciasordenadas[4,i]>2.5)
 
 		\item[-] Retorno: Imprime por pantalla los valores lof de cada punto.
 		
-		\item[-] Explicación: Utilizamos el paquete Rlof, el cual contiene una función llamada \emph{lof(datos,k,dist)}, el cual recibe los puntos que va a evaluar, el número de vecinos cercanos (\emph{k}) y el método que se emplea para calcular las distancias (al ser LOF usamos \emph{manhattan}). \\
+		\item[-] Explicación: Utilizamos el paquete Rlof, el cual contiene una función llamada \texttt{lof( datos,k,dist)}, el cual recibe los puntos que va a evaluar, el número de vecinos cercanos (\emph{k}) y el método que se emplea para calcular las distancias (al ser LOF usamos \emph{manhattan}). \\
 		Esta función hace uso de varias funciones externas para el calculo del LOF, primero llama a \texttt{f.dist.knn()} la cual ordena las distancias entre vecinos de menor a mayor, antes de esto llama a la función \texttt{distmc()} para que calcule esas distancias previamente (empleando manhattan). Después \texttt{lof()} llama a \texttt{f.reachability()} que calcula las densidades locales de cada punto. Por último calcula las densidades relativas medias de cada punto. Una vez obtenidos los resultados los imprime por pantalla, aquellos que sean >1 serán posibles outliers, en nuestro caso a pesar de que los puntos 1 y 5 sean >1, el punto 4 es mucho mayor, siendo así el outlier.\\ 
 	\end{itemize}
 	\paragraph{Ejecución}
@@ -440,13 +439,15 @@ frecAbsr <- function(vector) {
   # Conteo de las frecuencias de cada valor
   for (value in vector) {
     if (value %in% names(v_frecs)) {
-      v_frecs[[as.character(value)]] <- v_frecs[[as.character(value)]] + 1
+      v_frecs[[as.character(value)]] <- 
+	  v_frecs[[as.character(value)]] + 1
     } else {
       v_frecs[[as.character(value)]] <- 1
     }
   }
   # Marco de datos con las frecuencias absolutas
-  res <- data.frame(Valor = as.numeric(names(v_frecs)), FrecAbs = unname(unlist(v_frecs)))
+  res <- data.frame(Valor = as.numeric(names(v_frecs)), 
+  FrecAbs = unname(unlist(v_frecs)))
   return(res)
 }
 datos <- read.table("distancias.txt")
@@ -455,7 +456,7 @@ frecAbs
 @
 		\end{itemize}
 		
-		\item Cálculo de la frecuencia absoluta acumulada (\texttt{fa$_{i}$}) con la función: \texttt{frecAbsAcumr(distancias\$Km)}
+		\item Cálculo de la frecuencia absoluta acumulada (\texttt{fa$_{i}$}) con la función: \texttt{frecAbsAcumr( distancias\$Km)}
 		\begin{itemize}
 			\item[-] Parámetros: 
 			\begin{itemize}
@@ -464,7 +465,7 @@ frecAbs
 			
 			\item[-] Retorno: Devuelve un dataframe con el número de apariciones totales acumuladas de cada dato del vector. 
 			
-			\item[-] Explicación: Esta función se encarga de calcular las frecuencias acumuladas de cada dato del vector. Calcula primero las frecuencias absolutas con \texttt{frecAbsr(vector)} y recorre el dataframe resultado, sumando a la frecuencia absoluta del dato actual, la frecuencia absoluta acumulada del dato anterior.
+			\item[-] Explicación: Esta función se encarga de calcular las frecuencias acumuladas de cada dato del vector. Calcula primero las frecuencias absolutas con \texttt{frecAbsr( vector)} y recorre el dataframe resultado, sumando a la frecuencia absoluta del dato actual, la frecuencia absoluta acumulada del dato anterior.
 <<>>=
 frecAbsr <- function(vector) {
   vector <- sort(vector)
@@ -472,13 +473,15 @@ frecAbsr <- function(vector) {
   # Conteo de las frecuencias de cada valor
   for (value in vector) {
     if (value %in% names(v_frecs)) {
-      v_frecs[[as.character(value)]] <- v_frecs[[as.character(value)]] + 1
+      v_frecs[[as.character(value)]] <- 
+	  	v_frecs[[as.character(value)]] + 1
     } else {
       v_frecs[[as.character(value)]] <- 1
     }
   }
   # Marco de datos con las frecuencias absolutas
-  res <- data.frame(Valor = as.numeric(names(v_frecs)), FrecAbs = unname(unlist(v_frecs)))
+  res <- data.frame(Valor = as.numeric(names(v_frecs)),
+  FrecAbs = unname(unlist(v_frecs)))
   return(res)
 }
 frecAbsAcumr <- function(vector) {
@@ -491,7 +494,8 @@ frecAbsAcumr <- function(vector) {
     frec_Abs$FrecAbsAcum[i] <- sum(frec_Abs$FrecAbs[1:i])
   }
   # Marco de datos con las frecuencias absolutas acumuladas
-  res <- data.frame(Valor = frec_Abs$Valor, FrecAbsAcum = frec_Abs$FrecAbsAcum)
+  res <- data.frame(Valor = frec_Abs$Valor, FrecAbsAcum =
+   frec_Abs$FrecAbsAcum)
   return(res)
 }
 datos <- read.table("distancias.txt")
@@ -517,13 +521,15 @@ frecAbsr <- function(vector) {
   # Conteo de las frecuencias de cada valor
   for (value in vector) {
     if (value %in% names(v_frecs)) {
-      v_frecs[[as.character(value)]] <- v_frecs[[as.character(value)]] + 1
+      v_frecs[[as.character(value)]] <- 
+	  v_frecs[[as.character(value)]] + 1
     } else {
       v_frecs[[as.character(value)]] <- 1
     }
   }
   # Marco de datos con las frecuencias absolutas
-  res <- data.frame(Valor = as.numeric(names(v_frecs)), FrecAbs = unname(unlist(v_frecs)))
+  res <- data.frame(Valor = as.numeric(names(v_frecs)), 
+  FrecAbs = unname(unlist(v_frecs)))
   return(res)
 }
 frecRelr <- function(vector) {
@@ -533,7 +539,8 @@ frecRelr <- function(vector) {
   frec_Rel <- frec_Abs$FrecAbs / length(vector)
   frec_Abs$FrecRel <- frec_Rel
   # Marco de datos con las frecuencias relativas
-  res <- data.frame(Valor = frec_Abs$Valor, FrecRel = frec_Abs$FrecRel)
+  res <- data.frame(Valor = frec_Abs$Valor, FrecRel = 
+  frec_Abs$FrecRel)
   return(res)
 }
 datos <- read.table("distancias.txt")
@@ -542,7 +549,7 @@ frecRel
 @
 		\end{itemize}
 		
-		\item Cálculo de la frecuencia relativa acumulada (\texttt{fra$_{i}$}) con la función: \texttt{frecRelAcumr(distancias\$Km)}
+		\item Cálculo de la frecuencia relativa acumulada (\texttt{fra$_{i}$}) con la función: \texttt{frecRelAcumr( distancias\$Km)}
 		\begin{itemize}
 			\item[-] Parámetros: 
 			\begin{itemize}
@@ -559,13 +566,15 @@ frecAbsr <- function(vector) {
   # Conteo de las frecuencias de cada valor
   for (value in vector) {
     if (value %in% names(v_frecs)) {
-      v_frecs[[as.character(value)]] <- v_frecs[[as.character(value)]] + 1
+      v_frecs[[as.character(value)]] <-
+	  v_frecs[[as.character(value)]] + 1
     } else {
       v_frecs[[as.character(value)]] <- 1
     }
   }
   # Marco de datos con las frecuencias absolutas
-  res <- data.frame(Valor = as.numeric(names(v_frecs)), FrecAbs = unname(unlist(v_frecs)))
+  res <- data.frame(Valor = as.numeric(names(v_frecs)), 
+  FrecAbs = unname(unlist(v_frecs)))
   return(res)
 }
 frecRelr <- function(vector) {
@@ -575,7 +584,8 @@ frecRelr <- function(vector) {
   frec_Rel <- frec_Abs$FrecAbs / length(vector)
   frec_Abs$FrecRel <- frec_Rel
   # Marco de datos con las frecuencias relativas
-  res <- data.frame(Valor = frec_Abs$Valor, FrecRel = frec_Abs$FrecRel)
+  res <- data.frame(Valor = frec_Abs$Valor, FrecRel = 
+  frec_Abs$FrecRel)
   return(res)
 }
 frecRelAcumr <- function(vector) {
@@ -588,7 +598,8 @@ frecRelAcumr <- function(vector) {
     frec_Rel$FrecRelAcum[i] <- sum(frec_Rel$FrecRel[1:i])
   }
   # Marco de datos con las frecuencias relativas acumuladas
-  res <- data.frame(Valor = frec_Rel$Valor, frecRelAcum = frec_Rel$FrecRelAcum)
+  res <- data.frame(Valor = frec_Rel$Valor, frecRelAcum = 
+  frec_Rel$FrecRelAcum)
   return(res)
 }
 datos <- read.table("distancias.txt")
@@ -728,12 +739,12 @@ var
 medianr <- function(vector) {
   n <- length(vector)
   v <- sort(vector)
-  # Comprobar si el numero de elementos del vector es impar o par
+# Comprobar si el numero de elementos del vector es impar o par
   if(n%%2==1) {
-    # Si es impar la mediana es el elemento del medio
+	# Si es impar la mediana es el elemento del medio
     median <- v[(n+1)/2]
   }else {
-    # Si es par la mediana es la media de los 2 elementos del medio
+# Si es par la mediana es la media de los 2 elementos del medio
     median <- (v[n/2] + v[(n/2)+1]) / 2
   }
   return(median)
@@ -789,7 +800,21 @@ quantile3
 	\subsection{Análisis de asociación}
 	El segundo conjunto de datos, que se empleará para realizar el análisis de asociación, estará formado por las siguientes conjuntos de extras incluidos en 8 ventas de coches: \{X, C, N, B\}, \{X, T, B, C\}, \{N, C, X\}, \{N, T, X, B\}, \{X, C, B\}, \{N\}, \{X, B, C\}, \{T, A\}. Donde: {X: Faros de Xenon, A: Alarma, T: Techo Solar, N: Navegador, B: Bluetooth, C: Control de Velocidad}, son los extras que se pueden incluir en cada coche
 		
-	\paragraph{Solución}
+	\paragraph{Solución:}
+			Algoritmo de minería de reglas de asociación (apriori): Su objetivo principal es descubrir patrones de asociación entre diferentes conjuntos de datos.
+			\begin{itemize}
+				\item[-] Parámetros:
+				\begin{itemize}
+					\item \texttt{transacciones}: Lista de sucesos que conforman la muestra.
+					\item \texttt{soporte}: Umbral mínimo de soporte que deben superar las asociaciaciones.
+					\item \texttt{confianza}: Umbral mínimo de confianza que deben superar las asociaciaciones.
+				\end{itemize}
+				
+				\item[-] Retorno: Imprime por pantalla todas aquellas asociaciaciones que superen los umbrales de soporte y confianza
+				
+				\item[-] Explicación: Este algoritmo comienza identificando los sucesos elementales que cumplen con el umbral de soporte, luego, utiliza estos elementos frecuentes para generar conjuntos de dos elementos que también cumplan con el umbral de soporte, este proceso continúa iterativamente hasta que ya no se pueden generar conjuntos más grandes que cumplan con el umbral. Una vez que se han identificado los conjuntos de elementos frecuentes, se generan reglas de asociación a partir de ellos, cada regla de asociación tiene una parte izquierda (antecedente) y una parte derecha (consecuente). Estas reglas se crean combinando los elementos frecuentes de manera que el apoyo de la regla sea mayor o igual al umbral especificado, las reglas de asociación generadas se evalúan según la confianza las reglas que cumplen con el umbral se seleccionan como resultados finales.
+
+			\end{itemize}
 <<>>=
 # Define los sucesos
 transactions <- list(
@@ -804,8 +829,8 @@ transactions <- list(
 )
 
 # Define soporte y confianza
-soporte <- 0.5
-confianza <- 0.8
+soporte <- 0.4
+confianza <- 0.9
 
 calculate_support <- function(itemset, transactions) {
 	# Función para calcular el soporte de un conjunto de 
@@ -854,37 +879,40 @@ apriori_gen <- function(conjuntos_anteriores, k) {
 	  if (k == 2) {
 	    if (conjunto_a[1] != conjunto_b[1]) {
 		  nuevo_conjunto <- c(conjunto_a, conjunto_b[1])
-		  sucesos_candidatos <- append(sucesos_candidatos, list(nuevo_conjunto))
+		  sucesos_candidatos <- 
+		  append(sucesos_candidatos, list(nuevo_conjunto))
 	    }
 	  } else if (k > 2) {
 	    # Generación de candidatos para k > 2.
-	    if (identical(conjunto_a[1:(k-2)], conjunto_b[1:(k-2)]) && conjunto_a[(k-1)] != conjunto_b[(k-1)]) {
+	    if (identical(conjunto_a[1:(k-2)], conjunto_b[1:(k-2)]) && 
+		conjunto_a[(k-1)] != conjunto_b[(k-1)]) {
 		  nuevo_conjunto <- c(conjunto_a, conjunto_b[(k-1)])
-		  sucesos_candidatos <- append(sucesos_candidatos, list(nuevo_conjunto))
+		  sucesos_candidatos <- 
+		  append(sucesos_candidatos, list(nuevo_conjunto))
 	    }
 	  }
     }
   }
 
   # Llamada recursiva para generar candidatos de dimensión k + 1.
-  sucesos_candidatos_recursivo <- apriori_gen(sucesos_candidatos, k + 1)
-  sucesos_candidatos <- append(sucesos_candidatos, sucesos_candidatos_recursivo)
+  sucesos_cand_recur <- apriori_gen(sucesos_candidatos, k + 1)
+  sucesos_candidatos <- append(sucesos_candidatos, sucesos_cand_recur)
 
   # Devolver la lista de sucesos candidatos generados.
   return(sucesos_candidatos)
 }
 
-filtrar_sucesos_con_hash_tree <- function(sucesos_candidatos, transactions) {
+filtrar_sucesos <- function(sucesos_candidatos, transactions) {
   #Se filtran los sucesos candidatos en función del soporte
   # Inicialización de la lista que contendrá los sucesos filtrados.
   sucesos_filtrados <- list()
 
   # Iteración sobre cada suceso candidato.
   for (suceso in sucesos_candidatos) {
-    # Cálculo del soporte del suceso utilizando una función llamada calculate_support.
+    # Se hace uso de la función calculate_support.
     soporte_suceso <- calculate_support(suceso, transactions)
     
-    # Verificación de que el soporte del suceso cumple con el umbral especificado.
+    # Verificación de que el soporte del suceso cumple con el umbral.
     if (soporte_suceso >= soporte) {
       # Agregar el suceso a la lista de sucesos filtrados.
       sucesos_filtrados <- c(sucesos_filtrados, list(suceso))
@@ -895,16 +923,15 @@ filtrar_sucesos_con_hash_tree <- function(sucesos_candidatos, transactions) {
   return(sucesos_filtrados)
 }
 
-
 calcular_confianza <- function(regla, transactions) {
   #Calcula la confianza de una regla de asociación
   # Obtener el antecedente y el consecuente de la regla
-  antecedente <- regla$antecedente
-  consecuente <- regla$consecuente
+  ant <- regla$antecedente
+  cons <- regla$consecuente
 
   # Paso 2: Calcular el soporte de la regla y el soporte del antecedente
-  soporte_regla <- calculate_support(c(antecedente, consecuente), transactions)
-  soporte_antecedente <- calculate_support(antecedente, transactions)
+  soporte_regla <- calculate_support(c(ant, cons), transactions)
+  soporte_antecedente <- calculate_support(ant, transactions)
 
   # Paso 3: Calcular la confianza de la regla
   confianza_regla <- soporte_regla / soporte_antecedente
@@ -935,16 +962,19 @@ ap_genrules <- function(sucesos_filtrados, transactions, confianza) {
         antecedente <- conjunto_anterior
         consecuente <- setdiff(suceso, antecedente)
         
-        # Cálculo de la confianza de la regla utilizando calcular_confianza.
-        confianza_regla <- calcular_confianza(list(antecedente = antecedente, consecuente = consecuente), transactions)
+        # Cálculo de la confianza.
+        confianza_regla <- calcular_confianza(list(antecedente = 
+		antecedente, consecuente = consecuente), transactions)
         
-        # Verificación de que la confianza de la regla cumple con el umbral especificado.
+        # Verificación si la confianza cumple con el umbral.
         if (confianza_regla >= (confianza - 0.001)) {
           # Agregar la regla a la lista de reglas generadas.
-          reglas <- append(reglas, list(list(antecedente = antecedente,
-                                             consecuente = consecuente,
-                                             soporte = calculate_support(suceso, transactions),
-                                             confianza = confianza_regla)))
+          reglas <- 
+		  append(reglas, list(list(antecedente = antecedente,
+                                    consecuente = consecuente,
+                                    soporte = 
+				calculate_support(suceso, transactions),
+                                    confianza = confianza_regla)))
         }
       }
     }
@@ -954,20 +984,20 @@ ap_genrules <- function(sucesos_filtrados, transactions, confianza) {
   return(reglas)
 }
 
-
-
 apriori_ej <- function(transactions, soporte, confianza) {
 	# Paso A:
 	# Paso A.1: Filtrar sucesos elementales que llegan al soporte
-	sucesos_elem_candidatos <- filtar_sucesos_elementales(transactions, soporte)
+	sucesos_elem_candidatos <- 
+	filtar_sucesos_elementales(transactions, soporte)
 	# Paso A.2:
-		# Paso A.2.1: Identificar sucesos candidatos en cada dimensión
-		sucesos_candidatos <- apriori_gen(sucesos_elem_candidatos, 2)
-		# Paso A.2.2: Calcular soporte de los sucesos candidatos y filtrar
-		sucesos_filtrados <- filtrar_sucesos_con_hash_tree(sucesos_candidatos,
-		transactions)
+	# Paso A.2.1: Identificar sucesos candidatos en cada dimensión
+	sucesos_candidatos <- apriori_gen(sucesos_elem_candidatos, 2)
+	# Paso A.2.2: Calcular soporte de los sucesos candidatos y filtrar
+	sucesos_filtrados <- filtrar_sucesos(sucesos_candidatos,
+	transactions)
 
-	# Paso B: Aplicar la función ap-genrules para establecer asociaciones con el umbral de confianza
+	# Paso B: Aplicar la función ap-genrules para establecer 
+	# 		  asociaciones con el umbral de confianza
 	rules <- ap_genrules(sucesos_filtrados, transactions, confianza)
 
 	return(rules)
@@ -985,7 +1015,8 @@ for (i in 1:length(resultados)) {
 	
 	cat(
 	sprintf("[%d] {%s} => {%s}  support: %.7f  confidence: %.7f\n",
-			i, paste(antecedente, collapse = ", "), paste(consecuente, collapse = ", "),
+			i, paste(antecedente, collapse = ", "), 
+			paste(consecuente, collapse = ", "),
 			soporte, confianza)
 	)
 }
@@ -1039,11 +1070,14 @@ cajaBigotes <- function(matriz,col,d){
     for(i in 1:length(matriz[, col])) {
         # Si el punto se encuentra fuera de los limites es outlier
         if(matriz[i,col]<limites[1] || matriz[i,col]>limites[2]) {
-            print(paste("El suceso", i, ":", matriz[i, col], "es un dato anómalo"))
+            print(paste("El suceso", i, ":", matriz[i, col],
+			 "es un dato anómalo"))
         }
     }
 }
-datos <- t(matrix(c(10, 7.46, 8, 6.77, 13, 12.74, 9, 7.11, 11, 7.81, 14, 8.84, 6, 6.08, 4, 5.39, 12, 8.15, 7, 6.42, 5, 5.73),2,11, dimnames=list(c("r","d"))))
+datos <- t(matrix(c(10, 7.46, 8, 6.77, 13, 12.74, 9, 7.11, 11, 
+7.81, 14, 8.84, 6, 6.08, 4, 5.39, 12, 8.15, 7, 6.42, 5, 5.73),
+2,11, dimnames=list(c("r","d"))))
 outliers <- cajaBigotes(datos,"r",0.25)
 @
 			\end{itemize}
@@ -1096,13 +1130,17 @@ desvTip <- function(matriz,col,d){
     limites <- c(media-d*sd,media+d*sd)
     # Calculo de los outliers
     for(i in 1:length(matriz[,col])) { 
-        # Si el punto se encuentra fuera de los limites es outlier
-        if(matriz[i,col]<limites[1] || matriz[i,col]>limites[2]) { 
-            print(paste("El suceso", i, ":", matriz[, col][i], "es un dato anómalo"))
+    # Si el punto se encuentra fuera de los limites es outlier
+        if(matriz[i,col]<limites[1] || 
+		matriz[i,col]>limites[2]) { 
+            print(paste("El suceso", i, ":", matriz[, col][i], 
+			"es un dato anómalo"))
         }
     }
 }
-datos <- t(matrix(c(10, 7.46, 8, 6.77, 13, 12.74, 9, 7.11, 11, 7.81, 14, 8.84, 6, 6.08, 4, 5.39, 12, 8.15, 7, 6.42, 5, 5.73),2,11, dimnames=list(c("r","d"))))
+datos <- t(matrix(c(10, 7.46, 8, 6.77, 13, 12.74, 9, 7.11, 11, 
+7.81, 14, 8.84, 6, 6.08, 4, 5.39, 12, 8.15, 7, 6.42, 5, 5.73),
+2,11, dimnames=list(c("r","d"))))
 outliers <- desvTip(datos,"d",9)
 @	
 			\end{itemize}
@@ -1140,7 +1178,8 @@ kvecinos <- function(matriz,k,d){
     for (i in 1:n) {
         for (j in 1:n) {
             if (i != j) {
-                distancias[i, j] <- round(distEuc(matrizt[i, ],matrizt[j, ]),2)
+                distancias[i, j] <- round(distEuc(matrizt[i, ],
+				matrizt[j, ]),2)
             }
         }
     }
@@ -1165,7 +1204,8 @@ distEuc <- function(x1, x2) {
    
     return(distancia)
 }
-datos <- matrix(c(9, 9, 9, 7, 11, 11, 2, 1, 11, 9), ncol=5, byrow=TRUE)
+datos <- matrix(c(9, 9, 9, 7, 11, 11, 2, 1, 11, 9), ncol=5, 
+byrow=TRUE)
 outliers <- kvecinos(datos,3,9.5)
 @				
 			\item Técnicas basadas en densidad (Local Outlier Factor):
@@ -1183,10 +1223,11 @@ outliers <- kvecinos(datos,3,9.5)
 				Esta función hace uso de varias funciones externas para el calculo del LOF, primero llama a \texttt{f.dist.knn()} la cual ordena las distancias entre vecinos de menor a mayor, antes de esto llama a la función \texttt{distmc()} para que calcule esas distancias previamente (empleando manhattan). Después \texttt{lof()} llama a \texttt{f.reachability()} que calcula las densidades locales de cada punto. Por último calcula las densidades relativas medias de cada punto. Una vez obtenidos los resultados los imprime por pantalla, aquellos que sean >1 serán posibles outliers, en nuestro caso a pesar de que los puntos 1 y 5 sean >1, el punto 4 es mucho mayor, siendo así el outlier.\\ 
 <<>>=
 library(Rlof)
-datos <- matrix(c(9, 9, 9, 7, 11, 11, 2, 1, 11, 9), ncol=2, byrow=TRUE)
+datos <- matrix(c(9, 9, 9, 7, 11, 11, 2, 1, 11, 9), ncol=2, 
+byrow=TRUE)
 outliersLof <- lof(datos, k=3, method="manhattan")
 outliersLof
-@				
+@
 			\end{itemize}
 		\end{itemize}   
 	\end{document}
