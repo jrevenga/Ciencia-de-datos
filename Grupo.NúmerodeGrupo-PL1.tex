@@ -112,7 +112,7 @@
 	\subsection{Paquetes por defecto al abrir R}
 	\begin{itemize}
 		\item \texttt{getOption("defaultPackages")}: muestra los (6) paquetes por defecto que cargan al abrir R.
-		\item \texttt{library(help="base")}: Muestra las funciones del paquete ‘‘base" junto con una descripción básica, \texttt{library(help=\string"utils")} muestra funciones útiles para trabajar con R. Estos son parte de los 23 paquetes instalados por defecto.
+		\item \texttt{library(help="base")}: Muestra las funciones del paquete ``base'' junto con una descripción básica, \texttt{library(help=\string"utils")} muestra funciones útiles para trabajar con R. Estos son parte de los 23 paquetes instalados por defecto.
 		\item \texttt{library()}: Muestra los paquetes en la biblioteca (los instalados manualmente + los de la biblioteca estándar).
 		\item \texttt{library(paquete)}: Carga el paquete, también podemos hacerlo si nos vamos a paquetes/cargar paquete.
 	\end{itemize}
@@ -127,7 +127,7 @@
 			\item Se crea un directorio temporal (temp) y se mete ahí el zip descargado.
 			\item \texttt{install.packages(\string"c:direccion\_al\_zip/tmp/nombre.zip",repos=NULL)}: lo instala.
 		\end{itemize} 
-		\item Para instalar el paquete Arules vamos a descargarlo, también hay que descargar el manual y las viñetas, luego usar \texttt{install.packages()} para las dependencias.
+		\item Para instalar el paquete ``arules'' vamos a descargarlo, también hay que descargar el manual y las viñetas, luego usar \texttt{install.packages()} para las dependencias.
 	\end{itemize}
 	
 	\section{Ejercicios con ayuda del profesor}
@@ -269,7 +269,7 @@
 		\end{itemize}
 		\newpage
 		
-		\item \texttt{frecabsradio<-table(s\$Radio)}: calcula la frecuencia absoluta para todos los valores
+		\item \texttt{frecabsradio<-table(s\$Radio)}: calcula la frecuencia absoluta para todos los valores.
 \begin{Schunk}
 \begin{Sinput}
 > frecabsradio<-table(s$Radio)
@@ -280,7 +280,7 @@
  1  1  1  2  1  1  1  1  1  1  1 
 \end{Soutput}
 \end{Schunk}
-		\item \texttt{frecabscumradio<-cumsum(s\$Radio)}: calcula la frecuencia absoluta acumulada para todos los valores
+		\item \texttt{frecabscumradio<-cumsum(s\$Radio)}: calcula la frecuencia absoluta acumulada para todos los valores.
 \begin{Schunk}
 \begin{Sinput}
 > frecabsacumradio<-cumsum(frecabsradio)
@@ -311,7 +311,7 @@ x
 \end{Soutput}
 \end{Schunk}
 \normalsize
-		\item \texttt{frecrelacumradio<-cumsum(frecrelradio)}: no tenemos función para la frecuencia relativa acumulada tampoco, se puede calcular usando \texttt{cumsum()} de la frecuencia relativa
+		\item \texttt{frecrelacumradio<-cumsum(frecrelradio)}: no tenemos función para la frecuencia relativa acumulada tampoco, se puede calcular usando \texttt{cumsum()} de la frecuencia relativa.
 \small
 \begin{Schunk}
 \begin{Sinput}
@@ -328,7 +328,7 @@ x
 \normalsize
 
 		\newpage
-		\item \texttt{mr<-mean(Radio)}: Calcula la media
+		\item \texttt{mr<-mean(Radio)}: Calcula la media.
 \begin{Schunk}
 \begin{Sinput}
 > mr<-mean(s$Radio)
@@ -338,7 +338,7 @@ x
 [1] 25.08333
 \end{Soutput}
 \end{Schunk}
-		\item \texttt{sdr<-sd(Radio)}: Para la desviación estándar se usa la función sd, el problema yace en que esta función realiza la desviación típica muestral (la cual divide entre N-1 y no entre N) para realizar inferencias probabilísticas. Hay casos como es el de este ejercicio que tenemos todos los datos (la población entera) y nos interesa usar la desviación estándar poblacional
+		\item \texttt{sdr<-sd(Radio)}: Para la desviación estándar se usa la función sd, el problema yace en que esta función realiza la desviación típica muestral (la cual divide entre N-1 y no entre N) para realizar inferencias probabilísticas. Hay casos como es el de este ejercicio que tenemos todos los datos (la población entera) y nos interesa usar la desviación estándar poblacional.
 \begin{Schunk}
 \begin{Sinput}
 > sdr<-sd(s$Radio)
@@ -348,7 +348,7 @@ x
 [1] 8.857029
 \end{Soutput}
 \end{Schunk}
-		\item \texttt{sdr=sqrt((sdr\^2)*11/12)}: creamos la función, quitándole la raíz cuadrada con el \^2 para multiplicar después por N-1/N, para después añadirle la raiz cuadrada de nuevo. Este código puede ser fácilmente optimizado y definido en una función para su reutilización
+		\item \texttt{sdr=sqrt((sdr\^2)*11/12)}: creamos la función, quitándole la raíz cuadrada con el \^2 para multiplicar después por N-1/N, para después añadirle la raiz cuadrada de nuevo. Este código puede ser fácilmente optimizado y definido en una función para su reutilización.
 \begin{Schunk}
 \begin{Sinput}
 > sdr=sqrt((sdr^2)*11/12)
@@ -358,7 +358,7 @@ x
 [1] 8.47996
 \end{Soutput}
 \end{Schunk}
-		\item \texttt{varr=var(Radio)}: Calcula la varianza (en este caso se trata también de la varianza muestral)
+		\item \texttt{varr=var(Radio)}: Calcula la varianza (en este caso se trata también de la varianza muestral).
 \begin{Schunk}
 \begin{Sinput}
 > varr=var(x)
@@ -368,7 +368,7 @@ x
 [1] 78.44697
 \end{Soutput}
 \end{Schunk}
-		\item \texttt{varr=varr*11/12}: Calculamos la varianza poblacional de la misma forma que la desviación típica, sin tener que preocuparnos por la raíz cuadrada
+		\item \texttt{varr=varr*11/12}: Calculamos la varianza poblacional de la misma forma que la desviación típica, sin tener que preocuparnos por la raíz cuadrada.
 \begin{Schunk}
 \begin{Sinput}
 > varr=varr*11/12
@@ -378,7 +378,7 @@ x
 [1] 71.90972
 \end{Soutput}
 \end{Schunk}
-		\item \texttt{Medianr<-median(s\$Radio)}: Para la mediana usamos la función \texttt{median()}, pero esta función usa distribuciones de probabilidad en vez de usar ecuaciones y muchas veces no dará el resultado correcto
+		\item \texttt{Medianr<-median(s\$Radio)}: Para la mediana usamos la función \texttt{median()}, pero esta función usa distribuciones de probabilidad en vez de usar ecuaciones y muchas veces no dará el resultado correcto.
 \begin{Schunk}
 \begin{Sinput}
 > medianr<-median(x)
@@ -388,7 +388,7 @@ x
 [1] 24.5
 \end{Soutput}
 \end{Schunk}
-		\item \texttt{cuart1=quantile(Radio, 0.25)}: Calcula el primer cuartil, puede usarse para calcular cualquier centil (0.\%). Le ocurre el mismo problema que a la mediana
+		\item \texttt{cuart1=quantile(Radio, 0.25)}: Calcula el primer cuartil, puede usarse para calcular cualquier centil (0.\%). Le ocurre el mismo problema que a la mediana.
 \begin{Schunk}
 \begin{Sinput}
 > cuartl=quantile(x,0.25)
@@ -410,12 +410,12 @@ x
 		\item \texttt{library(arules)}: Carga el paquete arules.
 		\item \texttt{search()}: Muestra los paquetes cargados.
 		\item \texttt{library(Matrix)}: Carga el paquete Matrix.
-		\item \texttt{muestra<-Matrix(c(1,1,0,1,1, 1,1,1,1,0, 1,1,0,1,0, 1,0,1,1,0, 1,1,0,\\0,0, 0,0,0,1,0) ,6,5, byrow=TRUE, dimnames=list(c(‘‘suceso1’’ , ‘‘suceso2’’ , ‘‘suceso3’’ , ‘‘suceso4’’ , ‘‘suceso5’’ , ‘‘suceso6’’ ), c(‘‘Pan’’ , ‘‘Agua’’ , ‘‘Café’’ , ‘‘Leche’’ , ‘‘Naranjas’’)), sparse=TRUE)}: Carga los datos del problema
-		\item \texttt{muestrangCMatrix<-as(muestra,"nsparseMatrix")}: utilizamos la función as para convertir el objeto muestra a una representación de matriz dispersa (sparse matrix)
+		\item \texttt{muestra<-Matrix(c(1,1,0,1,1, 1,1,1,1,0, 1,1,0,1,0, 1,0,1,1,0, 1,1,0,\\0,0, 0,0,0,1,0) ,6,5, byrow=TRUE, dimnames=list(c(‘‘suceso1’’ , ‘‘suceso2’’ , ‘‘suceso3’’ , ‘‘suceso4’’ , ‘‘suceso5’’ , ‘‘suceso6’’ ), c(‘‘Pan’’ , ‘‘Agua’’ , ‘‘Café’’ , ‘‘Leche’’ , ‘‘Naranjas’’)), sparse=TRUE)}: Carga los datos del problema.
+		\item \texttt{muestrangCMatrix<-as(muestra,"nsparseMatrix")}: utilizamos la función as para convertir el objeto muestra a una representación de matriz dispersa (sparse matrix).
 		\item \texttt{traspmuestrangCMatrix<-t(muestrangCMatrix)}: Trasponemos y tenemos la matriz como arules nos la pide.
 		\item \texttt{transacciones<-as(traspmuestrangCMatrix,"transactions")}.
 		\item \texttt{summary(transacciones)}: Muestra más información.
-		\item \texttt{asociaciones<-apriori (transacciones, parameter=list (support = 0.5, \\confidence = 0.8))}: Aplica el algoritmo apriori con umbral de soporte de 0.5 y de confianza de 0.8
+		\item \texttt{asociaciones<-apriori (transacciones, parameter=list (support = 0.5, \\confidence = 0.8))}: Aplica el algoritmo ``apriori'' con umbral de soporte de 0.5 y de confianza de 0.8.
 		\item \texttt{inspect(asociaciones)}: Muestra las asociaciones que pasan el algoritmo.
 	\end{itemize}
 \begin{Schunk}
@@ -519,11 +519,11 @@ creating S4 object  ... done [0.00s].
 	\paragraph{Caja y Bigotes}
 
 	\begin{itemize}
-		\item \texttt{(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3)\\,2,7, dimnames=list(c("r","d")))))}: cargamos los datos
-		\item \texttt{(muestra=data.frame(muestra))}: Convertimos la matriz a un data.frame
-		\item \texttt{(boxplot(muestra\$r,range=1.5,plot=FALSE))}: Boxplot de forma predeterminada muestra gráficamente la resolución con caja y bigotes, por lo que se añade \texttt{plot=FALSE} para que no lo haga
-		\item \texttt{(cuar1r<-quantile(muestra\$r, 0.25))}: Cálculo del primer cuartil
-		\item \texttt{(cuar3r<-quantile(muestra\$r, 0.75))} Cálculo del tercer cuartil
+		\item \texttt{(muestra=t(matrix(c(3,2,3.5,12,4.7,4.1,5.2,4.9,7.1,6.1,6.2,5.2,14,5.3)\\,2,7, dimnames=list(c(``r'',``d'')))))}: cargamos los datos.
+		\item \texttt{(muestra=data.frame(muestra))}: Convertimos la matriz a un data.frame.
+		\item \texttt{(boxplot(muestra\$r,range=1.5,plot=FALSE))}: Boxplot de forma predeterminada muestra gráficamente la resolución con caja y bigotes, por lo que se añade \texttt{plot=FALSE} para que no lo haga.
+		\item \texttt{(cuar1r<-quantile(muestra\$r, 0.25))}: Cálculo del primer cuartil.
+		\item \texttt{(cuar3r<-quantile(muestra\$r, 0.75))} Cálculo del tercer cuartil.
 		\item \texttt{(int=c(cuar1r-1.5*(cuar3r-cuar1r),cuar3r+1.5*(cuar3r-cuar1r)))}: calcula el rango de los datos que no son outliers
 		\item \texttt{for(i in 1:length(muestra\$r)) {if(muestra\$r[i]<int[1] || muestra\$r[i]>\\int[2]) {print(``el suceso''); print(i); print(``es un outlier'')}}}
 	\end{itemize}
@@ -620,8 +620,8 @@ $names
 	
 	\paragraph{Desviación típica}
 	\begin{itemize}
-		\item \texttt{sdd=sqrt(var(muestra\$d)*length(muestra\$d)-1)/length(muestra\$d)}: calculamos la desviación estándar poblacional a partir del dataframe del apartado anterior y la función var() que calcula la varianza muestral
-		\item \texttt{(intdes=c(mean(muestra\$d)-2*sdd,mean(muestra\$d)+2*sdd))}: calcula el rango de los datos que no son outliers
+		\item \texttt{sdd=sqrt(var(muestra\$d)*length(muestra\$d)-1)/length(muestra\$d)}: calculamos la desviación estándar poblacional a partir del dataframe del apartado anterior y la función var() que calcula la varianza muestral.
+		\item \texttt{(intdes=c(mean(muestra\$d)-2*sdd,mean(muestra\$d)+2*sdd))}: calcula el rango de los datos que no son outliers.
 		\item \texttt{for(i in 1:length(muestra\$d)) {if (muestra\$d[i]<intdes[1] || muestra\$d[i]>\\intdes[2]) {print(´´el suces'');print(i);print(muestra\$d[i]);\\print(´´es un outlier'')}}}
 	\end{itemize}
 	\paragraph{Ejecución}
@@ -654,12 +654,12 @@ $names
 	
 	\paragraph{Vecinos próximos}
 	\begin{itemize}
-		\item \texttt{(muestra=matrix(c(4,4,4,3,5,5,1,1,5,4),2,5))}: obtenemos la matriz
-		\item \texttt{(muestra=t(muestra))}: Trasponemos la matriz
+		\item \texttt{(muestra=matrix(c(4,4,4,3,5,5,1,1,5,4),2,5))}: obtenemos la matriz.
+		\item \texttt{(muestra=t(muestra))}: Trasponemos la matriz.
 		\item Calculamos las distancias euclídeas: \texttt{(distancias=as.matrix(dist(muestra)))}
 		\item Hay que ordenar los valores \texttt{(distancias=matrix(distancias,5,5))} \texttt{for (i in 1:5){distancias[,i]=sort(distancias[,i])}; (distanciasordenadas = distancias)}
 		\item Como el primer vecino es él mismo, la distancia es cero, por lo que vamos a usar k=4 \texttt{for(i in 1:5){if(distanciasordenadas[4,i]>2.5){print(i);print(``es un outlier'')}}}
-		\item \texttt{(distanciasM=as.matrix(dist(muestra,method="manhattan")))}: Cálculo de distancias de Manhattan
+		\item \texttt{(distanciasM=as.matrix(dist(muestra,method="manhattan")))}: Cálculo de distancias de Manhattan.
 	\end{itemize}
 	\paragraph{Ejecución}
 \begin{Schunk}
@@ -773,7 +773,7 @@ $names
 	El primer conjunto de datos, que se empleará para realizar el análisis de descripción de datos, estará formado por datos de una característica cuantitativa, distancia, desde el domicilio de cada estudiantes hasta la Universidad, dichos datos, cuantitativos continuos, son: 16.5, 34.8, 20.7, 6.2, 4.4, 3.4, 24, 24, 32, 30, 33, 27, 15, 9.4, 2.1, 34, 24, 12, 4.4, 28, 31.4, 21.6, 3.1, 4.5, 5.1, 4, 3.2, 25, 4.5, 20, 34, 12, 12, 12, 12, 5, 19, 30, 5.5, 38, 25, 3.7, 9, 30, 13, 30, 30, 26, 30, 30, 1, 26, 22, 10, 9.7, 11, 24.1, 33, 17.2, 27, 24, 27, 21, 28, 30, 4, 46, 29, 3.7, 2.7, 8.1, 19, 16.
 	\paragraph{Solución:}
 	\begin{itemize}
-		\item \texttt{s<-read.table(‘‘distancias.txt’’)}: Se asigna los valores de la tabla distancias (almacenada en el directorio de trabajo) a la variable "s". Al teclear introducir el nombre de la variable como comando se deberían mostrar los datos
+		\item \texttt{s<-read.table(‘‘distancias.txt’’)}: Se asigna los valores de la tabla distancias (almacenada en el directorio de trabajo) a la variable "s". Al teclear introducir el nombre de la variable como comando se deberían mostrar los datos.
 		
 		\item Cálculo del rango con la función: \texttt{ranger(distancias\$Km)}
 		\begin{itemize}
@@ -1214,7 +1214,7 @@ $names
 				\item \texttt{vector}: Vector de números.
 			\end{itemize}
 			
-			\item[-] Retorno: Devuelve un numero que representa la media aritmética 
+			\item[-] Retorno: Devuelve un numero que representa la media aritmética.
 			
 			\item[-] Explicación: Esta función se encarga de calcular la media aritmética, recorriendo el vector sumando todos los valores y después dividiéndolos entre el número total de elementos del vector, de la forma: \\
 			$\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i$
@@ -1427,7 +1427,7 @@ $names
 	\end{itemize}
 	
 	\subsection{Análisis de asociación}
-	El segundo conjunto de datos, que se empleará para realizar el análisis de asociación, estará formado por las siguientes conjuntos de extras incluidos en 8 ventas de coches: \{X, C, N, B\}, \{X, T, B, C\}, \{N, C, X\}, \{N, T, X, B\}, \{X, C, B\}, \{N\}, \{X, B, C\}, \{T, A\}. Donde: {X: Faros de Xenon, A: Alarma, T: Techo Solar, N: Navegador, B: Bluetooth, C: Control de Velocidad}, son los extras que se pueden incluir en cada coche
+	El segundo conjunto de datos, que se empleará para realizar el análisis de asociación, estará formado por las siguientes conjuntos de extras incluidos en 8 ventas de coches: \{X, C, N, B\}, \{X, T, B, C\}, \{N, C, X\}, \{N, T, X, B\}, \{X, C, B\}, \{N\}, \{X, B, C\}, \{T, A\}. Donde: {X: Faros de Xenon, A: Alarma, T: Techo Solar, N: Navegador, B: Bluetooth, C: Control de Velocidad}, son los extras que se pueden incluir en cada coche.
 		
 	\paragraph{Solución:}
 			Algoritmo de minería de reglas de asociación (apriori): Su objetivo principal es descubrir patrones de asociación entre diferentes conjuntos de datos.
@@ -1439,7 +1439,7 @@ $names
 					\item \texttt{confianza}: Umbral mínimo de confianza que deben superar las asociaciaciones.
 				\end{itemize}
 				
-				\item[-] Retorno: Imprime por pantalla todas aquellas asociaciaciones que superen los umbrales de soporte y confianza
+				\item[-] Retorno: Imprime por pantalla todas aquellas asociaciaciones que superen los umbrales de soporte y confianza.
 				
 				\item[-] Explicación: Este algoritmo comienza identificando los sucesos elementales que cumplen con el umbral de soporte, luego, utiliza estos elementos frecuentes para generar conjuntos de dos elementos que también cumplan con el umbral de soporte, este proceso continúa iterativamente hasta que ya no se pueden generar conjuntos más grandes que cumplan con el umbral. Una vez que se han identificado los conjuntos de elementos frecuentes, se generan reglas de asociación a partir de ellos, cada regla de asociación tiene una parte izquierda (antecedente) y una parte derecha (consecuente). Estas reglas se crean combinando los elementos frecuentes de manera que el apoyo de la regla sea mayor o igual al umbral especificado, las reglas de asociación generadas se evalúan según la confianza las reglas que cumplen con el umbral se seleccionan como resultados finales.
 
