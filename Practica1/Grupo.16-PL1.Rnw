@@ -11,6 +11,7 @@
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 	\begin{titlepage}
 		\begin{center}
 			\includegraphics[width=0.5\textwidth]{logoUAH.png}~\\[2cm]
