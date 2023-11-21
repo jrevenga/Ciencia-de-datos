@@ -19,7 +19,7 @@
 			\textsc{\Large \\Fundamentos de la Ciencia de Datos}\\[2cm]
 			
 			\HRule \\[0.4cm]
-			{\LARGE \bfseries Prueba de Laboratorio 1 (PL1) \\[0.4cm]}
+			{\LARGE \bfseries Prueba de Laboratorio 2 (PL2) \\[0.4cm]}
 			\HRule \\[2cm]
 			
 			\large\textbf{Jorge Revenga Martín de Vidales}\\
@@ -37,7 +37,7 @@
 	\fancyhf{} % Limpia todos los encabezados y pies de página actuales
 	% Encabezado
 	\fancyhead[RO,LE]{\textit{Fundamentos de la ciencia de datos}}
-	\fancyhead[LO,RE]{\textit{Prueba de Laboratorio 1 (PL1)}}
+	\fancyhead[LO,RE]{\textit{Prueba de Laboratorio 2 (PL2)}}
 	% Pie de página
 	\fancyfoot[LO,RE]{\textit{Universidad de Alcalá}}
 	\fancyfoot[RO,LE]{\thepage}  % Número de página en la esquina inferior derecha
@@ -80,181 +80,89 @@
 		\item[-]Función \texttt{list.files()}: Muestra todos los archivos en el directorio. \texttt{dir()} hace lo mismo. 
 	\end{itemize}
 	
-	\newpage
-	
-	\subsection{Introducción de un archivo .txt en R}
-	Para introducir una tabla desde un archivo \texttt{.txt} en R con seguridad de que vaya a cargar correctamente se deben seguir las siguientes reglas (pueden no ser todas necesarias en todos los casos).
-	
-	\begin{itemize}
-		\item Debe haber una tabulación entre dato y dato, más tabulaciones no lo rompen del todo.
-		
-		\item Debe haber una primera columna que numere las filas. Excepto en la primera fila, que sólo habrá una tabulación, seguida de los nombres de las variables separados por tabulaciones.
-		
-		\item Hay que introducir un enter al final del documento.
-		
-		\item Los números decimales deben ser introducidos con puntos, no con comas.
-		
-		\item Los datos tienen que ir juntos, los espacios deben ser separados con guiones u otros símbolos.
-	\end{itemize}
-	
-	
-	\subsection{Uso de Sweave}
-	Vamos a generar un archivo pdf con código R embedido en el mismo de forma automática, para esto haremos uso de Sweave.
-	
-	\begin{itemize}
-		\item \texttt{rnwfile <- system.file("Sweave", \string"example-1.Rnw", package =\string"utils")}: obtiene la ubicación del archivo ‘‘example-1.Rnw’’ que está incluido en el paquete ‘‘utils’’ y la almacena en la variable ‘‘rnwfile’’.
-		
-		\item \texttt{Sweave(rnwfile)}: Genera un conjunto de documentos nuevos, entre ellos un .txt, un .pdf y demás, a partir de la variable definida.
-		
-		\item \texttt{tools::texi2pdf(\string"example-1.tex")}: Genera el .tex de sweave en un pdf. No funciona sin un compilador de latex (como miktex) en la máquina. Al descargar latex se puede seleccionar una opción para que se realice la carga automáticamente.
-	\end{itemize}
-	
-	\subsection{Paquetes por defecto al abrir R}
-	\begin{itemize}
-		\item \texttt{getOption("defaultPackages")}: muestra los (6) paquetes por defecto que cargan al abrir R.
-		\item \texttt{library(help="base")}: Muestra las funciones del paquete ``base'' junto con una descripción básica, \texttt{library(help=\string"utils")} muestra funciones útiles para trabajar con R. Estos son parte de los 23 paquetes instalados por defecto.
-		\item \texttt{library()}: Muestra los paquetes en la biblioteca (los instalados manualmente + los de la biblioteca estándar).
-		\item \texttt{library(paquete)}: Carga el paquete, también podemos hacerlo si nos vamos a paquetes/cargar paquete.
-	\end{itemize}
-	\subsection{Instalar paquetes nuevos}
-	\begin{itemize}
-		\item Nos vamos a paquetes/seleccionar el espejo CRAN.
-		\item Seleccionamos el repositorio que queremos utilizar y elegimos el paquete (También se puede instalar con \texttt{install.packages(\string"paquete")}).
-		\item También se puede instalar desde el dispositivo local, para ello hay que irse a la página oficial de CRAN.
-		\begin{itemize}
-			\item Para aprender se usan las viñetas y luego el manual.
-			\item Se descarga la versión r-release.
-			\item Se crea un directorio temporal (temp) y se mete ahí el zip descargado.
-			\item \texttt{install.packages(\string"c:direccion\_al\_zip/tmp/nombre.zip",repos=NULL)}: lo instala.
-		\end{itemize} 
-		\item Para instalar el paquete ``arules'' vamos a descargarlo, también hay que descargar el manual y las viñetas, luego usar \texttt{install.packages()} para las dependencias.
-	\end{itemize}
+  \newpage
 	
 	\section{Ejercicios con ayuda del profesor}
-	Realización de cuatro ejercicios con ayuda del profesor en los que se van a realizar, utilizando el entorno R, un análisis de descripción de datos, un análisis de asociación y dos análisis de detección de datos anómalos, aplicando todos los conceptos teóricos vistos en cada lección.
+	Realización de cuatro ejercicios con ayuda del profesor en los que se van a realizar, utilizando el entorno RStudio, un análisis de clasificación no supervisada con k-Means, un análisis de clasificación no supervisada con 
+Clusterización Jerárquica Aglomerativa, un  análisis de clasificación supervisada utilizando árboles de decisión y un análisis de clasificación supervisada utilizando regresión, aplicando todos los conceptos teóricos vistos en cada lección.
 
 	\subsection{Análisis de descripción de datos}
-	El primer conjunto de datos, que se empleará para realizar el análisis de descripción de datos, estará formado por datos de una característica cualitativa, nombre, y otra cuantitativa, Radio, de los satélites menores de Urano, es decir, aquellos que tienen un Radio menor de 50 Km, dichos datos, los primeros cualitativos nominales, y los segundos cuantitativos continuos, son: (Nombre, Radio en Km): Cordelia, 13; Ofelia, 16; Bianca, 22; Crésida, 33; Desdémona, 29; Julieta, 42; Rosalinda, 27; Belinda, 34; Luna-1986U10, 20; Calíbano, 30; Luna-999U1, 20; Luna 1999U2, 15.
+	El primer conjunto de datos, que se empleará para realizar el análisis de clasificación no supervisada con k-Means, estará formado por las siguientes 8 calificaciones de estudiantes: 1.\{4, 4\}; 2.\{3, 5\}; 3.\{1, 2\}; 4.\{5, 5\}; 5.\{0, 1\}; 6.\{2, 2\}; 7.\{4, 5\}; 8.\{2, 1\}, donde las características de las calificaciones son: \{Teoría, Laboratorio\}.
 	
 	\paragraph{Solución:}
 	\begin{itemize}
-		\item \texttt{s<-read.table(\string"satelites.txt")}: Se asigna los valores de la tabla satelites (almacenada en el directorio de trabajo) a la variable \texttt{s}. Al teclear introducir el nombre de la variable como comando se deberían mostrar los datos.
+		\item \texttt{m<-matrix(c(4,4, 3,5, 1,2, 5,5, 0,1, 2,2, 4,5, 2,1),2,8)}: 
+		Explicacion
 <<>>=
-s<-read.table("satelites.txt")
-s
+m<-matrix(c(4,4, 3,5, 1,2, 5,5, 0,1, 2,2, 4,5, 2,1),2,8)
+(m<-t(m))
 @
-		\item \texttt{dim(s)}: Devuelve las dimensiones de una matriz. En este caso \texttt{[1] 12 2} quiere decir 12 filas, 2 columnas.
+		\item \texttt{c<-matrix(c(0,1,2,2),2,2)}: 
+		Explicacion
 <<>>=
-dim(s)
+c<-matrix(c(0,1,2,2),2,2)
+(c<-t(c))
 @
-		\item \texttt{so=s[order(s\$Radio),]}: ordena las filas de un DataFrame \texttt{s} según los valores de la variable ‘‘Radio''. Para hacerlo, se usa la función \texttt{order()} para obtener el orden de las filas en función de los valores de ‘‘Radio'', y luego se aplica ese orden al DataFrame 's' utilizando los corchetes \texttt{[ ]}. Como resultado, \texttt{so} contendrá las filas de s ordenadas según los valores de ‘‘Radio''.
+		\item \texttt{(clasificacionns=(kmeans(m,c,4)))}: 
+		Explicacion
 <<>>=
-so<-s[order(s$Radio),]
-so
+(clasificacionns=(kmeans(m,c,4)))
 @
-		\item \texttt{so=s[rev(order(s\$Radio)),]}: Añadiendo \texttt{rev()} obtenemos las filas en orden decreciente
+		\item \texttt{}: 
+		Explicacion
 <<>>=
-so<-s[rev(order(s$Radio)),]
-so
+(m=cbind(clasificacionns$cluster,m))
 @
-		\item \texttt{length(s\$Radio)}: Devuelve la longitud de la columna
+		\item \texttt{}: 
+		Explicacion
 <<>>=
-length(s$Radio)
+mc1=subset(m,m[,1]==1)
+mc2=subset(m,m[,1]==2)
+mc1
+mc2
 @
-		\item Para realizar el cálculo del rango:
-		\begin{itemize}
-			\item[-] \texttt{rangor=max(s\$Radio)-min(s\$Radio) }: siguiendo lo visto en teoría, el resultado es 29
+		\item \texttt{}: 
+		Explicacion
 <<>>=
-rangor=max(s$Radio)-min(s$Radio)
-rangor
+(mc1=mc1[,-1])
+(mc2=mc2[,-1])
 @
-			\item[-] \texttt{range(s\$Radio)}: devuelve el número menor y el mayor, no la diferencia. Queremos una función que calcule el rango, por lo que primero la creamos utilizando el comando \texttt{function()}.
+		\item \texttt{}: 
+		Explicacion
 <<>>=
-range(s$Radio)
+install.packages("LearnClust")
+library(LearnClust)
+search()
 @
-			\item[-] Podemos definir la variable Radio=s\$Radio para ahorrar tiempo
+		\item \texttt{}: 
+		Explicacion
 <<>>=
-Radio = s$Radio
+m<-matrix(c(0.89,2.94, 4.36,5.21, 3.75,1.12, 6.25,3.14, 4.1,1.8, 3.9,4.27),2,6)
+(m<-t(m))
 @
-			\item[-] \texttt{rango=function(Radio)\{max(Radio)-min(Radio)\}}: En los paréntesis, especificamos los argumentos que la función recibirá, y entre llaves, definimos las instrucciones que llevará a cabo.
+		\item \texttt{}: 
+		Explicacion
 <<>>=
-rango=function(Radio){max(Radio)-min(Radio)}
-rango(Radio)
+agglomerativeHC(m,'EUC','MIN')
 @
-			\item[-] \texttt{dump(‘‘rango’’, file=‘‘rango.R’’)}: empleamos la función dump para guardar nuestra función en el archivo ‘‘rango.R’’. Para utilizarla posteriormente, la cargaremos utilizando el comando source (\texttt{source(‘‘rango.R’’)}).
+		\item \texttt{}: 
+		Explicacion
 <<>>=
-dump("rango", file="rango.R")
-source("rango.R")
+agglomerativeHC.details(m,'EUC','MIN')
 @
-		\end{itemize}
-		\newpage
-		
-		\item \texttt{frecabsradio<-table(s\$Radio)}: calcula la frecuencia absoluta para todos los valores.
+		\item \texttt{}: 
+		Explicacion
 <<>>=
-frecabsradio<-table(s$Radio)
-frecabsradio
+agglomerativeHC.details(m,'EUC','MAX')
 @
-		\item \texttt{frecabscumradio<-cumsum(s\$Radio)}: calcula la frecuencia absoluta acumulada para todos los valores.
+		\item \texttt{}: 
+		Explicacion
 <<>>=
-frecabsacumradio<-cumsum(frecabsradio)
-frecabsacumradio
-@
-		\item \texttt{frecrel<-function(x)\{table(x)/length(x)\}}: no tenemos función para la frecuencia relativa, por lo que la definimos. La función se puede escribir de forma diferente, ya que en este caso 'Radio' no es una referencia a una variable sino un parámetro de entrada de la función, por lo que \texttt{frecrel<-function(x)\{table(x) /length(x)\}} serviría de igual manera. \texttt{x=s\$Radio} y \texttt{frecrelradio=frecrel(x)} calcula usando la función definida.
-\small
-<<>>=
-frecrel<-function(x){table(x)/length(x)}
-dump("frecrel", file="frecrel.R")
-source("frecrel.R")
-x=s$Radio
-frecrelradio=frecrel(x)
-frecrelradio
-@
-\normalsize
-		\item \texttt{frecrelacumradio<-cumsum(frecrelradio)}: no tenemos función para la frecuencia relativa acumulada tampoco, se puede calcular usando \texttt{cumsum()} de la frecuencia relativa.
-\small
-<<>>=
-frecelacumradio <- cumsum(frecrelradio)
-frecelacumradio
-@
-\normalsize
 
-		\newpage
-		\item \texttt{mr<-mean(Radio)}: Calcula la media.
-<<>>=
-mr<-mean(s$Radio)
-mr
 @
-		\item \texttt{sdr<-sd(Radio)}: Para la desviación estándar se usa la función sd, el problema yace en que esta función realiza la desviación típica muestral (la cual divide entre N-1 y no entre N) para realizar inferencias probabilísticas. Hay casos como es el de este ejercicio que tenemos todos los datos (la población entera) y nos interesa usar la desviación estándar poblacional.
-<<>>=
-sdr<-sd(s$Radio)
-sdr
-@
-		\item \texttt{sdr=sqrt((sdr\^2)*11/12)}: creamos la función, quitándole la raíz cuadrada con el \^2 para multiplicar después por N-1/N, para después añadirle la raiz cuadrada de nuevo. Este código puede ser fácilmente optimizado y definido en una función para su reutilización.
-<<>>=
-sdr=sqrt((sdr^2)*11/12)
-sdr
-@
-		\item \texttt{varr=var(Radio)}: Calcula la varianza (en este caso se trata también de la varianza muestral).
-<<>>=
-varr=var(x)
-varr
-@
-		\item \texttt{varr=varr*11/12}: Calculamos la varianza poblacional de la misma forma que la desviación típica, sin tener que preocuparnos por la raíz cuadrada.
-<<>>=
-varr=varr*11/12
-varr
-@
-		\item \texttt{Medianr<-median(s\$Radio)}: Para la mediana usamos la función \texttt{median()}, pero esta función usa distribuciones de probabilidad en vez de usar ecuaciones y muchas veces no dará el resultado correcto.
-<<>>=
-medianr<-median(x)
-medianr
-@
-		\item \texttt{cuart1=quantile(Radio, 0.25)}: Calcula el primer cuartil, puede usarse para calcular cualquier centil (0.\%). Le ocurre el mismo problema que a la mediana.
-<<>>=
-cuartl=quantile(x,0.25)
-cuartl
-@
-	\end{itemize}
+
+		
+		\end{itemize}
 	
 	
 	\subsection{Análisis de asociación}
@@ -400,27 +308,7 @@ outliersLof
 			\item[-]  Retorno: Devuelve el rango del vector introducido, es decir, la diferencia entre el número mayor y menor de dicho vector.
 			
 			\item[-] Explicación: Esta función se encarga de calcular el rango del vector introducido por parámetro. Va recorriendo el vector y durante cada iteración va comparando el valor actual con el máximo y el mínimo actuales, si dicho valor es menor o mayor que el mínimo o máximo respectivamente, actualiza el valor correspondiente. Una vez finalizado el recorrido calcula la diferencia entre el máximo y el mínimo final.
-<<>>=
-ranger <- function(vector) {
-  max_value <- vector[1]
-  min_value <- vector[1]
-  # Encontrar el máximo y mínimo recorriendo el vector
-  for (value in 2:length(vector)) {
-    if (vector[value] > max_value) {
-      max_value <- vector[value]
-    }
-    if (vector[value] < min_value) {
-      min_value <- vector[value]
-    }
-  }
-  # Calcular el rango
-  range <- max_value - min_value
-  return(range)
-}
-datos <- read.table("distancias.txt")
-rango <- ranger(datos$Km)
-rango
-@
+
 		\end{itemize} 
 		
 		\item Cálculo de la frecuencia absoluta (\texttt{f$_{i}$}) con la función: \texttt{frecAbsr(distancias\$Km)}
@@ -433,28 +321,7 @@ rango
 			\item[-] Retorno: Devuelve un dataframe con el número de apariciones totales de cada dato del vector. 
 			
 			\item[-] Explicación: Esta función se encarga de contar el número de apariciones de cada elemento del vector. Recorre el vector incrementando en 1 la frecuencia de un elemento cada vez que se repita dicho elemento.
-<<>>=
-frecAbsr <- function(vector) {
-  vector <- sort(vector)
-  v_frecs <- list()
-  # Conteo de las frecuencias de cada valor
-  for (value in vector) {
-    if (value %in% names(v_frecs)) {
-      v_frecs[[as.character(value)]] <- 
-	  v_frecs[[as.character(value)]] + 1
-    } else {
-      v_frecs[[as.character(value)]] <- 1
-    }
-  }
-  # Marco de datos con las frecuencias absolutas
-  res <- data.frame(Valor = as.numeric(names(v_frecs)), 
-  FrecAbs = unname(unlist(v_frecs)))
-  return(res)
-}
-datos <- read.table("distancias.txt")
-frecAbs <- frecAbsr(datos$Km)
-frecAbs
-@
+
 		\end{itemize}
 		
 		\item Cálculo de la frecuencia absoluta acumulada (\texttt{fa$_{i}$}) con la función: \texttt{frecAbsAcumr( distancias\$Km)}
@@ -467,42 +334,7 @@ frecAbs
 			\item[-] Retorno: Devuelve un dataframe con el número de apariciones totales acumuladas de cada dato del vector. 
 			
 			\item[-] Explicación: Esta función se encarga de calcular las frecuencias acumuladas de cada dato del vector. Calcula primero las frecuencias absolutas con \texttt{frecAbsr( vector)} y recorre el dataframe resultado, sumando a la frecuencia absoluta del dato actual, la frecuencia absoluta acumulada del dato anterior.
-<<>>=
-frecAbsr <- function(vector) {
-  vector <- sort(vector)
-  v_frecs <- list()
-  # Conteo de las frecuencias de cada valor
-  for (value in vector) {
-    if (value %in% names(v_frecs)) {
-      v_frecs[[as.character(value)]] <- 
-	  	v_frecs[[as.character(value)]] + 1
-    } else {
-      v_frecs[[as.character(value)]] <- 1
-    }
-  }
-  # Marco de datos con las frecuencias absolutas
-  res <- data.frame(Valor = as.numeric(names(v_frecs)),
-  FrecAbs = unname(unlist(v_frecs)))
-  return(res)
-}
-frecAbsAcumr <- function(vector) {
-  # Frecuencias absolutas del vector
-  frec_Abs <- frecAbsr(vector)
-  # Inicializar la frecuencia acumulada
-  frec_Abs$FrecAbsAcum <- rep(0, nrow(frec_Abs))
-  # Calculo de las frecuencias absolutas acumuladas
-  for (i in seq_along(frec_Abs$FrecAbsAcum)) {
-    frec_Abs$FrecAbsAcum[i] <- sum(frec_Abs$FrecAbs[1:i])
-  }
-  # Marco de datos con las frecuencias absolutas acumuladas
-  res <- data.frame(Valor = frec_Abs$Valor, FrecAbsAcum =
-   frec_Abs$FrecAbsAcum)
-  return(res)
-}
-datos <- read.table("distancias.txt")
-frecAbsAcum <- frecAbsAcumr(datos$Km)
-frecAbsAcum
-@
+
 		\end{itemize}
 		
 		\item Cálculo de la frecuencia relativa (\texttt{fr$_{i}$}) con la función: \texttt{frecRelr(distancias\$Km)}
@@ -515,39 +347,7 @@ frecAbsAcum
 			\item[-] Retorno: Devuelve un dataframe con el número de apariciones totales de cada dato en relación al numero de elementos del vector. 
 			
 			\item[-] Explicación: Esta función se encarga de calcular las frecuencias relativas de cada dato del vector. Calcula previamente las frecuencias absolutas y después recorre el dataframe resultado, dividiendo la frecuencia absoluta de cada dato entre el número total de elementos, de la forma \texttt{f$_{i}$/length(vector)}
-<<>>=
-frecAbsr <- function(vector) {
-  vector <- sort(vector)
-  v_frecs <- list()
-  # Conteo de las frecuencias de cada valor
-  for (value in vector) {
-    if (value %in% names(v_frecs)) {
-      v_frecs[[as.character(value)]] <- 
-	  v_frecs[[as.character(value)]] + 1
-    } else {
-      v_frecs[[as.character(value)]] <- 1
-    }
-  }
-  # Marco de datos con las frecuencias absolutas
-  res <- data.frame(Valor = as.numeric(names(v_frecs)), 
-  FrecAbs = unname(unlist(v_frecs)))
-  return(res)
-}
-frecRelr <- function(vector) {
-  # Frecuencias absolutas del vector
-  frec_Abs <- frecAbsr(vector)
-  # Calculo de frecuencias relativas
-  frec_Rel <- frec_Abs$FrecAbs / length(vector)
-  frec_Abs$FrecRel <- frec_Rel
-  # Marco de datos con las frecuencias relativas
-  res <- data.frame(Valor = frec_Abs$Valor, FrecRel = 
-  frec_Abs$FrecRel)
-  return(res)
-}
-datos <- read.table("distancias.txt")
-frecRel <- frecRelr(datos$Km)
-frecRel
-@
+
 		\end{itemize}
 		
 		\item Cálculo de la frecuencia relativa acumulada (\texttt{fra$_{i}$}) con la función: \texttt{frecRelAcumr( distancias\$Km)}
@@ -560,53 +360,7 @@ frecRel
 			\item[-] Retorno: Devuelve un dataframe con las frecuencias relativas acumuladas de cada dato del vector. 
 			
 			\item[-] Explicación: Esta función se encarga de calcular las frecuencias relativas acumuladas de cada dato del vector. Calcula primero las frecuencias relativas con \texttt{frecRelr(vector)} y recorre el dataframe resultado, sumando a la frecuencia relativa del dato actual, la frecuencia relativa acumulada del dato anterior.
-<<>>=
-frecAbsr <- function(vector) {
-  vector <- sort(vector)
-  v_frecs <- list()
-  # Conteo de las frecuencias de cada valor
-  for (value in vector) {
-    if (value %in% names(v_frecs)) {
-      v_frecs[[as.character(value)]] <-
-	  v_frecs[[as.character(value)]] + 1
-    } else {
-      v_frecs[[as.character(value)]] <- 1
-    }
-  }
-  # Marco de datos con las frecuencias absolutas
-  res <- data.frame(Valor = as.numeric(names(v_frecs)), 
-  FrecAbs = unname(unlist(v_frecs)))
-  return(res)
-}
-frecRelr <- function(vector) {
-  # Frecuencias absolutas del vector
-  frec_Abs <- frecAbsr(vector)
-  # Calculo de frecuencias relativas
-  frec_Rel <- frec_Abs$FrecAbs / length(vector)
-  frec_Abs$FrecRel <- frec_Rel
-  # Marco de datos con las frecuencias relativas
-  res <- data.frame(Valor = frec_Abs$Valor, FrecRel = 
-  frec_Abs$FrecRel)
-  return(res)
-}
-frecRelAcumr <- function(vector) {
-  # Frecuencias relativas del vector
-  frec_Rel <- frecRelr(vector)
-  # Inicializar la frecuencia acumulada
-  frec_Rel$FrecRelAcum <- rep(0, nrow(frec_Rel))
-  # Calculo de las frecuencias relativas acumuladas
-  for (i in seq_along(frec_Rel$FrecRelAcum)) {
-    frec_Rel$FrecRelAcum[i] <- sum(frec_Rel$FrecRel[1:i])
-  }
-  # Marco de datos con las frecuencias relativas acumuladas
-  res <- data.frame(Valor = frec_Rel$Valor, frecRelAcum = 
-  frec_Rel$FrecRelAcum)
-  return(res)
-}
-datos <- read.table("distancias.txt")
-frecRelAcum <- frecRelAcumr(datos$Km)
-frecRelAcum
-@
+
 		\end{itemize}
 		
 		\item Cálculo de la media aritmética (\texttt{$\bar{x}_{a}$}) con la función: \texttt{meanr(distancias\$Km)}
@@ -620,21 +374,7 @@ frecRelAcum
 			
 			\item[-] Explicación: Esta función se encarga de calcular la media aritmética, recorriendo el vector sumando todos los valores y después dividiéndolos entre el número total de elementos del vector, de la forma: \\
 			$\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i$
-<<>>=
-meanr <- function(vector) {
-  sum <- 0
-  # Suma de los elementos del vector
-  for (value in vector) {
-    sum <- sum + value
-  }
-  # Calculo de la media
-  mean <- sum / length(vector) 
-  return(mean)
-}
-datos <- read.table("distancias.txt")
-mean <- meanr(datos$Km)
-mean
-@
+
 		\end{itemize}
 		
 		\item Cálculo de la desviación típica (\texttt{s}) con la función: \texttt{sdr(distancias\$Km)}
@@ -648,32 +388,7 @@ mean
 			
 			\item[-] Explicación: Esta función se encarga de calcular la desviación típica. Primero calcula la media con la función \texttt{meanr(vector)}, después va recorriendo el vector calculando la suma de cuadrados entre la diferencia de cada valor y la media, lo divide todo entre el número total de elementos del vector y por último realiza la raíz cuadrada de dicho resultado, de la forma: \\
 			$s = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2}$
-<<>>=
-meanr <- function(vector) {
-  sum <- 0
-  # Suma de los elementos del vector
-  for (value in vector) {
-    sum <- sum + value
-  }
-  # Calculo de la media
-  mean <- sum / length(vector) 
-  return(mean)
-}
-sdr <- function(vector) {
-    # Calculo de la media de los elementos del vector
-    mean <- meanr(vector)
-    # Suma de cuadrados
-    for (value in vector) {
-        sum <- (value-mean)^2
-    }
-    # Calculo desviacion estandar
-    sd <- sqrt(sum/length(vector))
-    return(sd)
-}
-datos <- read.table("distancias.txt")
-desv <- sdr(datos$Km)
-desv
-@
+
 		\end{itemize}
 		
 		\item Cálculo de la varianza (\texttt{s$^2$}) con la función: \texttt{varr(distancias\$Km)}
@@ -687,39 +402,7 @@ desv
 			
 			\item[-] Explicación: Esta función se encarga de calcular la varianza. Primero calcula la desviación típica con la función \texttt{sdr(vector)} y después eleva al cuadrado dicho resultado, de la forma: \\
 			$s^2 = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2}$
-<<>>=
-meanr <- function(vector) {
-  sum <- 0
-  # Suma de los elementos del vector
-  for (value in vector) {
-    sum <- sum + value
-  }
-  # Calculo de la media
-  mean <- sum / length(vector) 
-  return(mean)
-}
-sdr <- function(vector) {
-    # Calculo de la media de los elementos del vector
-    mean <- meanr(vector)
-    # Suma de cuadrados
-    for (value in vector) {
-        sum <- (value-mean)^2
-    }
-    # Calculo desviacion estandar
-    sd <- sqrt(sum/length(vector))
-    return(sd)
-}
-varr <- function(values) {
-    # Calculo desviacion estandar
-    sd <- sdr(values)
-    # Calculo varianza
-    var <- sd^2
-    return(var)
-}
-datos <- read.table("distancias.txt")
-var <- varr(datos$Km)
-var
-@
+
 		\end{itemize}
 		
 		\item Cálculo de la mediana (\texttt{\~{x}}) con la función: \texttt{medianr(distancias\$Km)}
@@ -736,24 +419,7 @@ var
 				x_{\frac{n+1}{2}} & \text{si } n \text{ es impar} \\
 				\frac{1}{2}(x_{\frac{n}{2}} + x_{\frac{n}{2}+1}) & \text{si} n \text{ es par}
 			\end{cases}$
-<<>>=
-medianr <- function(vector) {
-  n <- length(vector)
-  v <- sort(vector)
-# Comprobar si el numero de elementos del vector es impar o par
-  if(n%%2==1) {
-	# Si es impar la mediana es el elemento del medio
-    median <- v[(n+1)/2]
-  }else {
-# Si es par la mediana es la media de los 2 elementos del medio
-    median <- (v[n/2] + v[(n/2)+1]) / 2
-  }
-  return(median)
-}
-datos <- read.table("distancias.txt")
-median <- medianr(datos$Km)
-median
-@
+
 		\end{itemize}
 		
 		\item Cálculo de laos cuartiles (\texttt{Q$_{i}$}) con la función: \texttt{quantilerr(distancias\$Km,p)}
@@ -771,30 +437,7 @@ median
 				x_{\frac{np}{2}}+x_{\frac{np+1}{2}} & \text{si } np \in \mathbb{N} \\
 				x_{\lfloor{np}\rfloor +1} & \text{si } np \notin \mathbb{N}
 			\end{cases}$
-<<>>=
-quantiler <- function(values, p) {
-  n <- length(values)
-  if (p < 0 || p > 1) {
-    stop("El cuantil debe estar en el rango de 0 a 1.")
-  }
-  v <- sort(values)
-  # Calcular posición del cuantil
-  np <- n * p
-  # Calcular cuantil interpolando
-  if (np %% 10 == 0) {
-    quantile <- (v[np]+v[np+1])/2
-  } else {
-    int <- floor(np)
-    quantile <- v[int+1]
-  }
-  return(quantile)
-}
-datos <- read.table("distancias.txt")
-quantile1 <- quantiler(datos$Km,0.25)
-quantile1
-quantile3 <- quantiler(datos$Km,0.75)
-quantile3
-@
+
 		\end{itemize}
 	\end{itemize}
 	
