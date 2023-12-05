@@ -89,12 +89,14 @@
 	\begin{itemize}
 		\item[-] Archivos .csv:
 		\begin{itemize}
-			\item Primero se crea el archivo .csv y se introducen los datos por filas (los datos de la fila i, se escriben en la celda (i,1)) y separando dichos datos con un delimitador ("," o ";").
+			\item Primero se crea el archivo .csv y se introducen los datos por filas (los datos de la fila i, se escriben en la celda (i,1)) y separando dichos datos con un delimitador ('',´´ o '';´´).
+			\item Después se usa la función \texttt{read.csv(''ruta del archivo´´, sep = '';´´)}, la cual es parte del paquete base de R, para leer los datos del archivo. Recibe como parámetros la ruta del archivo y el delimitador que usa para separar los datos.
 		\end{itemize}
 		
 		\item[-] Archivos .xlsx:
 		\begin{itemize}
 			\item Primero se crea el archivo .xlsc y se introducen los datos en forma de matriz, escribiendo cada dato en una celda.
+			\item Después se carga la librería \emph{openxlsx} y se usa la función \texttt{read\_excel(''ruta del archivo´´)}, introduciendo la ruta del archivo por parámetro.
 		\end{itemize}
 	\end{itemize}
 	
@@ -249,7 +251,7 @@ Available components:
 package 'LearnClust' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-	C:\Users\Jorge\AppData\Local\Temp\RtmpmiJSmf\downloaded_packages
+	C:\Users\Jorge\AppData\Local\Temp\RtmpcxDkm3\downloaded_packages
 \end{Soutput}
 \begin{Sinput}
 > library(LearnClust)
@@ -615,6 +617,7 @@ $groupedClusters
 	\begin{itemize}
 		\item \texttt{datos <- read.csv("Datos2.2.csv")}: Se leen los datos del archivo .csv y se guardan en la variable "datos".
 		\item \texttt{(datos<-t(datos))}: Se hace la traspuesta de la matriz datos para un mejor tratamiento.
+		\item \texttt{(clMin<-agglomerative\_clustering(datos,''single´´,FALSE,FALSE))}: Clusterización usando como definición de proximidad, la distancia entre los puntos más cercanos de los clusters.
 		\begin{itemize}
 			\item [-] Parámetros:
 			\begin{itemize}
@@ -624,6 +627,7 @@ $groupedClusters
 				\item \texttt{waiting="FALSE"}: Booleano para determinar si tiene que esperar input del usuario para ir imprimiendo los logs.
 			\end{itemize}
 			\item [-] Salida: Matriz con los clusters y sus distancias.
+			\item [-] Explicación: Realiza un análisis jerárquico aglomerativo de los datos introducidos por parámetro. Repite una serie de pasos hasta que solo quede un cluster. Inicialmente cada punto se asigna a su propio cluster y se calcula la matriz de distancias entre ellos. Después se calcula la proximidad entre dos clusters con la distancia entre los 2 puntos más cercanos de dichos clusters (falta formula)
 \begin{Schunk}
 \begin{Sinput}
 > library("clustlearn")
@@ -658,7 +662,8 @@ Number of objects: 15
 \end{Soutput}
 \end{Schunk}
 		\end{itemize}
-
+		
+		\item \texttt{(clMax<-agglomerative\_clustering(datos,''complete´´,FALSE,FALSE))}: Clusterización usando como definición de proximidad, la distancia que haya entre los dos puntos más lejanos de los clusters.
 		\begin{itemize}
 			\item [-] Parámetros:
 			\begin{itemize}
@@ -668,6 +673,7 @@ Number of objects: 15
 				\item \texttt{waiting="FALSE"}: Booleano para determinar si tiene que esperar input del usuario para ir imprimiendo los logs.
 			\end{itemize}
 			\item [-] Salida: Matriz con los clusters y sus distancias.
+			\item [-] Explicación: Realiza un análisis jerárquico aglomerativo de los datos introducidos por parámetro. Repite una serie de pasos hasta que solo quede un cluster. Inicialmente cada punto se asigna a su propio cluster y se calcula la matriz de distancias entre ellos. Después se calcula la proximidad entre dos clusters con la distancia entre los puntos más lejanos de dichos clusters (falta formula)
 \begin{Schunk}
 \begin{Sinput}
 > install.packages("clustlearn")
@@ -703,7 +709,8 @@ Number of objects: 15
 \end{Soutput}
 \end{Schunk}
 		\end{itemize}
-
+		
+		\item \texttt{(clAvg<-agglomerative\_clustering(datos,''average´´,FALSE,FALSE))}: Clusterización usando como definición de proximidad, la media de distancias entre todas las parejas de puntos de los dos clusters.
 		\begin{itemize}
 			\item [-] Parámetros:
 			\begin{itemize}
@@ -713,6 +720,7 @@ Number of objects: 15
 				\item \texttt{waiting="FALSE"}: Booleano para determinar si tiene que esperar input del usuario para ir imprimiendo los logs.
 			\end{itemize}
 			\item [-] Salida: Matriz con los clusters y sus distancias.
+			\item [-] Explicación: Realiza un análisis jerárquico aglomerativo de los datos introducidos por parámetro. Repite una serie de pasos hasta que solo quede un cluster. Inicialmente cada punto se asigna a su propio cluster y se calcula la matriz de distancias entre ellos. Después se calcula la proximidad entre dos clusters con la media de todos los puntos de ambos (falta formula)
 \begin{Schunk}
 \begin{Sinput}
 > library("clustlearn")
