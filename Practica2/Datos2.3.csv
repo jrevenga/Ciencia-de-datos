@@ -1,0 +1,11 @@
+﻿TipoCarnet,NumeroRuedas,NumeroPasajeros,TipoVehiculo
+B,4,5,Coche
+A,2,2,Moto
+N,2,1,Bicicleta
+B,6,4,Camion
+B,4,6,Coche
+B,4,4,Coche
+N,2,2,Bicicleta
+B,2,1,Moto
+B,6,2,Camion
+N,2,1,Bicicleta
