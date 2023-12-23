@@ -294,6 +294,34 @@ datos <- read.csv("Datos2.2.csv")
 	
 	El tercer conjunto de datos, que se empleará para realizar el análisis de clasificación supervisada utilizando árboles de decisión, estará formado por el siguiente conjunto de 10 sucesos constituidos por los valores de cuatro características de vehículos: 1.\{B,4,5,Coche\}; 2.\{A,2,2,Moto\}; 3.\{N,2,1,Bicicleta\}; 4.\{B,6,4,Camión\}; 5.\{B,4,6,Coche\}; 6.\{B,4,4,Coche\}; 7.\{N,2,2,Bicicleta\}; 8.\{B,2,1,Moto\}; 9.\{B,6,2,Camión\}; 10.\{N,2,1,Bicicleta\}, donde las características de cada suceso son: \{TipoCarnet, NúmeroRuedas, NúmeroPasajeros, TipoVehículo\}. Se debe clasificar el tipo de vehículo en función del resto de características. TipoCarnet, es el tipo de carnet necesario para conducir el vehículo.
 	
+	\paragraph{Solución:}
+	\begin{itemize}
+		\item Primero instalamos la libreria ''readr´´ y se leen los datos del archivo .csv para guardarlos en la variable ''datos´´.
+<<>>=
+install.packages("readr")
+library(readr)
+(datos=read.csv('Datos2.3.csv'))
+@
+		\item Después de importar los datos pasamos los datos que no son tipo Integer, a tipo factor, ya que si no no podremos realizar el análisis correctamente.
+<<>>=
+TipoCarnet=factor(datos$TipoCarnet)
+TipoVehiculo=factor(datos$TipoVehiculo)
+@
+		\item La variable tipo factor es de tipo categórica usada asiduamente para clasificaciones de datos. Sus valores se almacenan internamente en R como números enteros. Tras al conversión de tipos, creamos un dataframe con las nuevas variables y con las que no han sido cambiadas.
+<<>>=
+muestra=data.frame(TipoCarnet=TipoCarnet, NumeroRuedas=datos$NumeroRuedas, NumeroPasajeros=datos$NumeroPasajeros, TipoVehiculo=TipoVehiculo)
+@
+    \item Una vez hecho esto procedemos a instalar el paquete ''tree´´, el cual construye árboles de decisión y haciendo uso de la función \texttt{tree()}. La función tree recibe la variable sobre la que queremos predecir, en este caso \texttt(TipoVehiculo), además de usar ''.´´ para que prediga respecto al resto de variables. También recibe el dataset que hemos creado previamente y del cual obtiene todos los datos. Por último recibe la función para que el árbol se ajuste a los datos en cuestión, \texttt{tree.control()}, que recibe los parámetros el número de observaciones (10), \texttt{minsize=2} y \texttt{mindev=0}.
+<<>>=
+install.packages("tree")
+library(tree)
+arbol <- tree(TipoVehiculo ~ ., data=muestra, control=tree.control(10,minsize=2,mindev=0))
+@
+		\item Para finalizar visualizamos el árbol resultante con \texttt{print()}, muestra las variables de los nodos internos y  los nodos terminales.
+<<>>=
+print(arbol)
+@
+		\end{itemize}
 	
 	\subsubsection{Regresión}
 	
