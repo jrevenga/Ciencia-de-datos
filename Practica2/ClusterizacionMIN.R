@@ -63,6 +63,43 @@ while (length(clusters) > 1) {
   clusters <- c(clusters, list(new_cluster))
 }
 
+library(dendextend)
+
+# Función para construir un dendrograma interactivo
+build_dendrogram <- function(iteraciones) {
+  dendro <- list()
+  for (i in seq_along(iteraciones)) {
+    dendro[[i]] <- list(
+      type = "scatter",
+      mode = "markers+lines",
+      x = rep(iteraciones[[i]]$nuevo_cluster$etiqueta, 2),
+      y = c(0, iteraciones[[i]]$distancia),
+      text = paste("Cluster ", iteraciones[[i]]$nuevo_cluster$etiqueta),
+      hoverinfo = "text+x+y",
+      marker = list(size = 5)
+    )
+  }
+  
+  layout <- list(
+    xaxis = list(title = "Clusters"),
+    yaxis = list(title = "Distancia"),
+    showlegend = FALSE
+  )
+  
+  fig <- plot_ly(data = dendro, type = "scatter", mode = "markers+lines") %>% layout(layout)
+  
+  fig <- fig %>% layout(xaxis = list(categoryorder = "total ascending"))
+  
+  fig <- fig %>% layout(title = "Dendrograma Interactivo de la Clusterización")
+  
+  fig
+}
+
+# Construir y mostrar el dendrograma
+hc <- hclust(dist(datos))
+dendro <- as.dendrogram(hc)
+dendro <- color_branches(dendro, k = length(iteraciones))
+
 # Imprimir el resultado final
 for (i in seq_along(iteraciones)) {
   cat("Iteración", i, ": Se unen los clusters", iteraciones[[i]]$cluster1$etiqueta,
@@ -70,6 +107,16 @@ for (i in seq_along(iteraciones)) {
       iteraciones[[i]]$nuevo_cluster$etiqueta, "con una distancia de",
       iteraciones[[i]]$distancia, "\n")
 }
+
+# Mostrar el dendrograma interactivo
+plot(dendro)
+
+
+
+
+
+
+
 
 
 
