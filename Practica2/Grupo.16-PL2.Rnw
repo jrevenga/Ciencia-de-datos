@@ -199,12 +199,54 @@ agglomerativeHC.details(m,'EUC','MAX')
 	\subsubsection{Árboles de decisión}
 	
 	El tercer conjunto de datos, que se empleará para realizar el análisis de clasificación supervisada utilizando árboles de decisión, estará formado por las siguientes 9 calificaciones de estudiantes: 1.\{A,A,B,Ap\}; 2.\{A,B,D,Ss\}; 3.\{D,D,C,Ss\}; 4.\{D,D,A,Ss\}; 5.\{B,C,B,Ss\}; 6.\{C,B,B,Ap\}; 7.\{B,B,A,Ap\}; 8.\{C,D,C,Ss\}; 9.\{B,A,C,Ss\}, donde las características de las calificaciones son: \{Teoría, Laboratorio, Prácticas, Calificación Global).
-	
+
+	\paragraph{Solución:}
+	\begin{itemize}
+	  \item Primero creamos un txt con los datos del problema en cuestión, para después mediante el uso del paquete ''rpart´´ realizar la clasificación.
+<<>>=
+install.packages("rpart")
+library("rpart")
+(muestra=read.table("calificaciones.txt"))
+@
+
+    	  \itemize Acto seguido hacemos uso de la función que viene incluida en el paquete llamada \texttt{rpart()}, la cual recibe la variable dependiente \texttt{C.G} y las variables predictoras \texttt{T,L,P}, el conjunto de datos sobre el que realiza la clasificación \texttt{data=muestra}, con \texttt{method=class} indica que se está ajustando un modelo de clasificación y el número mínimo de observaciones \texttt{minsplit=1}.
+<<>>=
+clasificacion=rpart(C.G~T+L+P, data=muestra, method="class", minsplit=1)
+@
+
+    	  \itemize Esta función hace la clasificación pertinente y devuelve en forma de árbol la solución con los diferentes nodos, además indica que nodos representan un nodo final usando el símbolo ''*´´.
+    
+  	\end{itemize}
 	
 	\subsubsection{Regresión}
 	
 	El cuarto conjunto de datos, que se empleará para realizar el análisis de clasificación supervisada utilizando regresión, estará formado por los siguientes 4 radios ecuatoriales y densidades de los planetas interiores: \{Mercurio,2.4,5.4; Venus,6.1,5.2; Tierra,6.4,5.5; Marte,3.4,3.9\}
 	
+	\paragraph{Solución:}
+	\begin{itemize}
+	  \itemize El primer paso es crear un txt con los datos necesarios, para después hacer uso de él en el análisis de regresión
+<<>>=
+(muestra=read.table("planetas.txt"))
+@
+	
+	  \itemize Después usando la función \texttt{lm()}, se calcula la regresión indicando la relación entre la variable dependiente \texttt{D} y la variable independiente{R} y el conjunto de datos en el que se encuentran dichas variables \texttt{data=muestra}.
+<<>>=
+regresion=lm(D~R, data=muestra)
+@
+
+    	  \itemize Además de esto, gracias a la función \texttt{summary()}, podemos obtener el valor de R-squared y observar la bonanza de la regresión.
+<<>>=
+summary(regresion)
+@
+
+    	  \itemize Otro uso que podemos hacer de la función \texttt{summary()}, es analizar los outliers de la siguiente forma. En la cual obtenemos los residuos, para después hacer la media de los mismos y con un bucle for comprobar cual de todos ellos es un outlier en caso de que los hubiese.
+<<>>=
+(res=summary(regresión)$residuals)
+sr=sqrt(sum(res^2)/4)
+for (i in 1:length(res)){if (res[i]>3*sr){print("el suceso"); print(res[i]); print("es un suceso anómalo")}}
+@
+    
+  	\end{itemize}
 	
 	\newpage
 	
