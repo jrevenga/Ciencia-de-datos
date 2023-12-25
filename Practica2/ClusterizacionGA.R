@@ -10,21 +10,25 @@ for (i in 1:n_puntos) {
   clusters[[i]] <- list(etiqueta = as.character(i), elementos = i)
 }
 
-# Función para calcular la distancia con MIN (single link)
-dist_clusters <- function(cluster1, cluster2) {
-  min_dist <- Inf
+# Función para calcular la distancia "Group Average" entre dos clusters
+dist_clusters_group_average <- function(cluster1, cluster2) {
+  total_dist <- 0
+  count_pairs <- 0
+  
   for (i in cluster1$elementos) {
     for (j in cluster2$elementos) {
-      dist <- sqrt(sum((datos[i,] - datos[j,])^2))
-      if (dist < min_dist) {
-        min_dist <- dist
-      }
+      total_dist <- total_dist + sqrt(sum((datos[i,] - datos[j,])^2))
+      count_pairs <- count_pairs + 1
     }
   }
-  return(min_dist)
+  
+  return(total_dist / count_pairs)
 }
 
-# Algoritmo jerárquico aglomerativo
+# Utilizar la función dist_clusters_group_average
+dist_clusters <- dist_clusters_group_average
+
+# Algoritmo jerárquico aglomerativo con Group Average
 iteraciones <- list()
 etiqueta <- 1
 while (length(clusters) > 1) {
@@ -38,9 +42,19 @@ while (length(clusters) > 1) {
     }
   }
   
+  # Mostrar la matriz de distancias actual
+  cat("\nMatriz de distancias en la iteración", etiqueta - 1, ":\n")
+  print(round(distancias_clusters, 2))
+  
   # Encontrar el par de clusters más cercano
   min_dist <- min(distancias_clusters)
   min_index <- which(distancias_clusters == min_dist, arr.ind = TRUE)
+  
+  # Mostrar los clusters más cercanos y su distancia
+  cat("\nClusters más cercanos en la iteración", etiqueta - 1, ":\n")
+  cat("  - Cluster", clusters[[min_index[1, 1]]]$etiqueta, "\n")
+  cat("  - Cluster", clusters[[min_index[1, 2]]]$etiqueta, "\n")
+  cat("Distancia entre clusters:", round(min_dist, 2), "\n")
   
   # Unir los dos clusters más cercanos en uno nuevo
   new_cluster <- list(etiqueta = paste("C", etiqueta, sep = ""),
@@ -64,9 +78,8 @@ while (length(clusters) > 1) {
 }
 
 # Imprimir la matriz inicial de distancias
-cat("Matriz inicial de distancias:\n")
+cat("\nMatriz inicial de distancias:\n")
 print(round(dist(datos), 2))
-
 
 # Imprimir el resultado final
 cat("\nIteraciones:\n")
@@ -77,81 +90,10 @@ for (i in seq_along(iteraciones)) {
       iteraciones[[i]]$nuevo_cluster$etiqueta, "\n")
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Construir y mostrar el dendrograma
+hc <- hclust(dist(datos))
+dendro <- as.dendrogram(hc)
+plot(dendro)
 
 
 
