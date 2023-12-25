@@ -17,10 +17,10 @@
 \contentsline {subsection}{\numberline {3.1}Análisis de clasificación no supervisada}{17}{}%
 \contentsline {subsubsection}{\numberline {3.1.1}K-means}{17}{}%
 \contentsline {paragraph}{Solución:}{17}{}%
-\contentsline {subsubsection}{\numberline {3.1.2}Clusterización Jerárquica Aglomerativa}{17}{}%
-\contentsline {paragraph}{Solución:}{17}{}%
-\contentsline {subsection}{\numberline {3.2}Análisis de clasificación supervisada}{20}{}%
-\contentsline {subsubsection}{\numberline {3.2.1}Árboles de decisión}{20}{}%
-\contentsline {paragraph}{Solución:}{20}{}%
-\contentsline {subsubsection}{\numberline {3.2.2}Regresión}{22}{}%
-\contentsline {paragraph}{Solución:}{22}{}%
+\contentsline {subsubsection}{\numberline {3.1.2}Clusterización Jerárquica Aglomerativa}{21}{}%
+\contentsline {paragraph}{Solución:}{21}{}%
+\contentsline {subsection}{\numberline {3.2}Análisis de clasificación supervisada}{24}{}%
+\contentsline {subsubsection}{\numberline {3.2.1}Árboles de decisión}{24}{}%
+\contentsline {paragraph}{Solución:}{24}{}%
+\contentsline {subsubsection}{\numberline {3.2.2}Regresión}{25}{}%
+\contentsline {paragraph}{Solución:}{25}{}%

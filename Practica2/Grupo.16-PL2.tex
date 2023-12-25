@@ -241,7 +241,7 @@ Available components:
 \end{Soutput}
 \end{Schunk}
 		\item \texttt{}: 
-		Explicacion
+		Finalmente, vemos los datos separados en tablas por el cluster al que pertenecen.
 
 	\end{itemize}
 	
@@ -261,8 +261,7 @@ Available components:
 > search()
 \end{Sinput}
 \begin{Soutput}
- [1] ".GlobalEnv"         "package:tree"       "package:readr"      "package:clustlearn" "package:rpart"      "package:LearnClust"
- [7] "package:magick"     "package:arules"     "package:Matrix"     "package:stats"      "package:graphics"   "package:grDevices" 
+ [1] ".GlobalEnv"         "package:tree"       "package:readr"      "package:clustlearn" "package:rpart"      "package:LearnClust" "package:magick"     "package:arules"     "package:Matrix"     "package:stats"      "package:graphics"   "package:grDevices" 
 [13] "package:utils"      "package:datasets"   "package:methods"    "Autoloads"          "package:base"      
 \end{Soutput}
 \end{Schunk}
@@ -573,7 +572,7 @@ $groupedClusters
 \end{Schunk}
 
 	\end{itemize}
-		
+
 	\newpage
 
 	\subsection{Análisis de clasificación supervisada}
@@ -683,7 +682,6 @@ F-statistic: 0.3193 on 1 and 2 DF,  p-value: 0.6289
 > for (i in 1:length(res)){if (res[i]>3*sr){print("el suceso"); print(res[i]); print("es un suceso anómalo")}}
 \end{Sinput}
 \end{Schunk}
-    
   	\end{itemize}
 	
 	\newpage
@@ -699,8 +697,153 @@ F-statistic: 0.3193 on 1 and 2 DF,  p-value: 0.6289
 	El primer conjunto de datos, que se empleará para realizar el análisis de clasificación no supervisada con K-means, estará formado por los siguientes 15 valores de velocidades de respuesta y temperaturas normalizadas de un microprocesador \{Velocidad, Temperatura\}: 1.\{3.5, 4.5\}; 2.\{0.75, 3.25\}; 3.\{0, 3\}; 4.\{1.75, 0.75\}; 5.\{3, 3.75\}; 6.\{3.75, 4.5\}; 7.\{1.25, 0.75\}; 8.\{0.25, 3\}; 9.\{3.5, 4.25\}; 10.\{1.5, 0.5\}; 11.\{1, 1\}; 12.\{3, 4\}; 13.\{0.5, 3\}; 14.\{2, 0.25\}; 15.\{0, 2.5\}. Del análisis visual de los datos se ha concluido que hay una alta probabilidad que sean tres clusters.
 	
 	\paragraph{Solución:}
+
+	\begin{itemize}
+		\item \texttt{datos <- read.csv("Datos2.1.csv")}: Se leen los datos del archivo .csv y se guardan en la variable "datos".
+		\item \texttt{clasificacionns <- kmedias(datos, num\_clusters = 3, mostrar\_proceso = TRUE)}: Llamar a nuestra función que clasifica con K-means, seleccionando el número de clusters a generar (La función creada genera 2 en caso de no especificarse) y que nos muestre el proceso de clasificación de los clusters.
 	
-	
+\begin{Schunk}
+\begin{Sinput}
+> datos <- read.csv("Datos2.1.csv")
+> clasificacionns <- kmedias(datos, num_clusters = 3, mostrar_proceso = TRUE)
+\end{Sinput}
+\begin{Soutput}
+Matriz de Distancias:
+         [,1]      [,2]      [,3]     [,4]      [,5]     [,6]     [,7]     [,8]     [,9]    [,10]    [,11]     [,12]     [,13]    [,14]    [,15]
+[1,] 0.000000 3.0207615 3.8078866 4.138236 0.9013878 0.250000 4.373214 3.579455 0.250000 4.472136 4.301163 0.7071068 3.3541020 4.506939 4.031129
+[2,] 3.020761 0.0000000 0.7905694 2.692582 2.3048861 3.250000 2.549510 0.559017 2.926175 2.850439 2.263846 2.3717082 0.3535534 3.250000 1.060660
+[3,] 3.807887 0.7905694 0.0000000 2.850439 3.0923292 4.038874 2.573908 0.250000 3.716517 2.915476 2.236068 3.1622777 0.5000000 3.400368 0.500000
+Clusters Asignados:
+ [1] 1 2 3 2 1 1 2 3 1 2 3 1 2 2 3
+Nuevos centroides: 
+         [,1]     [,2]
+[1,] 3.350000 4.200000
+[2,] 1.291667 1.416667
+[3,] 0.312500 2.375000
+Matriz de Distancias:
+          [,1]      [,2]      [,3]      [,4]      [,5]     [,6]      [,7]      [,8]      [,9]     [,10]     [,11]     [,12]     [,13]    [,14]     [,15]
+[1,] 0.3354102 2.7681221 3.5584407 3.8029594 0.5700877 0.500000 4.0388736 3.3241540 0.1581139 4.1367258 3.9702015 0.4031129 3.0923292 4.174326 3.7566608
+[2,] 3.7925823 1.9116783 2.0433666 0.8090203 2.8918588 3.943393 0.6679675 1.8952609 3.5922853 0.9400428 0.5086065 3.0970977 1.7702205 1.364862 1.6858274
+[3,] 3.8308982 0.9782797 0.6987712 2.1695694 3.0188212 4.041291 1.8760414 0.6281172 3.6980780 2.2194101 1.5372967 3.1405861 0.6525192 2.713537 0.3365728
+Clusters Asignados:
+ [1] 1 3 3 2 1 1 2 3 1 2 2 1 3 2 3
+Nuevos centroides: 
+     [,1] [,2]
+[1,] 3.35 4.20
+[2,] 1.50 0.65
+[3,] 0.30 2.95
+Matriz de Distancias:
+          [,1]      [,2]      [,3]      [,4]      [,5]     [,6]      [,7]       [,8]      [,9]    [,10]     [,11]     [,12]     [,13]     [,14]     [,15]
+[1,] 0.3354102 2.7681221 3.5584407 3.8029594 0.5700877 0.500000 4.0388736 3.32415403 0.1581139 4.136726 3.9702015 0.4031129 3.0923292 4.1743263 3.7566608
+[2,] 4.3384905 2.7060118 2.7879204 0.2692582 3.4438351 4.459260 0.2692582 2.66176633 4.1182521 0.150000 0.6103278 3.6704904 2.5539186 0.6403124 2.3817011
+[3,] 3.5556293 0.5408327 0.3041381 2.6348624 2.8160256 3.782195 2.3963514 0.07071068 3.4539832 2.728095 2.0718349 2.8969812 0.2061553 3.1906112 0.5408327
+Clusters Asignados:
+ [1] 1 3 3 2 1 1 2 3 1 2 2 1 3 2 3
+Nuevos centroides: 
+     [,1] [,2]
+[1,] 3.35 4.20
+[2,] 1.50 0.65
+[3,] 0.30 2.95
+Convergencia alcanzada en la iteración: 3 
+\end{Soutput}
+\begin{Sinput}
+> # Añadimos la columna de clusters a los datos originales
+> m <- cbind(clasificacionns$cluster, datos)
+> # Separamos la matriz por clusters
+> mc1 <- subset(m, m[, 1] == 1)
+> mc2 <- subset(m, m[, 1] == 2)
+> mc3 <- subset(m, m[, 1] == 3)
+> # Limpiamos los datos (eliminamos la columna de cluster)
+> mc1 <- mc1[, -1]
+> mc2 <- mc2[, -1]
+> mc3 <- mc3[, -1]
+> # Datos originales
+> print(datos)
+\end{Sinput}
+\begin{Soutput}
+   Velocidad Temperatura
+1       3.50        4.50
+2       0.75        3.25
+3       0.00        3.00
+4       1.75        0.75
+5       3.00        3.75
+6       3.75        4.50
+7       1.25        0.75
+8       0.25        3.00
+9       3.50        4.25
+10      1.50        0.50
+11      1.00        1.00
+12      3.00        4.00
+13      0.50        3.00
+14      2.00        0.25
+15      0.00        2.50
+\end{Soutput}
+\begin{Sinput}
+> # Resultado del K-Means
+> print(m)
+\end{Sinput}
+\begin{Soutput}
+   clasificacionns$cluster Velocidad Temperatura
+1                        1      3.50        4.50
+2                        3      0.75        3.25
+3                        3      0.00        3.00
+4                        2      1.75        0.75
+5                        1      3.00        3.75
+6                        1      3.75        4.50
+7                        2      1.25        0.75
+8                        3      0.25        3.00
+9                        1      3.50        4.25
+10                       2      1.50        0.50
+11                       2      1.00        1.00
+12                       1      3.00        4.00
+13                       3      0.50        3.00
+14                       2      2.00        0.25
+15                       3      0.00        2.50
+\end{Soutput}
+\begin{Sinput}
+> # Datos en el cluster 1
+> print(mc1)
+\end{Sinput}
+\begin{Soutput}
+   Velocidad Temperatura
+1       3.50        4.50
+5       3.00        3.75
+6       3.75        4.50
+9       3.50        4.25
+12      3.00        4.00
+\end{Soutput}
+\begin{Sinput}
+> #Datos en el cluster 2
+> print(mc2)
+\end{Sinput}
+\begin{Soutput}
+   Velocidad Temperatura
+4       1.75        0.75
+7       1.25        0.75
+10      1.50        0.50
+11      1.00        1.00
+14      2.00        0.25
+\end{Soutput}
+\begin{Sinput}
+> # Datos en el cluster 3
+> print(mc3)
+\end{Sinput}
+\begin{Soutput}
+   Velocidad Temperatura
+2       0.75        3.25
+3       0.00        3.00
+8       0.25        3.00
+13      0.50        3.00
+15      0.00        2.50
+\end{Soutput}
+\begin{Sinput}
+> 
+> 
+\end{Sinput}
+\end{Schunk}
+	\end{itemize}
+
+	\newpage
 	\subsubsection{Clusterización Jerárquica Aglomerativa}
 	
 	El segundo conjunto de datos, que se empleará para realizar el análisis de clasificación no supervisada con Clusterización Jerárquica Aglomerativa, será el mismo que el utilizado en el ejercicio anterior, por lo tanto estará formado por los siguientes 15 valores de velocidades de respuesta y temperaturas normalizadas de un microprocesador \{Velocidad, Temperatura\}: 1.\{3.5, 4.5\}; 2.\{0.75, 3.25\}; 3.\{0, 3\}; 4.\{1.75, 0.75\}; 5.\{3, 3.75\}; 6.\{3.75, 4.5\}; 7.\{1.25, 0.75\}; 8.\{0.25, 3\}; 9.\{3.5, 4.25\}; 10.\{1.5, 0.5\}; 11.\{1, 1\}; 12.\{3, 4\}; 13.\{0.5, 3\}; 14.\{2, 0.25\}; 15.\{0, 2.5\}. Del análisis visual de los datos se ha concluido que hay una alta probabilidad que sean tres clusters.

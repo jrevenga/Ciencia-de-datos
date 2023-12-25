@@ -250,7 +250,6 @@ summary(regresion)
 sr=sqrt(sum(res^2)/4)
 for (i in 1:length(res)){if (res[i]>3*sr){print("el suceso"); print(res[i]); print("es un suceso anómalo")}}
 @
-    
   	\end{itemize}
 	
 	\newpage
@@ -266,8 +265,49 @@ for (i in 1:length(res)){if (res[i]>3*sr){print("el suceso"); print(res[i]); pri
 	El primer conjunto de datos, que se empleará para realizar el análisis de clasificación no supervisada con K-means, estará formado por los siguientes 15 valores de velocidades de respuesta y temperaturas normalizadas de un microprocesador \{Velocidad, Temperatura\}: 1.\{3.5, 4.5\}; 2.\{0.75, 3.25\}; 3.\{0, 3\}; 4.\{1.75, 0.75\}; 5.\{3, 3.75\}; 6.\{3.75, 4.5\}; 7.\{1.25, 0.75\}; 8.\{0.25, 3\}; 9.\{3.5, 4.25\}; 10.\{1.5, 0.5\}; 11.\{1, 1\}; 12.\{3, 4\}; 13.\{0.5, 3\}; 14.\{2, 0.25\}; 15.\{0, 2.5\}. Del análisis visual de los datos se ha concluido que hay una alta probabilidad que sean tres clusters.
 	
 	\paragraph{Solución:}
+
+	\begin{itemize}
+		\item \texttt{datos <- read.csv("Datos2.1.csv")}: Se leen los datos del archivo .csv y se guardan en la variable "datos".
+		\item \texttt{clasificacionns <- kmedias(datos, num\_clusters = 3, mostrar\_proceso = TRUE)}: Llamar a nuestra función que clasifica con K-means, seleccionando el número de clusters a generar (La función creada genera 2 en caso de no especificarse) y que nos muestre el proceso de clasificación de los clusters.
 	
-	
+<<>>=
+datos <- read.csv("Datos2.1.csv")
+clasificacionns <- kmedias(datos, num_clusters = 3, mostrar_proceso = TRUE)
+
+# Añadimos la columna de clusters a los datos originales
+m <- cbind(clasificacionns$cluster, datos)
+
+# Separamos la matriz por clusters
+mc1 <- subset(m, m[, 1] == 1)
+mc2 <- subset(m, m[, 1] == 2)
+mc3 <- subset(m, m[, 1] == 3)
+
+# Limpiamos los datos (eliminamos la columna de cluster)
+mc1 <- mc1[, -1]
+mc2 <- mc2[, -1]
+mc3 <- mc3[, -1]
+
+
+# Datos originales
+print(datos)
+
+# Resultado del K-Means
+print(m)
+
+# Datos en el cluster 1
+print(mc1)
+
+#Datos en el cluster 2
+print(mc2)
+
+# Datos en el cluster 3
+print(mc3)
+
+
+@
+	\end{itemize}
+
+	\newpage
 	\subsubsection{Clusterización Jerárquica Aglomerativa}
 	
 	El segundo conjunto de datos, que se empleará para realizar el análisis de clasificación no supervisada con Clusterización Jerárquica Aglomerativa, será el mismo que el utilizado en el ejercicio anterior, por lo tanto estará formado por los siguientes 15 valores de velocidades de respuesta y temperaturas normalizadas de un microprocesador \{Velocidad, Temperatura\}: 1.\{3.5, 4.5\}; 2.\{0.75, 3.25\}; 3.\{0, 3\}; 4.\{1.75, 0.75\}; 5.\{3, 3.75\}; 6.\{3.75, 4.5\}; 7.\{1.25, 0.75\}; 8.\{0.25, 3\}; 9.\{3.5, 4.25\}; 10.\{1.5, 0.5\}; 11.\{1, 1\}; 12.\{3, 4\}; 13.\{0.5, 3\}; 14.\{2, 0.25\}; 15.\{0, 2.5\}. Del análisis visual de los datos se ha concluido que hay una alta probabilidad que sean tres clusters.
