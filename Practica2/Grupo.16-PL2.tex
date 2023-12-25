@@ -115,7 +115,7 @@
 	\paragraph{Solución:}
 	\begin{itemize}
 		\item \texttt{m<-matrix(c(4,4, 3,5, 1,2, 5,5, 0,1, 2,2, 4,5, 2,1),2,8)}: 
-		Explicacion
+		Introducción de los datos
 \begin{Schunk}
 \begin{Sinput}
 > m<-matrix(c(4,4, 3,5, 1,2, 5,5, 0,1, 2,2, 4,5, 2,1),2,8)
@@ -134,7 +134,7 @@
 \end{Soutput}
 \end{Schunk}
 		\item \texttt{c<-matrix(c(0,1,2,2),2,2)}: 
-		Explicacion
+		La función de k-means viene en los paquetes por defecto, toma la matriz y los centroides iniciales, este código crea los centriodes
 \begin{Schunk}
 \begin{Sinput}
 > c<-matrix(c(0,1,2,2),2,2)
@@ -147,7 +147,7 @@
 \end{Soutput}
 \end{Schunk}
 		\item \texttt{(clasificacionns=(kmeans(m,c,4)))}: 
-		Explicacion
+		Almacena el resultado en la variable clasificacionns(no supervisada)
 \begin{Schunk}
 \begin{Sinput}
 > (clasificacionns=(kmeans(m,c,4)))
@@ -169,12 +169,11 @@ Within cluster sum of squares by cluster:
 
 Available components:
 
-[1] "cluster"      "centers"      "totss"        "withinss"     "tot.withinss"
-[6] "betweenss"    "size"         "iter"         "ifault"      
+[1] "cluster"      "centers"      "totss"        "withinss"     "tot.withinss" "betweenss"    "size"         "iter"         "ifault"      
 \end{Soutput}
 \end{Schunk}
 		\item \texttt{}: 
-		Explicacion
+		Extraemos el vector de la solución de kmeans  (usando el dolar obtenemos la variable cluster) y se la añadimos a la matriz
 \begin{Schunk}
 \begin{Sinput}
 > (m=cbind(clasificacionns$cluster,m))
@@ -192,7 +191,7 @@ Available components:
 \end{Soutput}
 \end{Schunk}
 		\item \texttt{}: 
-		Explicacion
+		Separa la matriz por clusters
 \begin{Schunk}
 \begin{Sinput}
 > mc1=subset(m,m[,1]==1)
@@ -218,7 +217,7 @@ Available components:
 \end{Soutput}
 \end{Schunk}
 		\item \texttt{}: 
-		Explicacion
+		Quitamos la primera columna de ambas ya que sólo indica el cluster
 \begin{Schunk}
 \begin{Sinput}
 > (mc1=mc1[,-1])
@@ -243,26 +242,28 @@ Available components:
 \end{Schunk}
 		\item \texttt{}: 
 		Explicacion
+
+	\end{itemize}
+	
+	\newpage
+	
+	\subsubsection{Clusterización Jerárquica Aglomerativa}
+	
+	El segundo conjunto de datos, que se empleará para realizar el análisis de clasificación no supervisada con Clusterización Jerárquica Aglomerativa, estará formado por 6 calificaciones de estudiantes: 1.\{0.89, 2.94\}; 2.\{4.36, 5.21\}; 3.\{3.75, 1.12\}; 4.\{6.25, 3.14\}; 5.\{4.1, 1.8\}; 6.\{3.9, 4.27\}.
+	
+	\paragraph{Solución}
+
+	\begin{itemize}
 \begin{Schunk}
 \begin{Sinput}
 > install.packages("LearnClust")
-\end{Sinput}
-\begin{Soutput}
-package 'LearnClust' successfully unpacked and MD5 sums checked
-
-The downloaded binary packages are in
-	C:\Users\Jorge\AppData\Local\Temp\RtmpcxDkm3\downloaded_packages
-\end{Soutput}
-\begin{Sinput}
 > library(LearnClust)
 > search()
 \end{Sinput}
 \begin{Soutput}
- [1] ".GlobalEnv"         "package:LearnClust" "package:magick"    
- [4] "package:arules"     "package:Matrix"     "package:stats"     
- [7] "package:graphics"   "package:grDevices"  "package:utils"     
-[10] "package:datasets"   "package:methods"    "Autoloads"         
-[13] "package:base"      
+ [1] ".GlobalEnv"         "package:tree"       "package:readr"      "package:clustlearn" "package:rpart"      "package:LearnClust"
+ [7] "package:magick"     "package:arules"     "package:Matrix"     "package:stats"      "package:graphics"   "package:grDevices" 
+[13] "package:utils"      "package:datasets"   "package:methods"    "Autoloads"          "package:base"      
 \end{Soutput}
 \end{Schunk}
 		\item \texttt{}: 
@@ -571,15 +572,8 @@ $groupedClusters
 \end{Sinput}
 \end{Schunk}
 
-		\end{itemize}
-	
-	
-	\subsubsection{Clusterización Jerárquica Aglomerativa}
-	
-	El segundo conjunto de datos, que se empleará para realizar el análisis de clasificación no supervisada con Clusterización Jerárquica Aglomerativa, estará formado por 6 calificaciones de estudiantes: 1.\{0.89, 2.94\}; 2.\{4.36, 5.21\}; 3.\{3.75, 1.12\}; 4.\{6.25, 3.14\}; 5.\{4.1, 1.8\}; 6.\{3.9, 4.27\}.
-	
-	\paragraph{Solución}
-	
+	\end{itemize}
+		
 	\newpage
 
 	\subsection{Análisis de clasificación supervisada}
@@ -587,12 +581,110 @@ $groupedClusters
 	\subsubsection{Árboles de decisión}
 	
 	El tercer conjunto de datos, que se empleará para realizar el análisis de clasificación supervisada utilizando árboles de decisión, estará formado por las siguientes 9 calificaciones de estudiantes: 1.\{A,A,B,Ap\}; 2.\{A,B,D,Ss\}; 3.\{D,D,C,Ss\}; 4.\{D,D,A,Ss\}; 5.\{B,C,B,Ss\}; 6.\{C,B,B,Ap\}; 7.\{B,B,A,Ap\}; 8.\{C,D,C,Ss\}; 9.\{B,A,C,Ss\}, donde las características de las calificaciones son: \{Teoría, Laboratorio, Prácticas, Calificación Global).
-	
+
+	\paragraph{Solución:}
+	\begin{itemize}
+	  \item Primero creamos un txt con los datos del problema en cuestión, para después mediante el uso del paquete ''rpart´´ realizar la clasificación.
+\begin{Schunk}
+\begin{Sinput}
+> install.packages("rpart")
+> library("rpart")
+> (muestra=read.table("calificaciones.txt"))
+\end{Sinput}
+\begin{Soutput}
+  T L P C.G
+1 A A B  Ap
+2 A B D  Ss
+3 D D C  Ss
+4 D D A  Ss
+5 B C B  Ss
+6 C B B  Ap
+7 B B A  Ap
+8 C D C  Ss
+9 B A C  Ss
+\end{Soutput}
+\end{Schunk}
+
+    	  \item Acto seguido hacemos uso de la función que viene incluida en el paquete llamada \texttt{rpart()}, la cual recibe la variable dependiente \texttt{C.G} y las variables predictoras \texttt{T,L,P}, el conjunto de datos sobre el que realiza la clasificación \texttt{data=muestra}, con \texttt{method=class} indica que se está ajustando un modelo de clasificación y el número mínimo de observaciones \texttt{minsplit=1}.
+\begin{Schunk}
+\begin{Sinput}
+> clasificacion=rpart(C.G~T+L+P, data=muestra, method="class", minsplit=1)
+\end{Sinput}
+\end{Schunk}
+
+    	  \item Esta función hace la clasificación pertinente y devuelve en forma de árbol la solución con los diferentes nodos, además indica que nodos representan un nodo final usando el símbolo ''*´´.
+    
+  	\end{itemize}
 	
 	\subsubsection{Regresión}
 	
 	El cuarto conjunto de datos, que se empleará para realizar el análisis de clasificación supervisada utilizando regresión, estará formado por los siguientes 4 radios ecuatoriales y densidades de los planetas interiores: \{Mercurio,2.4,5.4; Venus,6.1,5.2; Tierra,6.4,5.5; Marte,3.4,3.9\}
 	
+	\paragraph{Solución:}
+	\begin{itemize}
+	  \item El primer paso es crear un txt con los datos necesarios, para después hacer uso de él en el análisis de regresión
+\begin{Schunk}
+\begin{Sinput}
+> (muestra=read.table("planetas.txt"))
+\end{Sinput}
+\begin{Soutput}
+           R   D
+Mercurio 2.4 5.4
+Venus    6.1 5.2
+Tierra   6.4 5.5
+Marte    3.4 3.9
+\end{Soutput}
+\end{Schunk}
+	
+	  \item Después usando la función \texttt{lm()}, se calcula la regresión indicando la relación entre la variable dependiente \texttt{D} y la variable independiente{R} y el conjunto de datos en el que se encuentran dichas variables \texttt{data=muestra}.
+\begin{Schunk}
+\begin{Sinput}
+> regresion=lm(D~R, data=muestra)  
+\end{Sinput}
+\end{Schunk}
+
+    	  \item Además de esto, gracias a la función \texttt{summary()}, podemos obtener el valor de R-squared y observar la bonanza de la regresión.
+\begin{Schunk}
+\begin{Sinput}
+> summary(regresion)
+\end{Sinput}
+\begin{Soutput}
+Call:
+lm(formula = D ~ R, data = muestra)
+
+Residuals:
+Mercurio    Venus   Tierra    Marte 
+ 0.70312 -0.01253  0.24566 -0.93624 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)  
+(Intercept)   4.3624     1.2050   3.620   0.0685 .
+R             0.1394     0.2466   0.565   0.6289  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.846 on 2 degrees of freedom
+Multiple R-squared:  0.1377,	Adjusted R-squared:  -0.2935 
+F-statistic: 0.3193 on 1 and 2 DF,  p-value: 0.6289
+\end{Soutput}
+\end{Schunk}
+
+    	  \item Otro uso que podemos hacer de la función \texttt{summary()}, es analizar los outliers de la siguiente forma. En la cual obtenemos los residuos, para después hacer la media de los mismos y con un bucle for comprobar cual de todos ellos es un outlier en caso de que los hubiese.
+\begin{Schunk}
+\begin{Sinput}
+> (res=summary(regresion)$residuals)
+\end{Sinput}
+\begin{Soutput}
+   Mercurio       Venus      Tierra       Marte 
+ 0.70312301 -0.01253452  0.24565541 -0.93624389 
+\end{Soutput}
+\begin{Sinput}
+> sr=sqrt(sum(res^2)/4)
+> for (i in 1:length(res)){if (res[i]>3*sr){print("el suceso"); print(res[i]); print("es un suceso anómalo")}}
+\end{Sinput}
+\end{Schunk}
+    
+  	\end{itemize}
 	
 	\newpage
 	
@@ -763,6 +855,69 @@ Number of objects: 15
 	
 	El tercer conjunto de datos, que se empleará para realizar el análisis de clasificación supervisada utilizando árboles de decisión, estará formado por el siguiente conjunto de 10 sucesos constituidos por los valores de cuatro características de vehículos: 1.\{B,4,5,Coche\}; 2.\{A,2,2,Moto\}; 3.\{N,2,1,Bicicleta\}; 4.\{B,6,4,Camión\}; 5.\{B,4,6,Coche\}; 6.\{B,4,4,Coche\}; 7.\{N,2,2,Bicicleta\}; 8.\{B,2,1,Moto\}; 9.\{B,6,2,Camión\}; 10.\{N,2,1,Bicicleta\}, donde las características de cada suceso son: \{TipoCarnet, NúmeroRuedas, NúmeroPasajeros, TipoVehículo\}. Se debe clasificar el tipo de vehículo en función del resto de características. TipoCarnet, es el tipo de carnet necesario para conducir el vehículo.
 	
+	\paragraph{Solución:}
+	\begin{itemize}
+		\item Primero instalamos la libreria ''readr´´ y se leen los datos del archivo .csv para guardarlos en la variable ''datos´´.
+\begin{Schunk}
+\begin{Sinput}
+> install.packages("readr")
+> library(readr)
+> (datos=read.csv('Datos2.3.csv'))
+\end{Sinput}
+\begin{Soutput}
+   TipoCarnet NumeroRuedas NumeroPasajeros TipoVehiculo
+1           B            4               5        Coche
+2           A            2               2         Moto
+3           N            2               1    Bicicleta
+4           B            6               4       Camion
+5           B            4               6        Coche
+6           B            4               4        Coche
+7           N            2               2    Bicicleta
+8           B            2               1         Moto
+9           B            6               2       Camion
+10          N            2               1    Bicicleta
+\end{Soutput}
+\end{Schunk}
+		\item Después de importar los datos pasamos los datos que no son tipo Integer, a tipo factor, ya que si no no podremos realizar el análisis correctamente.
+\begin{Schunk}
+\begin{Sinput}
+> TipoCarnet=factor(datos$TipoCarnet)
+> TipoVehiculo=factor(datos$TipoVehiculo)
+\end{Sinput}
+\end{Schunk}
+		\item La variable tipo factor es de tipo categórica usada asiduamente para clasificaciones de datos. Sus valores se almacenan internamente en R como números enteros. Tras al conversión de tipos, creamos un dataframe con las nuevas variables y con las que no han sido cambiadas.
+\begin{Schunk}
+\begin{Sinput}
+> muestra=data.frame(TipoCarnet=TipoCarnet, NumeroRuedas=datos$NumeroRuedas, NumeroPasajeros=datos$NumeroPasajeros, TipoVehiculo=TipoVehiculo)
+\end{Sinput}
+\end{Schunk}
+    \item Una vez hecho esto procedemos a instalar el paquete ''tree´´, el cual construye árboles de decisión y haciendo uso de la función \texttt{tree()}. La función tree recibe la variable sobre la que queremos predecir, en este caso \texttt(TipoVehiculo), además de usar ''.´´ para que prediga respecto al resto de variables. También recibe el dataset que hemos creado previamente y del cual obtiene todos los datos. Por último recibe la función para que el árbol se ajuste a los datos en cuestión, \texttt{tree.control()}, que recibe los parámetros el número de observaciones (10), \texttt{minsize=2} y \texttt{mindev=0}.
+\begin{Schunk}
+\begin{Sinput}
+> install.packages("tree")
+> library(tree)
+> arbol <- tree(TipoVehiculo ~ ., data=muestra, control=tree.control(10,minsize=2,mindev=0))
+\end{Sinput}
+\end{Schunk}
+		\item Para finalizar visualizamos el árbol resultante con \texttt{print()}, muestra las variables de los nodos internos y  los nodos terminales.
+\begin{Schunk}
+\begin{Sinput}
+> print(arbol)
+\end{Sinput}
+\begin{Soutput}
+node), split, n, deviance, yval, (yprob)
+      * denotes terminal node
+
+1) root 10 27.32 Bicicleta ( 0.3 0.2 0.3 0.2 )  
+  2) NumeroRuedas < 3 5  6.73 Bicicleta ( 0.6 0.0 0.0 0.4 )  
+    4) TipoCarnet: A,B 2  0.00 Moto ( 0.0 0.0 0.0 1.0 ) *
+    5) TipoCarnet: N 3  0.00 Bicicleta ( 1.0 0.0 0.0 0.0 ) *
+  3) NumeroRuedas > 3 5  6.73 Coche ( 0.0 0.4 0.6 0.0 )  
+    6) NumeroRuedas < 5 3  0.00 Coche ( 0.0 0.0 1.0 0.0 ) *
+    7) NumeroRuedas > 5 2  0.00 Camion ( 0.0 1.0 0.0 0.0 ) *
+\end{Soutput}
+\end{Schunk}
+		\end{itemize}
 	
 	\subsubsection{Regresión}
 	

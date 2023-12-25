@@ -114,29 +114,29 @@
 	\paragraph{Solución:}
 	\begin{itemize}
 		\item \texttt{m<-matrix(c(4,4, 3,5, 1,2, 5,5, 0,1, 2,2, 4,5, 2,1),2,8)}: 
-		Explicacion
+		Introducción de los datos
 <<>>=
 m<-matrix(c(4,4, 3,5, 1,2, 5,5, 0,1, 2,2, 4,5, 2,1),2,8)
 (m<-t(m))
 @
 		\item \texttt{c<-matrix(c(0,1,2,2),2,2)}: 
-		Explicacion
+		La función de k-means viene en los paquetes por defecto, toma la matriz y los centroides iniciales, este código crea los centriodes
 <<>>=
 c<-matrix(c(0,1,2,2),2,2)
 (c<-t(c))
 @
 		\item \texttt{(clasificacionns=(kmeans(m,c,4)))}: 
-		Explicacion
+		Almacena el resultado en la variable clasificacionns(no supervisada)
 <<>>=
 (clasificacionns=(kmeans(m,c,4)))
 @
 		\item \texttt{}: 
-		Explicacion
+		Extraemos el vector de la solución de kmeans  (usando el dolar obtenemos la variable cluster) y se la añadimos a la matriz
 <<>>=
 (m=cbind(clasificacionns$cluster,m))
 @
 		\item \texttt{}: 
-		Explicacion
+		Separa la matriz por clusters
 <<>>=
 mc1=subset(m,m[,1]==1)
 mc2=subset(m,m[,1]==2)
@@ -144,13 +144,25 @@ mc1
 mc2
 @
 		\item \texttt{}: 
-		Explicacion
+		Quitamos la primera columna de ambas ya que sólo indica el cluster
 <<>>=
 (mc1=mc1[,-1])
 (mc2=mc2[,-1])
 @
 		\item \texttt{}: 
-		Explicacion
+		Finalmente, vemos los datos separados en tablas por el cluster al que pertenecen.
+
+	\end{itemize}
+	
+	\newpage
+	
+	\subsubsection{Clusterización Jerárquica Aglomerativa}
+	
+	El segundo conjunto de datos, que se empleará para realizar el análisis de clasificación no supervisada con Clusterización Jerárquica Aglomerativa, estará formado por 6 calificaciones de estudiantes: 1.\{0.89, 2.94\}; 2.\{4.36, 5.21\}; 3.\{3.75, 1.12\}; 4.\{6.25, 3.14\}; 5.\{4.1, 1.8\}; 6.\{3.9, 4.27\}.
+	
+	\paragraph{Solución}
+
+	\begin{itemize}
 <<>>=
 install.packages("LearnClust")
 library(LearnClust)
@@ -183,15 +195,8 @@ agglomerativeHC.details(m,'EUC','MAX')
 
 @
 
-		\end{itemize}
-	
-	
-	\subsubsection{Clusterización Jerárquica Aglomerativa}
-	
-	El segundo conjunto de datos, que se empleará para realizar el análisis de clasificación no supervisada con Clusterización Jerárquica Aglomerativa, estará formado por 6 calificaciones de estudiantes: 1.\{0.89, 2.94\}; 2.\{4.36, 5.21\}; 3.\{3.75, 1.12\}; 4.\{6.25, 3.14\}; 5.\{4.1, 1.8\}; 6.\{3.9, 4.27\}.
-	
-	\paragraph{Solución}
-	
+	\end{itemize}
+
 	\newpage
 
 	\subsection{Análisis de clasificación supervisada}
@@ -209,12 +214,12 @@ library("rpart")
 (muestra=read.table("calificaciones.txt"))
 @
 
-    	  \itemize Acto seguido hacemos uso de la función que viene incluida en el paquete llamada \texttt{rpart()}, la cual recibe la variable dependiente \texttt{C.G} y las variables predictoras \texttt{T,L,P}, el conjunto de datos sobre el que realiza la clasificación \texttt{data=muestra}, con \texttt{method=class} indica que se está ajustando un modelo de clasificación y el número mínimo de observaciones \texttt{minsplit=1}.
+    	  \item Acto seguido hacemos uso de la función que viene incluida en el paquete llamada \texttt{rpart()}, la cual recibe la variable dependiente \texttt{C.G} y las variables predictoras \texttt{T,L,P}, el conjunto de datos sobre el que realiza la clasificación \texttt{data=muestra}, con \texttt{method=class} indica que se está ajustando un modelo de clasificación y el número mínimo de observaciones \texttt{minsplit=1}.
 <<>>=
 clasificacion=rpart(C.G~T+L+P, data=muestra, method="class", minsplit=1)
 @
 
-    	  \itemize Esta función hace la clasificación pertinente y devuelve en forma de árbol la solución con los diferentes nodos, además indica que nodos representan un nodo final usando el símbolo ''*´´.
+    	  \item Esta función hace la clasificación pertinente y devuelve en forma de árbol la solución con los diferentes nodos, además indica que nodos representan un nodo final usando el símbolo ''*´´.
     
   	\end{itemize}
 	
@@ -224,24 +229,24 @@ clasificacion=rpart(C.G~T+L+P, data=muestra, method="class", minsplit=1)
 	
 	\paragraph{Solución:}
 	\begin{itemize}
-	  \itemize El primer paso es crear un txt con los datos necesarios, para después hacer uso de él en el análisis de regresión
+	  \item El primer paso es crear un txt con los datos necesarios, para después hacer uso de él en el análisis de regresión
 <<>>=
 (muestra=read.table("planetas.txt"))
 @
 	
-	  \itemize Después usando la función \texttt{lm()}, se calcula la regresión indicando la relación entre la variable dependiente \texttt{D} y la variable independiente{R} y el conjunto de datos en el que se encuentran dichas variables \texttt{data=muestra}.
+	  \item Después usando la función \texttt{lm()}, se calcula la regresión indicando la relación entre la variable dependiente \texttt{D} y la variable independiente{R} y el conjunto de datos en el que se encuentran dichas variables \texttt{data=muestra}.
 <<>>=
-regresion=lm(D~R, data=muestra)
+regresion=lm(D~R, data=muestra)  
 @
 
-    	  \itemize Además de esto, gracias a la función \texttt{summary()}, podemos obtener el valor de R-squared y observar la bonanza de la regresión.
+    	  \item Además de esto, gracias a la función \texttt{summary()}, podemos obtener el valor de R-squared y observar la bonanza de la regresión.
 <<>>=
 summary(regresion)
 @
 
-    	  \itemize Otro uso que podemos hacer de la función \texttt{summary()}, es analizar los outliers de la siguiente forma. En la cual obtenemos los residuos, para después hacer la media de los mismos y con un bucle for comprobar cual de todos ellos es un outlier en caso de que los hubiese.
+    	  \item Otro uso que podemos hacer de la función \texttt{summary()}, es analizar los outliers de la siguiente forma. En la cual obtenemos los residuos, para después hacer la media de los mismos y con un bucle for comprobar cual de todos ellos es un outlier en caso de que los hubiese.
 <<>>=
-(res=summary(regresión)$residuals)
+(res=summary(regresion)$residuals)
 sr=sqrt(sum(res^2)/4)
 for (i in 1:length(res)){if (res[i]>3*sr){print("el suceso"); print(res[i]); print("es un suceso anómalo")}}
 @
