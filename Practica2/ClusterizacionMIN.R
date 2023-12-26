@@ -21,7 +21,7 @@ iteraciones <- list()
 etiqueta <- 1
 while (length(clusters) > 1) {
   # Inicializar la matriz de distancias entre clusters con Inf
-  distancias_clusters <- matrix("", nrow = length(clusters), ncol = length(clusters))
+  distancias_clusters <- matrix("", nrow = length(clusters), ncol = length(clusters), dimnames = list(sapply(clusters, function(x) x$etiqueta), sapply(clusters, function(x) x$etiqueta)))
   
   # Calcular la distancia entre cada par de clusters utilizando la copia de la matriz original
   for (i in 1:(length(clusters) - 1)) {
