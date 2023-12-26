@@ -115,7 +115,7 @@
 	\paragraph{Solución:}
 	\begin{itemize}
 		\item \texttt{m<-matrix(c(4,4, 3,5, 1,2, 5,5, 0,1, 2,2, 4,5, 2,1),2,8)}: 
-		Introducción de los datos
+		Introducción de los datos en forma de matriz y se transpone con \texttt{(m<-t(m))}
 \begin{Schunk}
 \begin{Sinput}
 > m<-matrix(c(4,4, 3,5, 1,2, 5,5, 0,1, 2,2, 4,5, 2,1),2,8)
@@ -255,6 +255,7 @@ Available components:
 	\paragraph{Solución}
 
 	\begin{itemize}
+	  \item Cargamos el paquete \texttt{LearnClust}:
 \begin{Schunk}
 \begin{Sinput}
 > library(LearnClust)
@@ -268,8 +269,7 @@ Available components:
 [13] "package:base"      
 \end{Soutput}
 \end{Schunk}
-		\item \texttt{}: 
-		Explicacion
+		\item Se introduccen los datos en una matriz y se transpone:
 \begin{Schunk}
 \begin{Sinput}
 > m<-matrix(c(0.89,2.94, 4.36,5.21, 3.75,1.12, 6.25,3.14, 4.1,1.8, 3.9,4.27),2,6)
@@ -285,7 +285,9 @@ Available components:
 [6,] 3.90 4.27
 \end{Soutput}
 \end{Schunk}
-		\item \texttt{}: 
+		\item La función \texttt{agglomerativeHC} sirve para realizar un agrupamineto jerárquico algomerativo en la matriz \texttt{m}.
+		\texttt{EUC}: se refiere a la métrica de distancia utilizada durante el agrupamiento, en este caso, es la distancia euclidiana.
+		\texttt{MIN}: se refiere al criterio de enlace utilizado para calcular la distancia entre los grupos, en este caso, es MIN (single linkage).
 		Explicacion
 \begin{Schunk}
 \begin{Sinput}
@@ -365,8 +367,7 @@ $groupedClusters
 5        1       10
 \end{Soutput}
 \end{Schunk}
-		\item \texttt{}: 
-		Explicacion
+		\item Para obtener más detalles sobre el proceso de agrupamiento jerárquico aglomerativo se usa \texttt{.details}:
 \begin{Schunk}
 \begin{Sinput}
 > agglomerativeHC.details(m,'EUC','MIN')
@@ -467,8 +468,7 @@ $groupedClusters
 6 3.90 4.27
 \end{Soutput}
 \end{Schunk}
-		\item \texttt{}: 
-		Explicacion
+		\item Para cambiar el tipo de criterio de enlace utilizado para calcular la distancia entre clusters se le pasa diferente argumento, en este caso, se utiliza MAX (también conocido como complete linkage):
 \begin{Schunk}
 \begin{Sinput}
 > agglomerativeHC.details(m,'EUC','MAX')
@@ -566,14 +566,6 @@ $groupedClusters
 6 4.10 1.80
 \end{Soutput}
 \end{Schunk}
-		\item \texttt{}: 
-		Explicacion
-\begin{Schunk}
-\begin{Sinput}
-> 
-\end{Sinput}
-\end{Schunk}
-
 	\end{itemize}
 
 	\newpage
@@ -889,9 +881,11 @@ Convergencia alcanzada en la iteración: 3
 	\newpage
 	\subsubsection{Clusterización Jerárquica Aglomerativa}
 	
-	El segundo conjunto de datos, que se empleará para realizar el análisis de clasificación no supervisada con Clusterización Jerárquica Aglomerativa, será el mismo que el utilizado en el ejercicio anterior, por lo tanto estará formado por los siguientes 15 valores de velocidades de respuesta y temperaturas normalizadas de un microprocesador \{Velocidad, Temperatura\}: 1.\{3.5, 4.5\}; 2.\{0.75, 3.25\}; 3.\{0, 3\}; 4.\{1.75, 0.75\}; 5.\{3, 3.75\}; 6.\{3.75, 4.5\}; 7.\{1.25, 0.75\}; 8.\{0.25, 3\}; 9.\{3.5, 4.25\}; 10.\{1.5, 0.5\}; 11.\{1, 1\}; 12.\{3, 4\}; 13.\{0.5, 3\}; 14.\{2, 0.25\}; 15.\{0, 2.5\}. Del análisis visual de los datos se ha concluido que hay una alta probabilidad que sean tres clusters.
+	El segundo conjunto de datos, que se empleará para realizar el análisis de clasificación no supervisada con Clusterización Jerárquica Aglomerativa, será el mismo que el utilizado en el ejercicio anterior, por lo tanto estará formado por los siguientes 15 valores de velocidades de respuesta y temperaturas normalizadas de un microprocesador \{Velocidad, Temperatura\}: 1.\{3.5, 4.5\}; 2.\{0.75, 3.25\}; 3.\{0, 3\}; 4.\{1.75, 0.75\}; 5.\{3, 3.75\}; 6.\{3.75, 4.5\}; 7.\{1.25, 0.75\}; 8.\{0.25, 3\}; 9.\{3.5, 4.25\}; 10.\{1.5, 0.5\}; 11.\{1, 1\}; 12.\{3, 4\}; 13.\{0.5, 3\}; 14.\{2, 0.25\}; 15.\{0, 2.5\}.
 	
-	\paragraph{Solución:}
+	Se proporcionan dos soluciones, un paquete diferente al usado por el profesor y un algoritmo programado por nosotros.
+	
+	\paragraph{Solución (paquete):}
 	\begin{itemize}
 		\item \texttt{datos <- read.csv("Datos2.2.csv")}: Se leen los datos del archivo .csv y se guardan en la variable "datos".
 		\item \texttt{(datos<-t(datos))}: Se hace la traspuesta de la matriz datos para un mejor tratamiento.
@@ -1035,6 +1029,740 @@ Number of objects: 15
 		\end{itemize}
 	\end{itemize}
 	
+	\paragraph{Solución (programado):}
+	
+	\begin{itemize}
+	  \item[-] Explicación:
+	Este código en R implementa un algoritmo jerárquico aglomerativo para la agrupación de datos. El algoritmo utiliza matrices de distancia entre puntos y fusiona iterativamente los clusters más cercanos hasta que queda un único cluster que contiene todos los puntos. Los datos de entrada están representados en la matriz 'datos'. El código proporciona tres funciones para calcular la distancia entre clusters: MIN (single link), MAX (complete link), y Group Average. El algoritmo utiliza una de estas funciones según el método de distancia especificado. Durante cada iteración, se calcula la matriz de distancias entre clusters, se encuentra el par de clusters más cercano, se fusionan en un nuevo cluster, y se repite el proceso hasta que solo queda un cluster. El código imprime la matriz de distancias en cada iteración y muestra los clusters que se fusionan. Al final, se presenta un resumen de las iteraciones, mostrando qué clusters se fusionaron en cada paso y la distancia correspondiente.
+	En el propio codigo hay comentarios con una breve explicación de cada parte
+	\end{itemize}
+\begin{Schunk}
+\begin{Sinput}
+> # Datos proporcionados
+> datos <- 
++   matrix(c(3.5, 4.5, 0.75, 3.25, 0, 3, 1.75, 0.75, 3, 3.75,
++                   3.75, 4.5, 1.25, 0.75, 0.25, 3, 3.5, 4.25, 1.5, 0.5,
++                   1, 1, 3, 4, 0.5, 3, 2, 0.25, 0, 2.5), ncol = 2, byrow = TRUE)
+> # Función para calcular la distancia con MIN (single link)
+> calcular_distancia_minima <- 
++   function(cluster1, cluster2, matriz_distancias) {
++   min_dist <- 
++     min(matriz_distancias[cluster1$elementos, cluster2$elementos])
++   return(min_dist)
++ }
+> # Función para calcular la distancia con MAX (complete link)
+> calcular_distancia_maxima <- 
++   function(cluster1, cluster2, matriz_distancias) {
++   max_dist <- 
++     max(matriz_distancias[cluster1$elementos, cluster2$elementos])
++   return(max_dist)
++ }
+> # Función para calcular la distancia con Group Average
+> calcular_distancia_grupo_promedio <- 
++   function(cluster1, cluster2, matriz_distancias) {
++   distancias <- 
++     matriz_distancias[cluster1$elementos, cluster2$elementos]
++   if (length(distancias) == 0) {
++     return(NA)  
++     # Evitar divisiones por cero si no hay elementos en los clusters
++   }
++   return(mean(distancias, na.rm = TRUE))
++ }
+> # Algoritmo jerárquico aglomerativo
+> algoritmo_aglomerativo <- function(datos, metodo_distancia) {
++   # Número de puntos
++   n_puntos <- nrow(datos)
++   
++   # Crear una copia de la matriz original de distancias
++   matriz_distancias_original <- as.matrix(dist(datos))
++   
++   # Crear una lista de clusters
++   # cada punto es un cluster en la primera iteración
++   clusters <- 
++     lapply(1:n_puntos, function(i) 
++       list(etiqueta = as.character(i), elementos = i))
++   
++   # Seleccionar la función de distancia
++   if (metodo_distancia == "MIN") {
++     calcular_distancia <- calcular_distancia_minima
++   } else if (metodo_distancia == "MAX") {
++     calcular_distancia <- calcular_distancia_maxima
++   } else if (metodo_distancia == "GROUP_AVERAGE") {
++     calcular_distancia <- calcular_distancia_grupo_promedio
++   } else {
++     stop("Método de distancia no válido.")
++   }
++   
++   iteraciones <- list()
++   etiqueta <- 1
++   while (length(clusters) > 1) {
++     # Inicializar la matriz de distancias entre clusters con Inf
++     distancias_clusters <- 
++       matrix("", nrow = length(clusters), ncol = length(clusters), 
++              dimnames = list(sapply(clusters, function(x) x$etiqueta), 
++                              sapply(clusters, function(x) x$etiqueta)))
++     
++     # Calcular la distancia entre cada par de clusters
++     for (i in 1:(length(clusters) - 1)) {
++       for (j in (i + 1):length(clusters)) {
++         # Evitar imprimir Inf en la matriz
++         dist <- calcular_distancia(clusters[[i]], clusters[[j]], 
++                                    matriz_distancias_original)
++         distancias_clusters[j, i] <- 
++           if (is.finite(dist)) round(dist, 2) else ""
++       }
++     }
++     
++     # Si la matriz está completamente vacía, no imprimir
++     if (any(distancias_clusters != "")) {
++       # Guardar la matriz de distancias actualizada
++       cat("Matriz de distancias", etiqueta, ":\n")
++       print(distancias_clusters, quote = FALSE)
++     }
++     
++     # Encontrar el par de clusters más cercano
++     min_dist <- min(as.numeric(distancias_clusters), na.rm = TRUE)
++     min_index <- which(distancias_clusters == min_dist, arr.ind = TRUE)
++     
++     # Unir los dos clusters más cercanos en uno nuevo
++     new_cluster <- list(etiqueta = paste("C", etiqueta, sep = ""),
++                         elementos = c(clusters[[min_index[1, 1]]]$elementos,
++                                       clusters[[min_index[1, 2]]]$elementos))
++     
++     # Guardar la iteración actual
++     iteraciones[[etiqueta]] <- list(cluster1 = clusters[[min_index[1, 1]]],
++                                     cluster2 = clusters[[min_index[1, 2]]],
++                                     nuevo_cluster = new_cluster,
++                                     distancia = min_dist)
++     
++     # Mostrar los clusters que se unen y forman
++     cat("Se unen los clusters", iteraciones[[etiqueta]]$cluster1$etiqueta,
++         "y", iteraciones[[etiqueta]]$cluster2$etiqueta, "con distancia de",
++         round(iteraciones[[etiqueta]]$distancia, 2), "para formar",
++         iteraciones[[etiqueta]]$nuevo_cluster$etiqueta, "\n\n")
++     
++     # Incrementar la etiqueta para la próxima iteración
++     etiqueta <- etiqueta + 1
++     
++     # Eliminar los clusters antiguos
++     clusters <- clusters[-c(min_index[1, 1], min_index[1, 2])]
++     
++     # Agregar el nuevo cluster
++     clusters <- append(clusters, list(new_cluster))
++   }
++   
++   # Imprimir el resultado final
++   cat("Resumen:\n")
++   for (i in seq_len(length(iteraciones))) {
++     cat("Iteración", i, ": Se unen", 
++         iteraciones[[i]]$cluster1$etiqueta,
++         "y", iteraciones[[i]]$cluster2$etiqueta, "con distancia",
++         round(iteraciones[[i]]$distancia, 2), "para formar",
++         iteraciones[[i]]$nuevo_cluster$etiqueta, "\n")
++   }
++ }
+\end{Sinput}
+\end{Schunk}
+
+	\begin{itemize}
+		\item Ejemplo de uso con el método de distancia ''MIN``
+\begin{Schunk}
+\begin{Sinput}
+> algoritmo_aglomerativo(datos, "MIN")
+\end{Sinput}
+\begin{Soutput}
+Matriz de distancias 1 :
+   1    2    3    4    5    6    7    8    9    10   11   12   13   14   15
+1                                                                          
+2  3.02                                                                    
+3  3.81 0.79                                                               
+4  4.14 2.69 2.85                                                          
+5  0.9  2.3  3.09 3.25                                                     
+6  0.25 3.25 4.04 4.25 1.06                                                
+7  4.37 2.55 2.57 0.5  3.47 4.51                                           
+8  3.58 0.56 0.25 2.7  2.85 3.81 2.46                                      
+9  0.25 2.93 3.72 3.91 0.71 0.35 4.16 3.48                                 
+10 4.47 2.85 2.92 0.35 3.58 4.59 0.35 2.8  4.25                            
+11 4.3  2.26 2.24 0.79 3.4  4.45 0.35 2.14 4.1  0.71                       
+12 0.71 2.37 3.16 3.48 0.25 0.9  3.69 2.93 0.56 3.81 3.61                  
+13 3.35 0.35 0.5  2.57 2.61 3.58 2.37 0.25 3.25 2.69 2.06 2.69             
+14 4.51 3.25 3.4  0.56 3.64 4.6  0.9  3.26 4.27 0.56 1.25 3.88 3.13        
+15 4.03 1.06 0.5  2.47 3.25 4.25 2.15 0.56 3.91 2.5  1.8  3.35 0.71 3.01   
+Se unen los clusters 6 y 1 con distancia de 0.25 para formar C1 
+
+Matriz de distancias 2 :
+   2    3    4    5    7    8    9    10   11   12   13   14   15   C1
+2                                                                     
+3  0.79                                                               
+4  2.69 2.85                                                          
+5  2.3  3.09 3.25                                                     
+7  2.55 2.57 0.5  3.47                                                
+8  0.56 0.25 2.7  2.85 2.46                                           
+9  2.93 3.72 3.91 0.71 4.16 3.48                                      
+10 2.85 2.92 0.35 3.58 0.35 2.8  4.25                                 
+11 2.26 2.24 0.79 3.4  0.35 2.14 4.1  0.71                            
+12 2.37 3.16 3.48 0.25 3.69 2.93 0.56 3.81 3.61                       
+13 0.35 0.5  2.57 2.61 2.37 0.25 3.25 2.69 2.06 2.69                  
+14 3.25 3.4  0.56 3.64 0.9  3.26 4.27 0.56 1.25 3.88 3.13             
+15 1.06 0.5  2.47 3.25 2.15 0.56 3.91 2.5  1.8  3.35 0.71 3.01        
+C1 3.02 3.81 4.14 0.9  4.37 3.58 0.25 4.47 4.3  0.71 3.35 4.51 4.03   
+Se unen los clusters 8 y 3 con distancia de 0.25 para formar C2 
+
+Matriz de distancias 3 :
+   2    4    5    7    9    10   11   12   13   14   15   C1   C2
+2                                                                
+4  2.69                                                          
+5  2.3  3.25                                                     
+7  2.55 0.5  3.47                                                
+9  2.93 3.91 0.71 4.16                                           
+10 2.85 0.35 3.58 0.35 4.25                                      
+11 2.26 0.79 3.4  0.35 4.1  0.71                                 
+12 2.37 3.48 0.25 3.69 0.56 3.81 3.61                            
+13 0.35 2.57 2.61 2.37 3.25 2.69 2.06 2.69                       
+14 3.25 0.56 3.64 0.9  4.27 0.56 1.25 3.88 3.13                  
+15 1.06 2.47 3.25 2.15 3.91 2.5  1.8  3.35 0.71 3.01             
+C1 3.02 4.14 0.9  4.37 0.25 4.47 4.3  0.71 3.35 4.51 4.03        
+C2 0.56 2.7  2.85 2.46 3.48 2.8  2.14 2.93 0.25 3.26 0.5  3.58   
+Se unen los clusters 12 y 5 con distancia de 0.25 para formar C3 
+
+Matriz de distancias 4 :
+   2    4    7    9    10   11   13   14   15   C1   C2   C3
+2                                                           
+4  2.69                                                     
+7  2.55 0.5                                                 
+9  2.93 3.91 4.16                                           
+10 2.85 0.35 0.35 4.25                                      
+11 2.26 0.79 0.35 4.1  0.71                                 
+13 0.35 2.57 2.37 3.25 2.69 2.06                            
+14 3.25 0.56 0.9  4.27 0.56 1.25 3.13                       
+15 1.06 2.47 2.15 3.91 2.5  1.8  0.71 3.01                  
+C1 3.02 4.14 4.37 0.25 4.47 4.3  3.35 4.51 4.03             
+C2 0.56 2.7  2.46 3.48 2.8  2.14 0.25 3.26 0.5  3.58        
+C3 2.3  3.25 3.47 0.56 3.58 3.4  2.61 3.64 3.25 0.71 2.85   
+Se unen los clusters C1 y 9 con distancia de 0.25 para formar C4 
+
+Matriz de distancias 5 :
+   2    4    7    10   11   13   14   15   C2   C3   C4
+2                                                      
+4  2.69                                                
+7  2.55 0.5                                            
+10 2.85 0.35 0.35                                      
+11 2.26 0.79 0.35 0.71                                 
+13 0.35 2.57 2.37 2.69 2.06                            
+14 3.25 0.56 0.9  0.56 1.25 3.13                       
+15 1.06 2.47 2.15 2.5  1.8  0.71 3.01                  
+C2 0.56 2.7  2.46 2.8  2.14 0.25 3.26 0.5              
+C3 2.3  3.25 3.47 3.58 3.4  2.61 3.64 3.25 2.85        
+C4 2.93 3.91 4.16 4.25 4.1  3.25 4.27 3.91 3.48 0.56   
+Se unen los clusters C2 y 13 con distancia de 0.25 para formar C5 
+
+Matriz de distancias 6 :
+   2    4    7    10   11   14   15   C3   C4   C5
+2                                                 
+4  2.69                                           
+7  2.55 0.5                                       
+10 2.85 0.35 0.35                                 
+11 2.26 0.79 0.35 0.71                            
+14 3.25 0.56 0.9  0.56 1.25                       
+15 1.06 2.47 2.15 2.5  1.8  3.01                  
+C3 2.3  3.25 3.47 3.58 3.4  3.64 3.25             
+C4 2.93 3.91 4.16 4.25 4.1  4.27 3.91 0.56        
+C5 0.35 2.57 2.37 2.69 2.06 3.13 0.5  2.61 3.25   
+Se unen los clusters C5 y 2 con distancia de 0.35 para formar C6 
+
+Matriz de distancias 7 :
+   4    7    10   11   14   15   C3   C4   C6
+4                                            
+7  0.5                                       
+10 0.35 0.35                                 
+11 0.79 0.35 0.71                            
+14 0.56 0.9  0.56 1.25                       
+15 2.47 2.15 2.5  1.8  3.01                  
+C3 3.25 3.47 3.58 3.4  3.64 3.25             
+C4 3.91 4.16 4.25 4.1  4.27 3.91 0.56        
+C6 2.57 2.37 2.69 2.06 3.13 0.5  2.3  2.93   
+Se unen los clusters 10 y 4 con distancia de 0.35 para formar C7 
+
+Matriz de distancias 8 :
+   7    11   14   15   C3   C4   C6   C7
+7                                       
+11 0.35                                 
+14 0.9  1.25                            
+15 2.15 1.8  3.01                       
+C3 3.47 3.4  3.64 3.25                  
+C4 4.16 4.1  4.27 3.91 0.56             
+C6 2.37 2.06 3.13 0.5  2.3  2.93        
+C7 0.35 0.71 0.56 2.47 3.25 3.91 2.57   
+Se unen los clusters 11 y 7 con distancia de 0.35 para formar C8 
+
+Matriz de distancias 9 :
+   14   15   C3   C4   C6   C7   C8
+14                                 
+15 3.01                            
+C3 3.64 3.25                       
+C4 4.27 3.91 0.56                  
+C6 3.13 0.5  2.3  2.93             
+C7 0.56 2.47 3.25 3.91 2.57        
+C8 0.9  1.8  3.4  4.1  2.06 0.35   
+Se unen los clusters C8 y C7 con distancia de 0.35 para formar C9 
+
+Matriz de distancias 10 :
+   14   15   C3   C4   C6   C9
+14                            
+15 3.01                       
+C3 3.64 3.25                  
+C4 4.27 3.91 0.56             
+C6 3.13 0.5  2.3  2.93        
+C9 0.56 1.8  3.25 3.91 2.06   
+Se unen los clusters C6 y 15 con distancia de 0.5 para formar C10 
+
+Matriz de distancias 11 :
+    14   C3   C4   C9  C10
+14                        
+C3  3.64                  
+C4  4.27 0.56             
+C9  0.56 3.25 3.91        
+C10 3.01 2.3  2.93 1.8    
+Se unen los clusters C9 y 14 con distancia de 0.56 para formar C11 
+
+Matriz de distancias 12 :
+    C3   C4   C10 C11
+C3                   
+C4  0.56             
+C10 2.3  2.93        
+C11 3.25 3.91 1.8    
+Se unen los clusters C4 y C3 con distancia de 0.56 para formar C12 
+
+Matriz de distancias 13 :
+    C10 C11  C12
+C10             
+C11 1.8         
+C12 2.3 3.25    
+Se unen los clusters C11 y C10 con distancia de 1.8 para formar C13 
+
+Matriz de distancias 14 :
+    C12 C13
+C12        
+C13 2.3    
+Se unen los clusters C13 y C12 con distancia de 2.3 para formar C14 
+
+Resumen:
+Iteración 1 : Se unen 6 y 1 con distancia 0.25 para formar C1 
+Iteración 2 : Se unen 8 y 3 con distancia 0.25 para formar C2 
+Iteración 3 : Se unen 12 y 5 con distancia 0.25 para formar C3 
+Iteración 4 : Se unen C1 y 9 con distancia 0.25 para formar C4 
+Iteración 5 : Se unen C2 y 13 con distancia 0.25 para formar C5 
+Iteración 6 : Se unen C5 y 2 con distancia 0.35 para formar C6 
+Iteración 7 : Se unen 10 y 4 con distancia 0.35 para formar C7 
+Iteración 8 : Se unen 11 y 7 con distancia 0.35 para formar C8 
+Iteración 9 : Se unen C8 y C7 con distancia 0.35 para formar C9 
+Iteración 10 : Se unen C6 y 15 con distancia 0.5 para formar C10 
+Iteración 11 : Se unen C9 y 14 con distancia 0.56 para formar C11 
+Iteración 12 : Se unen C4 y C3 con distancia 0.56 para formar C12 
+Iteración 13 : Se unen C11 y C10 con distancia 1.8 para formar C13 
+Iteración 14 : Se unen C13 y C12 con distancia 2.3 para formar C14 
+\end{Soutput}
+\end{Schunk}
+		\item Ejemplo de uso con el método de distancia ''MAX``
+\begin{Schunk}
+\begin{Sinput}
+> algoritmo_aglomerativo(datos, "MAX")
+\end{Sinput}
+\begin{Soutput}
+Matriz de distancias 1 :
+   1    2    3    4    5    6    7    8    9    10   11   12   13   14   15
+1                                                                          
+2  3.02                                                                    
+3  3.81 0.79                                                               
+4  4.14 2.69 2.85                                                          
+5  0.9  2.3  3.09 3.25                                                     
+6  0.25 3.25 4.04 4.25 1.06                                                
+7  4.37 2.55 2.57 0.5  3.47 4.51                                           
+8  3.58 0.56 0.25 2.7  2.85 3.81 2.46                                      
+9  0.25 2.93 3.72 3.91 0.71 0.35 4.16 3.48                                 
+10 4.47 2.85 2.92 0.35 3.58 4.59 0.35 2.8  4.25                            
+11 4.3  2.26 2.24 0.79 3.4  4.45 0.35 2.14 4.1  0.71                       
+12 0.71 2.37 3.16 3.48 0.25 0.9  3.69 2.93 0.56 3.81 3.61                  
+13 3.35 0.35 0.5  2.57 2.61 3.58 2.37 0.25 3.25 2.69 2.06 2.69             
+14 4.51 3.25 3.4  0.56 3.64 4.6  0.9  3.26 4.27 0.56 1.25 3.88 3.13        
+15 4.03 1.06 0.5  2.47 3.25 4.25 2.15 0.56 3.91 2.5  1.8  3.35 0.71 3.01   
+Se unen los clusters 6 y 1 con distancia de 0.25 para formar C1 
+
+Matriz de distancias 2 :
+   2    3    4    5    7    8    9    10   11   12   13   14   15   C1
+2                                                                     
+3  0.79                                                               
+4  2.69 2.85                                                          
+5  2.3  3.09 3.25                                                     
+7  2.55 2.57 0.5  3.47                                                
+8  0.56 0.25 2.7  2.85 2.46                                           
+9  2.93 3.72 3.91 0.71 4.16 3.48                                      
+10 2.85 2.92 0.35 3.58 0.35 2.8  4.25                                 
+11 2.26 2.24 0.79 3.4  0.35 2.14 4.1  0.71                            
+12 2.37 3.16 3.48 0.25 3.69 2.93 0.56 3.81 3.61                       
+13 0.35 0.5  2.57 2.61 2.37 0.25 3.25 2.69 2.06 2.69                  
+14 3.25 3.4  0.56 3.64 0.9  3.26 4.27 0.56 1.25 3.88 3.13             
+15 1.06 0.5  2.47 3.25 2.15 0.56 3.91 2.5  1.8  3.35 0.71 3.01        
+C1 3.25 4.04 4.25 1.06 4.51 3.81 0.35 4.59 4.45 0.9  3.58 4.6  4.25   
+Se unen los clusters 8 y 3 con distancia de 0.25 para formar C2 
+
+Matriz de distancias 3 :
+   2    4    5    7    9    10   11   12   13   14   15   C1   C2
+2                                                                
+4  2.69                                                          
+5  2.3  3.25                                                     
+7  2.55 0.5  3.47                                                
+9  2.93 3.91 0.71 4.16                                           
+10 2.85 0.35 3.58 0.35 4.25                                      
+11 2.26 0.79 3.4  0.35 4.1  0.71                                 
+12 2.37 3.48 0.25 3.69 0.56 3.81 3.61                            
+13 0.35 2.57 2.61 2.37 3.25 2.69 2.06 2.69                       
+14 3.25 0.56 3.64 0.9  4.27 0.56 1.25 3.88 3.13                  
+15 1.06 2.47 3.25 2.15 3.91 2.5  1.8  3.35 0.71 3.01             
+C1 3.25 4.25 1.06 4.51 0.35 4.59 4.45 0.9  3.58 4.6  4.25        
+C2 0.79 2.85 3.09 2.57 3.72 2.92 2.24 3.16 0.5  3.4  0.56 4.04   
+Se unen los clusters 12 y 5 con distancia de 0.25 para formar C3 
+
+Matriz de distancias 4 :
+   2    4    7    9    10   11   13   14   15   C1   C2   C3
+2                                                           
+4  2.69                                                     
+7  2.55 0.5                                                 
+9  2.93 3.91 4.16                                           
+10 2.85 0.35 0.35 4.25                                      
+11 2.26 0.79 0.35 4.1  0.71                                 
+13 0.35 2.57 2.37 3.25 2.69 2.06                            
+14 3.25 0.56 0.9  4.27 0.56 1.25 3.13                       
+15 1.06 2.47 2.15 3.91 2.5  1.8  0.71 3.01                  
+C1 3.25 4.25 4.51 0.35 4.59 4.45 3.58 4.6  4.25             
+C2 0.79 2.85 2.57 3.72 2.92 2.24 0.5  3.4  0.56 4.04        
+C3 2.37 3.48 3.69 0.71 3.81 3.61 2.69 3.88 3.35 1.06 3.16   
+Se unen los clusters 13 y 2 con distancia de 0.35 para formar C4 
+
+Matriz de distancias 5 :
+   4    7    9    10   11   14   15   C1   C2   C3   C4
+4                                                      
+7  0.5                                                 
+9  3.91 4.16                                           
+10 0.35 0.35 4.25                                      
+11 0.79 0.35 4.1  0.71                                 
+14 0.56 0.9  4.27 0.56 1.25                            
+15 2.47 2.15 3.91 2.5  1.8  3.01                       
+C1 4.25 4.51 0.35 4.59 4.45 4.6  4.25                  
+C2 2.85 2.57 3.72 2.92 2.24 3.4  0.56 4.04             
+C3 3.48 3.69 0.71 3.81 3.61 3.88 3.35 1.06 3.16        
+C4 2.69 2.55 3.25 2.85 2.26 3.25 1.06 3.58 0.79 2.69   
+Se unen los clusters 10 y 4 con distancia de 0.35 para formar C5 
+
+Matriz de distancias 6 :
+   7    9    11   14   15   C1   C2   C3   C4   C5
+7                                                 
+9  4.16                                           
+11 0.35 4.1                                       
+14 0.9  4.27 1.25                                 
+15 2.15 3.91 1.8  3.01                            
+C1 4.51 0.35 4.45 4.6  4.25                       
+C2 2.57 3.72 2.24 3.4  0.56 4.04                  
+C3 3.69 0.71 3.61 3.88 3.35 1.06 3.16             
+C4 2.55 3.25 2.26 3.25 1.06 3.58 0.79 2.69        
+C5 0.5  4.25 0.79 0.56 2.5  4.59 2.92 3.81 2.85   
+Se unen los clusters 11 y 7 con distancia de 0.35 para formar C6 
+
+Matriz de distancias 7 :
+   9    14   15   C1   C2   C3   C4   C5   C6
+9                                            
+14 4.27                                      
+15 3.91 3.01                                 
+C1 0.35 4.6  4.25                            
+C2 3.72 3.4  0.56 4.04                       
+C3 0.71 3.88 3.35 1.06 3.16                  
+C4 3.25 3.25 1.06 3.58 0.79 2.69             
+C5 4.25 0.56 2.5  4.59 2.92 3.81 2.85        
+C6 4.16 1.25 2.15 4.51 2.57 3.69 2.55 0.79   
+Se unen los clusters C1 y 9 con distancia de 0.35 para formar C7 
+
+Matriz de distancias 8 :
+   14   15   C2   C3   C4   C5   C6   C7
+14                                      
+15 3.01                                 
+C2 3.4  0.56                            
+C3 3.88 3.35 3.16                       
+C4 3.25 1.06 0.79 2.69                  
+C5 0.56 2.5  2.92 3.81 2.85             
+C6 1.25 2.15 2.57 3.69 2.55 0.79        
+C7 4.6  4.25 4.04 1.06 3.58 4.59 4.51   
+Se unen los clusters C5 y 14 con distancia de 0.56 para formar C8 
+
+Matriz de distancias 9 :
+   15   C2   C3   C4   C6   C7  C8
+15                                
+C2 0.56                           
+C3 3.35 3.16                      
+C4 1.06 0.79 2.69                 
+C6 2.15 2.57 3.69 2.55            
+C7 4.25 4.04 1.06 3.58 4.51       
+C8 3.01 3.4  3.88 3.25 1.25 4.6   
+Se unen los clusters C2 y 15 con distancia de 0.56 para formar C9 
+
+Matriz de distancias 10 :
+   C3   C4   C6   C7   C8  C9
+C3                           
+C4 2.69                      
+C6 3.69 2.55                 
+C7 1.06 3.58 4.51            
+C8 3.88 3.25 1.25 4.6        
+C9 3.35 1.06 2.57 4.25 3.4   
+Se unen los clusters C7 y C3 con distancia de 1.06 para formar C10 
+
+Matriz de distancias 11 :
+    C4   C6   C8  C9   C10
+C4                        
+C6  2.55                  
+C8  3.25 1.25             
+C9  1.06 2.57 3.4         
+C10 3.58 4.51 4.6 4.25    
+Se unen los clusters C9 y C4 con distancia de 1.06 para formar C11 
+
+Matriz de distancias 12 :
+    C6   C8  C10  C11
+C6                   
+C8  1.25             
+C10 4.51 4.6         
+C11 2.57 3.4 4.25    
+Se unen los clusters C8 y C6 con distancia de 1.25 para formar C12 
+
+Matriz de distancias 13 :
+    C10  C11 C12
+C10             
+C11 4.25        
+C12 4.6  3.4    
+Se unen los clusters C12 y C11 con distancia de 3.4 para formar C13 
+
+Matriz de distancias 14 :
+    C10 C13
+C10        
+C13 4.6    
+Se unen los clusters C13 y C10 con distancia de 4.6 para formar C14 
+
+Resumen:
+Iteración 1 : Se unen 6 y 1 con distancia 0.25 para formar C1 
+Iteración 2 : Se unen 8 y 3 con distancia 0.25 para formar C2 
+Iteración 3 : Se unen 12 y 5 con distancia 0.25 para formar C3 
+Iteración 4 : Se unen 13 y 2 con distancia 0.35 para formar C4 
+Iteración 5 : Se unen 10 y 4 con distancia 0.35 para formar C5 
+Iteración 6 : Se unen 11 y 7 con distancia 0.35 para formar C6 
+Iteración 7 : Se unen C1 y 9 con distancia 0.35 para formar C7 
+Iteración 8 : Se unen C5 y 14 con distancia 0.56 para formar C8 
+Iteración 9 : Se unen C2 y 15 con distancia 0.56 para formar C9 
+Iteración 10 : Se unen C7 y C3 con distancia 1.06 para formar C10 
+Iteración 11 : Se unen C9 y C4 con distancia 1.06 para formar C11 
+Iteración 12 : Se unen C8 y C6 con distancia 1.25 para formar C12 
+Iteración 13 : Se unen C12 y C11 con distancia 3.4 para formar C13 
+Iteración 14 : Se unen C13 y C10 con distancia 4.6 para formar C14 
+\end{Soutput}
+\end{Schunk}
+		\item Ejemplo de uso con el método de distancia ''GROUP\_AVERAGE``
+\begin{Schunk}
+\begin{Sinput}
+> algoritmo_aglomerativo(datos, "GROUP_AVERAGE")
+\end{Sinput}
+\begin{Soutput}
+Matriz de distancias 1 :
+   1    2    3    4    5    6    7    8    9    10   11   12   13   14   15
+1                                                                          
+2  3.02                                                                    
+3  3.81 0.79                                                               
+4  4.14 2.69 2.85                                                          
+5  0.9  2.3  3.09 3.25                                                     
+6  0.25 3.25 4.04 4.25 1.06                                                
+7  4.37 2.55 2.57 0.5  3.47 4.51                                           
+8  3.58 0.56 0.25 2.7  2.85 3.81 2.46                                      
+9  0.25 2.93 3.72 3.91 0.71 0.35 4.16 3.48                                 
+10 4.47 2.85 2.92 0.35 3.58 4.59 0.35 2.8  4.25                            
+11 4.3  2.26 2.24 0.79 3.4  4.45 0.35 2.14 4.1  0.71                       
+12 0.71 2.37 3.16 3.48 0.25 0.9  3.69 2.93 0.56 3.81 3.61                  
+13 3.35 0.35 0.5  2.57 2.61 3.58 2.37 0.25 3.25 2.69 2.06 2.69             
+14 4.51 3.25 3.4  0.56 3.64 4.6  0.9  3.26 4.27 0.56 1.25 3.88 3.13        
+15 4.03 1.06 0.5  2.47 3.25 4.25 2.15 0.56 3.91 2.5  1.8  3.35 0.71 3.01   
+Se unen los clusters 6 y 1 con distancia de 0.25 para formar C1 
+
+Matriz de distancias 2 :
+   2    3    4    5    7    8    9    10   11   12   13   14   15   C1
+2                                                                     
+3  0.79                                                               
+4  2.69 2.85                                                          
+5  2.3  3.09 3.25                                                     
+7  2.55 2.57 0.5  3.47                                                
+8  0.56 0.25 2.7  2.85 2.46                                           
+9  2.93 3.72 3.91 0.71 4.16 3.48                                      
+10 2.85 2.92 0.35 3.58 0.35 2.8  4.25                                 
+11 2.26 2.24 0.79 3.4  0.35 2.14 4.1  0.71                            
+12 2.37 3.16 3.48 0.25 3.69 2.93 0.56 3.81 3.61                       
+13 0.35 0.5  2.57 2.61 2.37 0.25 3.25 2.69 2.06 2.69                  
+14 3.25 3.4  0.56 3.64 0.9  3.26 4.27 0.56 1.25 3.88 3.13             
+15 1.06 0.5  2.47 3.25 2.15 0.56 3.91 2.5  1.8  3.35 0.71 3.01        
+C1 3.14 3.92 4.19 0.98 4.44 3.69 0.3  4.53 4.38 0.8  3.47 4.55 4.14   
+Se unen los clusters 8 y 3 con distancia de 0.25 para formar C2 
+
+Matriz de distancias 3 :
+   2    4    5    7    9    10   11   12   13   14   15   C1   C2
+2                                                                
+4  2.69                                                          
+5  2.3  3.25                                                     
+7  2.55 0.5  3.47                                                
+9  2.93 3.91 0.71 4.16                                           
+10 2.85 0.35 3.58 0.35 4.25                                      
+11 2.26 0.79 3.4  0.35 4.1  0.71                                 
+12 2.37 3.48 0.25 3.69 0.56 3.81 3.61                            
+13 0.35 2.57 2.61 2.37 3.25 2.69 2.06 2.69                       
+14 3.25 0.56 3.64 0.9  4.27 0.56 1.25 3.88 3.13                  
+15 1.06 2.47 3.25 2.15 3.91 2.5  1.8  3.35 0.71 3.01             
+C1 3.14 4.19 0.98 4.44 0.3  4.53 4.38 0.8  3.47 4.55 4.14        
+C2 0.67 2.78 2.97 2.52 3.6  2.86 2.19 3.04 0.38 3.33 0.53 3.81   
+Se unen los clusters 12 y 5 con distancia de 0.25 para formar C3 
+
+Matriz de distancias 4 :
+   2    4    7    9    10   11   13   14   15   C1   C2   C3
+2                                                           
+4  2.69                                                     
+7  2.55 0.5                                                 
+9  2.93 3.91 4.16                                           
+10 2.85 0.35 0.35 4.25                                      
+11 2.26 0.79 0.35 4.1  0.71                                 
+13 0.35 2.57 2.37 3.25 2.69 2.06                            
+14 3.25 0.56 0.9  4.27 0.56 1.25 3.13                       
+15 1.06 2.47 2.15 3.91 2.5  1.8  0.71 3.01                  
+C1 3.14 4.19 4.44 0.3  4.53 4.38 3.47 4.55 4.14             
+C2 0.67 2.78 2.52 3.6  2.86 2.19 0.38 3.33 0.53 3.81        
+C3 2.34 3.37 3.58 0.63 3.69 3.5  2.65 3.76 3.3  0.89 3.01   
+Se unen los clusters C1 y 9 con distancia de 0.3 para formar C4 
+
+Matriz de distancias 5 :
+   2    4    7    10   11   13   14   15   C2   C3   C4
+2                                                      
+4  2.69                                                
+7  2.55 0.5                                            
+10 2.85 0.35 0.35                                      
+11 2.26 0.79 0.35 0.71                                 
+13 0.35 2.57 2.37 2.69 2.06                            
+14 3.25 0.56 0.9  0.56 1.25 3.13                       
+15 1.06 2.47 2.15 2.5  1.8  0.71 3.01                  
+C2 0.67 2.78 2.52 2.86 2.19 0.38 3.33 0.53             
+C3 2.34 3.37 3.58 3.69 3.5  2.65 3.76 3.3  3.01        
+C4 3.07 4.1  4.35 4.44 4.28 3.39 4.46 4.06 3.74 0.81   
+Se unen los clusters 13 y 2 con distancia de 0.35 para formar C5 
+
+Matriz de distancias 6 :
+   4    7    10   11   14   15   C2   C3   C4   C5
+4                                                 
+7  0.5                                            
+10 0.35 0.35                                      
+11 0.79 0.35 0.71                                 
+14 0.56 0.9  0.56 1.25                            
+15 2.47 2.15 2.5  1.8  3.01                       
+C2 2.78 2.52 2.86 2.19 3.33 0.53                  
+C3 3.37 3.58 3.69 3.5  3.76 3.3  3.01             
+C4 4.1  4.35 4.44 4.28 4.46 4.06 3.74 0.81        
+C5 2.63 2.46 2.77 2.16 3.19 0.88 0.52 2.49 3.23   
+Se unen los clusters 10 y 4 con distancia de 0.35 para formar C6 
+
+Matriz de distancias 7 :
+   7    11   14   15   C2   C3   C4   C5  C6
+7                                           
+11 0.35                                     
+14 0.9  1.25                                
+15 2.15 1.8  3.01                           
+C2 2.52 2.19 3.33 0.53                      
+C3 3.58 3.5  3.76 3.3  3.01                 
+C4 4.35 4.28 4.46 4.06 3.74 0.81            
+C5 2.46 2.16 3.19 0.88 0.52 2.49 3.23       
+C6 0.43 0.75 0.56 2.49 2.82 3.53 4.27 2.7   
+Se unen los clusters 11 y 7 con distancia de 0.35 para formar C7 
+
+Matriz de distancias 8 :
+   14   15   C2   C3   C4   C5   C6   C7
+14                                      
+15 3.01                                 
+C2 3.33 0.53                            
+C3 3.76 3.3  3.01                       
+C4 4.46 4.06 3.74 0.81                  
+C5 3.19 0.88 0.52 2.49 3.23             
+C6 0.56 2.49 2.82 3.53 4.27 2.7         
+C7 1.08 1.98 2.35 3.54 4.32 2.31 0.59   
+Se unen los clusters C5 y C2 con distancia de 0.52 para formar C8 
+
+Matriz de distancias 9 :
+   14   15   C3   C4   C6   C7   C8
+14                                 
+15 3.01                            
+C3 3.76 3.3                        
+C4 4.46 4.06 0.81                  
+C6 0.56 2.49 3.53 4.27             
+C7 1.08 1.98 3.54 4.32 0.59        
+C8 3.26 0.71 2.75 3.48 2.76 2.33   
+Se unen los clusters C6 y 14 con distancia de 0.56 para formar C9 
+
+Matriz de distancias 10 :
+   15   C3   C4   C7   C8   C9
+15                            
+C3 3.3                        
+C4 4.06 0.81                  
+C7 1.98 3.54 4.32             
+C8 0.71 2.75 3.48 2.33        
+C9 2.66 3.61 4.33 0.75 2.93   
+Se unen los clusters C8 y 15 con distancia de 0.71 para formar C10 
+
+Matriz de distancias 11 :
+    C3   C4   C7   C9   C10
+C3                         
+C4  0.81                   
+C7  3.54 4.32              
+C9  3.61 4.33 0.75         
+C10 2.86 3.6  2.26 2.87    
+Se unen los clusters C9 y C7 con distancia de 0.75 para formar C11 
+
+Matriz de distancias 12 :
+    C3   C4   C10  C11
+C3                    
+C4  0.81              
+C10 2.86 3.6          
+C11 3.58 4.33 2.63    
+Se unen los clusters C4 y C3 con distancia de 0.81 para formar C12 
+
+Matriz de distancias 13 :
+    C10  C11  C12
+C10              
+C11 2.63         
+C12 3.3  4.03    
+Se unen los clusters C11 y C10 con distancia de 2.63 para formar C13 
+
+Matriz de distancias 14 :
+    C12  C13
+C12         
+C13 3.67    
+Se unen los clusters C13 y C12 con distancia de 3.67 para formar C14 
+
+Resumen:
+Iteración 1 : Se unen 6 y 1 con distancia 0.25 para formar C1 
+Iteración 2 : Se unen 8 y 3 con distancia 0.25 para formar C2 
+Iteración 3 : Se unen 12 y 5 con distancia 0.25 para formar C3 
+Iteración 4 : Se unen C1 y 9 con distancia 0.3 para formar C4 
+Iteración 5 : Se unen 13 y 2 con distancia 0.35 para formar C5 
+Iteración 6 : Se unen 10 y 4 con distancia 0.35 para formar C6 
+Iteración 7 : Se unen 11 y 7 con distancia 0.35 para formar C7 
+Iteración 8 : Se unen C5 y C2 con distancia 0.52 para formar C8 
+Iteración 9 : Se unen C6 y 14 con distancia 0.56 para formar C9 
+Iteración 10 : Se unen C8 y 15 con distancia 0.71 para formar C10 
+Iteración 11 : Se unen C9 y C7 con distancia 0.75 para formar C11 
+Iteración 12 : Se unen C4 y C3 con distancia 0.81 para formar C12 
+Iteración 13 : Se unen C11 y C10 con distancia 2.63 para formar C13 
+Iteración 14 : Se unen C13 y C12 con distancia 3.67 para formar C14 
+\end{Soutput}
+\end{Schunk}
+		\end{itemize}
+	
+  \newpage
+  
 	\subsection{Análisis de clasificación supervisada}
 	
 	\subsubsection{Árboles de decisión}

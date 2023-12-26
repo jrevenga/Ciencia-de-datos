@@ -114,7 +114,7 @@
 	\paragraph{Solución:}
 	\begin{itemize}
 		\item \texttt{m<-matrix(c(4,4, 3,5, 1,2, 5,5, 0,1, 2,2, 4,5, 2,1),2,8)}: 
-		Introducción de los datos
+		Introducción de los datos en forma de matriz y se transpone con \texttt{(m<-t(m))}
 <<>>=
 m<-matrix(c(4,4, 3,5, 1,2, 5,5, 0,1, 2,2, 4,5, 2,1),2,8)
 (m<-t(m))
@@ -163,37 +163,31 @@ mc2
 	\paragraph{Solución}
 
 	\begin{itemize}
+	  \item Cargamos el paquete \texttt{LearnClust}:
 <<>>=
 library(LearnClust)
 search()
 @
-		\item \texttt{}: 
-		Explicacion
+		\item Se introduccen los datos en una matriz y se transpone:
 <<>>=
 m<-matrix(c(0.89,2.94, 4.36,5.21, 3.75,1.12, 6.25,3.14, 4.1,1.8, 3.9,4.27),2,6)
 (m<-t(m))
 @
-		\item \texttt{}: 
+		\item La función \texttt{agglomerativeHC} sirve para realizar un agrupamineto jerárquico algomerativo en la matriz \texttt{m}.
+		\texttt{EUC}: se refiere a la métrica de distancia utilizada durante el agrupamiento, en este caso, es la distancia euclidiana.
+		\texttt{MIN}: se refiere al criterio de enlace utilizado para calcular la distancia entre los grupos, en este caso, es MIN (single linkage).
 		Explicacion
 <<>>=
 agglomerativeHC(m,'EUC','MIN')
 @
-		\item \texttt{}: 
-		Explicacion
+		\item Para obtener más detalles sobre el proceso de agrupamiento jerárquico aglomerativo se usa \texttt{.details}:
 <<>>=
 agglomerativeHC.details(m,'EUC','MIN')
 @
-		\item \texttt{}: 
-		Explicacion
+		\item Para cambiar el tipo de criterio de enlace utilizado para calcular la distancia entre clusters se le pasa diferente argumento, en este caso, se utiliza MAX (también conocido como complete linkage):
 <<>>=
 agglomerativeHC.details(m,'EUC','MAX')
 @
-		\item \texttt{}: 
-		Explicacion
-<<>>=
-
-@
-
 	\end{itemize}
 
 	\newpage
@@ -311,9 +305,11 @@ print(mc3)
 	\newpage
 	\subsubsection{Clusterización Jerárquica Aglomerativa}
 	
-	El segundo conjunto de datos, que se empleará para realizar el análisis de clasificación no supervisada con Clusterización Jerárquica Aglomerativa, será el mismo que el utilizado en el ejercicio anterior, por lo tanto estará formado por los siguientes 15 valores de velocidades de respuesta y temperaturas normalizadas de un microprocesador \{Velocidad, Temperatura\}: 1.\{3.5, 4.5\}; 2.\{0.75, 3.25\}; 3.\{0, 3\}; 4.\{1.75, 0.75\}; 5.\{3, 3.75\}; 6.\{3.75, 4.5\}; 7.\{1.25, 0.75\}; 8.\{0.25, 3\}; 9.\{3.5, 4.25\}; 10.\{1.5, 0.5\}; 11.\{1, 1\}; 12.\{3, 4\}; 13.\{0.5, 3\}; 14.\{2, 0.25\}; 15.\{0, 2.5\}. Del análisis visual de los datos se ha concluido que hay una alta probabilidad que sean tres clusters.
+	El segundo conjunto de datos, que se empleará para realizar el análisis de clasificación no supervisada con Clusterización Jerárquica Aglomerativa, será el mismo que el utilizado en el ejercicio anterior, por lo tanto estará formado por los siguientes 15 valores de velocidades de respuesta y temperaturas normalizadas de un microprocesador \{Velocidad, Temperatura\}: 1.\{3.5, 4.5\}; 2.\{0.75, 3.25\}; 3.\{0, 3\}; 4.\{1.75, 0.75\}; 5.\{3, 3.75\}; 6.\{3.75, 4.5\}; 7.\{1.25, 0.75\}; 8.\{0.25, 3\}; 9.\{3.5, 4.25\}; 10.\{1.5, 0.5\}; 11.\{1, 1\}; 12.\{3, 4\}; 13.\{0.5, 3\}; 14.\{2, 0.25\}; 15.\{0, 2.5\}.
 	
-	\paragraph{Solución:}
+	Se proporcionan dos soluciones, un paquete diferente al usado por el profesor y un algoritmo programado por nosotros.
+	
+	\paragraph{Solución (paquete):}
 	\begin{itemize}
 		\item \texttt{datos <- read.csv("Datos2.2.csv")}: Se leen los datos del archivo .csv y se guardan en la variable "datos".
 		\item \texttt{(datos<-t(datos))}: Se hace la traspuesta de la matriz datos para un mejor tratamiento.
@@ -376,6 +372,160 @@ datos <- read.csv("Datos2.2.csv")
 		\end{itemize}
 	\end{itemize}
 	
+	\paragraph{Solución (programado):}
+	
+	\begin{itemize}
+	  \item[-] Explicación:
+	Este código en R implementa un algoritmo jerárquico aglomerativo para la agrupación de datos. El algoritmo utiliza matrices de distancia entre puntos y fusiona iterativamente los clusters más cercanos hasta que queda un único cluster que contiene todos los puntos. Los datos de entrada están representados en la matriz 'datos'. El código proporciona tres funciones para calcular la distancia entre clusters: MIN (single link), MAX (complete link), y Group Average. El algoritmo utiliza una de estas funciones según el método de distancia especificado. Durante cada iteración, se calcula la matriz de distancias entre clusters, se encuentra el par de clusters más cercano, se fusionan en un nuevo cluster, y se repite el proceso hasta que solo queda un cluster. El código imprime la matriz de distancias en cada iteración y muestra los clusters que se fusionan. Al final, se presenta un resumen de las iteraciones, mostrando qué clusters se fusionaron en cada paso y la distancia correspondiente.
+	En el propio codigo hay comentarios con una breve explicación de cada parte
+	\end{itemize}
+<<>>=
+# Datos proporcionados
+datos <- 
+  matrix(c(3.5, 4.5, 0.75, 3.25, 0, 3, 1.75, 0.75, 3, 3.75,
+                  3.75, 4.5, 1.25, 0.75, 0.25, 3, 3.5, 4.25, 1.5, 0.5,
+                  1, 1, 3, 4, 0.5, 3, 2, 0.25, 0, 2.5), ncol = 2, byrow = TRUE)
+
+# Función para calcular la distancia con MIN (single link)
+calcular_distancia_minima <- 
+  function(cluster1, cluster2, matriz_distancias) {
+  min_dist <- 
+    min(matriz_distancias[cluster1$elementos, cluster2$elementos])
+  return(min_dist)
+}
+
+# Función para calcular la distancia con MAX (complete link)
+calcular_distancia_maxima <- 
+  function(cluster1, cluster2, matriz_distancias) {
+  max_dist <- 
+    max(matriz_distancias[cluster1$elementos, cluster2$elementos])
+  return(max_dist)
+}
+
+# Función para calcular la distancia con Group Average
+calcular_distancia_grupo_promedio <- 
+  function(cluster1, cluster2, matriz_distancias) {
+  distancias <- 
+    matriz_distancias[cluster1$elementos, cluster2$elementos]
+  if (length(distancias) == 0) {
+    return(NA)  
+    # Evitar divisiones por cero si no hay elementos en los clusters
+  }
+  return(mean(distancias, na.rm = TRUE))
+}
+
+# Algoritmo jerárquico aglomerativo
+algoritmo_aglomerativo <- function(datos, metodo_distancia) {
+  # Número de puntos
+  n_puntos <- nrow(datos)
+  
+  # Crear una copia de la matriz original de distancias
+  matriz_distancias_original <- as.matrix(dist(datos))
+  
+  # Crear una lista de clusters
+  # cada punto es un cluster en la primera iteración
+  clusters <- 
+    lapply(1:n_puntos, function(i) 
+      list(etiqueta = as.character(i), elementos = i))
+  
+  # Seleccionar la función de distancia
+  if (metodo_distancia == "MIN") {
+    calcular_distancia <- calcular_distancia_minima
+  } else if (metodo_distancia == "MAX") {
+    calcular_distancia <- calcular_distancia_maxima
+  } else if (metodo_distancia == "GROUP_AVERAGE") {
+    calcular_distancia <- calcular_distancia_grupo_promedio
+  } else {
+    stop("Método de distancia no válido.")
+  }
+  
+  iteraciones <- list()
+  etiqueta <- 1
+  while (length(clusters) > 1) {
+    # Inicializar la matriz de distancias entre clusters con Inf
+    distancias_clusters <- 
+      matrix("", nrow = length(clusters), ncol = length(clusters), 
+             dimnames = list(sapply(clusters, function(x) x$etiqueta), 
+                             sapply(clusters, function(x) x$etiqueta)))
+    
+    # Calcular la distancia entre cada par de clusters
+    for (i in 1:(length(clusters) - 1)) {
+      for (j in (i + 1):length(clusters)) {
+        # Evitar imprimir Inf en la matriz
+        dist <- calcular_distancia(clusters[[i]], clusters[[j]], 
+                                   matriz_distancias_original)
+        distancias_clusters[j, i] <- 
+          if (is.finite(dist)) round(dist, 2) else ""
+      }
+    }
+    
+    # Si la matriz está completamente vacía, no imprimir
+    if (any(distancias_clusters != "")) {
+      # Guardar la matriz de distancias actualizada
+      cat("Matriz de distancias", etiqueta, ":\n")
+      print(distancias_clusters, quote = FALSE)
+    }
+    
+    # Encontrar el par de clusters más cercano
+    min_dist <- min(as.numeric(distancias_clusters), na.rm = TRUE)
+    min_index <- which(distancias_clusters == min_dist, arr.ind = TRUE)
+    
+    # Unir los dos clusters más cercanos en uno nuevo
+    new_cluster <- list(etiqueta = paste("C", etiqueta, sep = ""),
+                        elementos = c(clusters[[min_index[1, 1]]]$elementos,
+                                      clusters[[min_index[1, 2]]]$elementos))
+    
+    # Guardar la iteración actual
+    iteraciones[[etiqueta]] <- list(cluster1 = clusters[[min_index[1, 1]]],
+                                    cluster2 = clusters[[min_index[1, 2]]],
+                                    nuevo_cluster = new_cluster,
+                                    distancia = min_dist)
+    
+    # Mostrar los clusters que se unen y forman
+    cat("Se unen los clusters", iteraciones[[etiqueta]]$cluster1$etiqueta,
+        "y", iteraciones[[etiqueta]]$cluster2$etiqueta, "con distancia de",
+        round(iteraciones[[etiqueta]]$distancia, 2), "para formar",
+        iteraciones[[etiqueta]]$nuevo_cluster$etiqueta, "\n\n")
+    
+    # Incrementar la etiqueta para la próxima iteración
+    etiqueta <- etiqueta + 1
+    
+    # Eliminar los clusters antiguos
+    clusters <- clusters[-c(min_index[1, 1], min_index[1, 2])]
+    
+    # Agregar el nuevo cluster
+    clusters <- append(clusters, list(new_cluster))
+  }
+  
+  # Imprimir el resultado final
+  cat("Resumen:\n")
+  for (i in seq_len(length(iteraciones))) {
+    cat("Iteración", i, ": Se unen", 
+        iteraciones[[i]]$cluster1$etiqueta,
+        "y", iteraciones[[i]]$cluster2$etiqueta, "con distancia",
+        round(iteraciones[[i]]$distancia, 2), "para formar",
+        iteraciones[[i]]$nuevo_cluster$etiqueta, "\n")
+  }
+}
+@
+
+	\begin{itemize}
+		\item Ejemplo de uso con el método de distancia ''MIN``
+<<>>=
+algoritmo_aglomerativo(datos, "MIN")
+@
+		\item Ejemplo de uso con el método de distancia ''MAX``
+<<>>=
+algoritmo_aglomerativo(datos, "MAX")
+@
+		\item Ejemplo de uso con el método de distancia ''GROUP\_AVERAGE``
+<<>>=
+algoritmo_aglomerativo(datos, "GROUP_AVERAGE")
+@
+		\end{itemize}
+	
+  \newpage
+  
 	\subsection{Análisis de clasificación supervisada}
 	
 	\subsubsection{Árboles de decisión}
