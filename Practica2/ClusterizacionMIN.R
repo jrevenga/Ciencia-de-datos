@@ -4,6 +4,9 @@ datos <- matrix(c(0.89, 2.94, 4.36, 5.21, 3.75, 1.12, 6.25, 3.14, 4.1, 1.8, 3.9,
 # Número de puntos
 n_puntos <- nrow(datos)
 
+# Crear una copia de la matriz original de distancias
+matriz_distancias_original <- as.matrix(dist(datos))
+
 # Crear una lista de clusters, cada punto es un cluster en la primera iteración
 clusters <- vector("list", n_puntos)
 for (i in 1:n_puntos) {
@@ -11,11 +14,11 @@ for (i in 1:n_puntos) {
 }
 
 # Función para calcular la distancia con MIN (single link)
-dist_clusters <- function(cluster1, cluster2) {
+dist_clusters <- function(cluster1, cluster2, matriz_distancias) {
   min_dist <- Inf
   for (i in cluster1$elementos) {
     for (j in cluster2$elementos) {
-      dist <- sqrt(sum((datos[i,] - datos[j,])^2))
+      dist <- matriz_distancias[min(i, j), max(i, j)]
       if (dist < min_dist) {
         min_dist <- dist
       }
@@ -29,18 +32,23 @@ iteraciones <- list()
 etiqueta <- 1
 while (length(clusters) > 1) {
   # Inicializar la matriz de distancias entre clusters con Inf
-  distancias_clusters <- matrix(Inf, nrow = length(clusters), ncol = length(clusters))
+  distancias_clusters <- matrix("", nrow = length(clusters), ncol = length(clusters))
   
-  # Calcular la distancia entre cada par de clusters
+  # Calcular la distancia entre cada par de clusters utilizando la copia de la matriz original
   for (i in 1:(length(clusters) - 1)) {
     for (j in (i + 1):length(clusters)) {
-      distancias_clusters[i, j] <- dist_clusters(clusters[[i]], clusters[[j]])
+      distancias_clusters[j, i] <- ifelse(i == j, "0.00", sprintf("%.2f", dist_clusters(clusters[[i]], clusters[[j]], matriz_distancias_original)))
     }
   }
   
+  # Guardar la matriz de distancias actualizada
+  cat("Iteración", etiqueta, ":\n")
+  cat("Matriz de distancias", etiqueta, ":\n")
+  print(distancias_clusters, quote = FALSE)
+  
   # Encontrar el par de clusters más cercano
-  min_dist <- min(distancias_clusters)
-  min_index <- which(distancias_clusters == min_dist, arr.ind = TRUE)
+  min_dist <- min(as.numeric(distancias_clusters[distancias_clusters != ""]), na.rm = TRUE)
+  min_index <- which(distancias_clusters == sprintf("%.2f", min_dist), arr.ind = TRUE)
   
   # Unir los dos clusters más cercanos en uno nuevo
   new_cluster <- list(etiqueta = paste("C", etiqueta, sep = ""),
@@ -53,6 +61,12 @@ while (length(clusters) > 1) {
                                                  nuevo_cluster = new_cluster,
                                                  distancia = min_dist)
   
+  # Mostrar los clusters que se unen y forman
+  cat("Se unen los clusters", iteraciones[[length(iteraciones)]]$cluster1$etiqueta,
+      "y", iteraciones[[length(iteraciones)]]$cluster2$etiqueta, "con una distancia de",
+      round(iteraciones[[length(iteraciones)]]$distancia, 2), "para formar el cluster",
+      iteraciones[[length(iteraciones)]]$nuevo_cluster$etiqueta, "\n\n")
+  
   # Incrementar la etiqueta para la próxima iteración
   etiqueta <- etiqueta + 1
   
@@ -63,40 +77,14 @@ while (length(clusters) > 1) {
   clusters <- c(clusters, list(new_cluster))
 }
 
-# Imprimir la matriz inicial de distancias
-cat("Matriz inicial de distancias:\n")
-print(round(dist(datos), 2))
-
-
 # Imprimir el resultado final
-cat("\nIteraciones:\n")
+cat("Resumen:\n")
 for (i in seq_along(iteraciones)) {
   cat("Iteración", i, ": Se unen los clusters", iteraciones[[i]]$cluster1$etiqueta,
       "y", iteraciones[[i]]$cluster2$etiqueta, "con una distancia de",
       round(iteraciones[[i]]$distancia, 2), "para formar el cluster",
       iteraciones[[i]]$nuevo_cluster$etiqueta, "\n")
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
