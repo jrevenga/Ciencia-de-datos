@@ -271,6 +271,9 @@ for (i in 1:length(res)){if (res[i]>3*sr){print("el suceso"); print(res[i]); pri
 		\item \texttt{clasificacionns <- kmedias(datos, num\_clusters = 3, mostrar\_proceso = TRUE)}: Llamar a nuestra función que clasifica con K-means, seleccionando el número de clusters a generar (La función creada genera 2 en caso de no especificarse) y que nos muestre el proceso de clasificación de los clusters.
 	
 <<>>=
+#cargamos la función
+source("kmedias.R")
+
 datos <- read.csv("Datos2.1.csv")
 clasificacionns <- kmedias(datos, num_clusters = 3, mostrar_proceso = TRUE)
 
@@ -417,12 +420,96 @@ print(arbol)
 	\paragraph{Solución:}
 			Algoritmo de minería de reglas de asociación (apriori): Su objetivo principal es descubrir patrones de asociación entre diferentes conjuntos de datos.
 			\begin{itemize}
-				\item[-] Parámetros:
-				\begin{itemize}
-					\item \texttt{transacciones}: Lista de sucesos que conforman la muestra.
-					\item \texttt{soporte}: Umbral mínimo de soporte que deben superar las asociaciaciones.
-					\item \texttt{confianza}: Umbral mínimo de confianza que deben superar las asociaciaciones.
-				\end{itemize}
+				\item[-] Para empezar tenemos que introducir los datos en un archivo con extensión .txt 
+<<>>=
+source("regresion_lineal.R")
+
+# Leer el archivo del primer subconjunto de datos
+lineas <- readLines("datos2.4.1.txt")
+
+# Inicializar vectores para x e y
+x <- numeric()
+y <- numeric()
+
+# Iterar sobre las líneas y extraer los datos
+for (linea in lineas) {
+  datos <- as.numeric(strsplit(linea, " ")[[1]])
+  x <- c(x, datos[1])
+  y <- c(y, datos[2])
+}
+
+# Llamar a la función de regresión lineal
+resultado <- regresion_lineal(x, y)
+
+# Mostrar los resultados
+cat("Intercepto (alpha):", resultado$alpha, "\n")
+cat("Coeficiente (beta):", resultado$beta, "\n")
+
+# Leer el archivo del segundo subconjunto de datos
+lineas <- readLines("datos2.4.2.txt")
+
+# Inicializar vectores para x e y
+x <- numeric()
+y <- numeric()
+
+# Iterar sobre las líneas y extraer los datos
+for (linea in lineas) {
+  datos <- as.numeric(strsplit(linea, " ")[[1]])
+  x <- c(x, datos[1])
+  y <- c(y, datos[2])
+}
+
+# Llamar a la función de regresión lineal
+resultado <- regresion_lineal(x, y)
+
+# Mostrar los resultados
+cat("Intercepto (alpha):", resultado$alpha, "\n")
+cat("Coeficiente (beta):", resultado$beta, "\n")
+
+# Leer el archivo del tercer subconjunto de datos
+lineas <- readLines("datos2.4.3.txt")
+
+# Inicializar vectores para x e y
+x <- numeric()
+y <- numeric()
+
+# Iterar sobre las líneas y extraer los datos
+for (linea in lineas) {
+  datos <- as.numeric(strsplit(linea, " ")[[1]])
+  x <- c(x, datos[1])
+  y <- c(y, datos[2])
+}
+
+# Llamar a la función de regresión lineal
+resultado <- regresion_lineal(x, y)
+
+# Mostrar los resultados
+cat("Intercepto (alpha):", resultado$alpha, "\n")
+cat("Coeficiente (beta):", resultado$beta, "\n")
+
+# Leer el archivo del cuarto subconjunto de datos
+lineas <- readLines("datos2.4.4.txt")
+
+# Inicializar vectores para x e y
+x <- numeric()
+y <- numeric()
+
+# Iterar sobre las líneas y extraer los datos
+for (linea in lineas) {
+  datos <- as.numeric(strsplit(linea, " ")[[1]])
+  x <- c(x, datos[1])
+  y <- c(y, datos[2])
+}
+
+# Llamar a la función de regresión lineal
+resultado <- regresion_lineal(x, y)
+
+# Mostrar los resultados
+cat("Intercepto (alpha):", resultado$alpha, "\n")
+cat("Coeficiente (beta):", resultado$beta, "\n")
+
+
+@
 				
 				\item[-] Retorno: 
 				

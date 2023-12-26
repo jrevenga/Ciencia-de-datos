@@ -23,4 +23,4 @@
 \contentsline {subsubsection}{\numberline {3.2.1}Árboles de decisión}{24}{}%
 \contentsline {paragraph}{Solución:}{24}{}%
 \contentsline {subsubsection}{\numberline {3.2.2}Regresión}{25}{}%
-\contentsline {paragraph}{Solución:}{25}{}%
+\contentsline {paragraph}{Solución:}{26}{}%

@@ -169,7 +169,8 @@ Within cluster sum of squares by cluster:
 
 Available components:
 
-[1] "cluster"      "centers"      "totss"        "withinss"     "tot.withinss" "betweenss"    "size"         "iter"         "ifault"      
+[1] "cluster"      "centers"      "totss"        "withinss"     "tot.withinss"
+[6] "betweenss"    "size"         "iter"         "ifault"      
 \end{Soutput}
 \end{Schunk}
 		\item \texttt{}: 
@@ -261,8 +262,11 @@ Available components:
 > search()
 \end{Sinput}
 \begin{Soutput}
- [1] ".GlobalEnv"         "package:tree"       "package:readr"      "package:clustlearn" "package:rpart"      "package:LearnClust" "package:magick"     "package:arules"     "package:Matrix"     "package:stats"      "package:graphics"   "package:grDevices" 
-[13] "package:utils"      "package:datasets"   "package:methods"    "Autoloads"          "package:base"      
+ [1] ".GlobalEnv"         "package:rpart"      "package:LearnClust"
+ [4] "package:magick"     "package:arules"     "package:Matrix"    
+ [7] "package:stats"      "package:graphics"   "package:grDevices" 
+[10] "package:utils"      "package:datasets"   "package:methods"   
+[13] "Autoloads"          "package:base"      
 \end{Soutput}
 \end{Schunk}
 		\item \texttt{}: 
@@ -704,15 +708,30 @@ F-statistic: 0.3193 on 1 and 2 DF,  p-value: 0.6289
 	
 \begin{Schunk}
 \begin{Sinput}
+> #cargamos la función
+> source("kmedias.R")
 > datos <- read.csv("Datos2.1.csv")
 > clasificacionns <- kmedias(datos, num_clusters = 3, mostrar_proceso = TRUE)
 \end{Sinput}
 \begin{Soutput}
+Iteración:  1 
 Matriz de Distancias:
-         [,1]      [,2]      [,3]     [,4]      [,5]     [,6]     [,7]     [,8]     [,9]    [,10]    [,11]     [,12]     [,13]    [,14]    [,15]
-[1,] 0.000000 3.0207615 3.8078866 4.138236 0.9013878 0.250000 4.373214 3.579455 0.250000 4.472136 4.301163 0.7071068 3.3541020 4.506939 4.031129
-[2,] 3.020761 0.0000000 0.7905694 2.692582 2.3048861 3.250000 2.549510 0.559017 2.926175 2.850439 2.263846 2.3717082 0.3535534 3.250000 1.060660
-[3,] 3.807887 0.7905694 0.0000000 2.850439 3.0923292 4.038874 2.573908 0.250000 3.716517 2.915476 2.236068 3.1622777 0.5000000 3.400368 0.500000
+           [,1]      [,2]      [,3]
+ [1,] 0.0000000 3.0207615 3.8078866
+ [2,] 3.0207615 0.0000000 0.7905694
+ [3,] 3.8078866 0.7905694 0.0000000
+ [4,] 4.1382363 2.6925824 2.8504386
+ [5,] 0.9013878 2.3048861 3.0923292
+ [6,] 0.2500000 3.2500000 4.0388736
+ [7,] 4.3732139 2.5495098 2.5739075
+ [8,] 3.5794553 0.5590170 0.2500000
+ [9,] 0.2500000 2.9261750 3.7165172
+[10,] 4.4721360 2.8504386 2.9154759
+[11,] 4.3011626 2.2638463 2.2360680
+[12,] 0.7071068 2.3717082 3.1622777
+[13,] 3.3541020 0.3535534 0.5000000
+[14,] 4.5069391 3.2500000 3.4003676
+[15,] 4.0311289 1.0606602 0.5000000
 Clusters Asignados:
  [1] 1 2 3 2 1 1 2 3 1 2 3 1 2 2 3
 Nuevos centroides: 
@@ -720,11 +739,24 @@ Nuevos centroides:
 [1,] 3.350000 4.200000
 [2,] 1.291667 1.416667
 [3,] 0.312500 2.375000
+Iteración:  2 
 Matriz de Distancias:
-          [,1]      [,2]      [,3]      [,4]      [,5]     [,6]      [,7]      [,8]      [,9]     [,10]     [,11]     [,12]     [,13]    [,14]     [,15]
-[1,] 0.3354102 2.7681221 3.5584407 3.8029594 0.5700877 0.500000 4.0388736 3.3241540 0.1581139 4.1367258 3.9702015 0.4031129 3.0923292 4.174326 3.7566608
-[2,] 3.7925823 1.9116783 2.0433666 0.8090203 2.8918588 3.943393 0.6679675 1.8952609 3.5922853 0.9400428 0.5086065 3.0970977 1.7702205 1.364862 1.6858274
-[3,] 3.8308982 0.9782797 0.6987712 2.1695694 3.0188212 4.041291 1.8760414 0.6281172 3.6980780 2.2194101 1.5372967 3.1405861 0.6525192 2.713537 0.3365728
+           [,1]      [,2]      [,3]
+ [1,] 0.3354102 3.7925823 3.8308982
+ [2,] 2.7681221 1.9116783 0.9782797
+ [3,] 3.5584407 2.0433666 0.6987712
+ [4,] 3.8029594 0.8090203 2.1695694
+ [5,] 0.5700877 2.8918588 3.0188212
+ [6,] 0.5000000 3.9433929 4.0412908
+ [7,] 4.0388736 0.6679675 1.8760414
+ [8,] 3.3241540 1.8952609 0.6281172
+ [9,] 0.1581139 3.5922853 3.6980780
+[10,] 4.1367258 0.9400428 2.2194101
+[11,] 3.9702015 0.5086065 1.5372967
+[12,] 0.4031129 3.0970977 3.1405861
+[13,] 3.0923292 1.7702205 0.6525192
+[14,] 4.1743263 1.3648616 2.7135367
+[15,] 3.7566608 1.6858274 0.3365728
 Clusters Asignados:
  [1] 1 3 3 2 1 1 2 3 1 2 2 1 3 2 3
 Nuevos centroides: 
@@ -732,11 +764,24 @@ Nuevos centroides:
 [1,] 3.35 4.20
 [2,] 1.50 0.65
 [3,] 0.30 2.95
+Iteración:  3 
 Matriz de Distancias:
-          [,1]      [,2]      [,3]      [,4]      [,5]     [,6]      [,7]       [,8]      [,9]    [,10]     [,11]     [,12]     [,13]     [,14]     [,15]
-[1,] 0.3354102 2.7681221 3.5584407 3.8029594 0.5700877 0.500000 4.0388736 3.32415403 0.1581139 4.136726 3.9702015 0.4031129 3.0923292 4.1743263 3.7566608
-[2,] 4.3384905 2.7060118 2.7879204 0.2692582 3.4438351 4.459260 0.2692582 2.66176633 4.1182521 0.150000 0.6103278 3.6704904 2.5539186 0.6403124 2.3817011
-[3,] 3.5556293 0.5408327 0.3041381 2.6348624 2.8160256 3.782195 2.3963514 0.07071068 3.4539832 2.728095 2.0718349 2.8969812 0.2061553 3.1906112 0.5408327
+           [,1]      [,2]       [,3]
+ [1,] 0.3354102 4.3384905 3.55562934
+ [2,] 2.7681221 2.7060118 0.54083269
+ [3,] 3.5584407 2.7879204 0.30413813
+ [4,] 3.8029594 0.2692582 2.63486243
+ [5,] 0.5700877 3.4438351 2.81602557
+ [6,] 0.5000000 4.4592600 3.78219513
+ [7,] 4.0388736 0.2692582 2.39635139
+ [8,] 3.3241540 2.6617663 0.07071068
+ [9,] 0.1581139 4.1182521 3.45398321
+[10,] 4.1367258 0.1500000 2.72809457
+[11,] 3.9702015 0.6103278 2.07183494
+[12,] 0.4031129 3.6704904 2.89698119
+[13,] 3.0923292 2.5539186 0.20615528
+[14,] 4.1743263 0.6403124 3.19061123
+[15,] 3.7566608 2.3817011 0.54083269
 Clusters Asignados:
  [1] 1 3 3 2 1 1 2 3 1 2 2 1 3 2 3
 Nuevos centroides: 
@@ -1004,6 +1049,14 @@ Number of objects: 15
 \begin{Schunk}
 \begin{Sinput}
 > install.packages("readr")
+\end{Sinput}
+\begin{Soutput}
+package ‘readr’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\angy7\AppData\Local\Temp\RtmpemczRZ\downloaded_packages
+\end{Soutput}
+\begin{Sinput}
 > library(readr)
 > (datos=read.csv('Datos2.3.csv'))
 \end{Sinput}
@@ -1038,6 +1091,14 @@ Number of objects: 15
 \begin{Schunk}
 \begin{Sinput}
 > install.packages("tree")
+\end{Sinput}
+\begin{Soutput}
+package ‘tree’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\angy7\AppData\Local\Temp\RtmpemczRZ\downloaded_packages
+\end{Soutput}
+\begin{Sinput}
 > library(tree)
 > arbol <- tree(TipoVehiculo ~ ., data=muestra, control=tree.control(10,minsize=2,mindev=0))
 \end{Sinput}
@@ -1069,12 +1130,12 @@ node), split, n, deviance, yval, (yprob)
 	\paragraph{Solución:}
 			Algoritmo de minería de reglas de asociación (apriori): Su objetivo principal es descubrir patrones de asociación entre diferentes conjuntos de datos.
 			\begin{itemize}
-				\item[-] Parámetros:
-				\begin{itemize}
-					\item \texttt{transacciones}: Lista de sucesos que conforman la muestra.
-					\item \texttt{soporte}: Umbral mínimo de soporte que deben superar las asociaciaciones.
-					\item \texttt{confianza}: Umbral mínimo de confianza que deben superar las asociaciaciones.
-				\end{itemize}
+				\item[-] Para empezar tenemos que introducir los datos en un archivo con extensión .txt 
+\begin{Schunk}
+\begin{Sinput}
+> #(muestra = read.table("datos2.4"))
+\end{Sinput}
+\end{Schunk}
 				
 				\item[-] Retorno: 
 				
