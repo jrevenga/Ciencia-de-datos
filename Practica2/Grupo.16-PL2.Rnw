@@ -164,7 +164,6 @@ mc2
 
 	\begin{itemize}
 <<>>=
-install.packages("LearnClust")
 library(LearnClust)
 search()
 @
@@ -209,7 +208,6 @@ agglomerativeHC.details(m,'EUC','MAX')
 	\begin{itemize}
 	  \item Primero creamos un txt con los datos del problema en cuestión, para después mediante el uso del paquete ''rpart´´ realizar la clasificación.
 <<>>=
-install.packages("rpart")
 library("rpart")
 (muestra=read.table("calificaciones.txt"))
 @
@@ -388,7 +386,6 @@ datos <- read.csv("Datos2.2.csv")
 	\begin{itemize}
 		\item Primero instalamos la libreria ''readr´´ y se leen los datos del archivo .csv para guardarlos en la variable ''datos´´.
 <<>>=
-install.packages("readr")
 library(readr)
 (datos=read.csv('Datos2.3.csv'))
 @
@@ -403,7 +400,6 @@ muestra=data.frame(TipoCarnet=TipoCarnet, NumeroRuedas=datos$NumeroRuedas, Numer
 @
     \item Una vez hecho esto procedemos a instalar el paquete ''tree´´, el cual construye árboles de decisión y haciendo uso de la función \texttt{tree()}. La función tree recibe la variable sobre la que queremos predecir, en este caso \texttt(TipoVehiculo), además de usar ''.´´ para que prediga respecto al resto de variables. También recibe el dataset que hemos creado previamente y del cual obtiene todos los datos. Por último recibe la función para que el árbol se ajuste a los datos en cuestión, \texttt{tree.control()}, que recibe los parámetros el número de observaciones (10), \texttt{minsize=2} y \texttt{mindev=0}.
 <<>>=
-install.packages("tree")
 library(tree)
 arbol <- tree(TipoVehiculo ~ ., data=muestra, control=tree.control(10,minsize=2,mindev=0))
 @
@@ -458,13 +454,13 @@ print(paste("R^2:", Rsquared4))
 				
 				\item[-] Retorno:
 				\begin{itemize}
-				  \item La función \texttt{regresion_lineal()} retorna una lista con los coeficientes alpha y beta.
-				  \item La función \texttt{calculo_R_cuadrado()} retorna un double con el valor del ajuste (R-squared).
+				  \item La función \texttt{regresion\_lineal()} retorna una lista con los coeficientes alpha y beta.
+				  \item La función \texttt{calculo\_R\_cuadrado()} retorna un double con el valor del ajuste (R-squared).
 				  \item La función \texttt{calculoSSR()} retorna un double con la dispersión de y calculados.
 				  \item La función \texttt{calculoSSy()} retorna un double con la dispersión de y observados.
 				\end{itemize}
 				
-				\item[-] Explicación: La función \texttt{regresion_lineal()}, calcula los coeficientes alpha y beta de la recta que forman los datos introducidos por parámetros. Después la función \texttt{calculo_R_cuadrado()} recibe como parámetros dichos coeficientes más los datos, con ello hace uso de las funciones \texttt{calculoSSR()} (que calcula la dispersión de los valores de y calculados a través de la recta creada con alpha y beta) y \texttt{calculoSSy()} (que calcula la dispersión de los valores y observados de los datos iniciales) para calcular R-squared, que se mide entre 0 y 1 y muestra el ajuste de la recta sobre los datos iniciales.
+				\item[-] Explicación: La función \texttt{regresion\_lineal()}, calcula los coeficientes alpha y beta de la recta que forman los datos introducidos por parámetros. Después la función \texttt{calculo\_R\_cuadrado()} recibe como parámetros dichos coeficientes más los datos, con ello hace uso de las funciones \texttt{calculoSSR()} (que calcula la dispersión de los valores de y calculados a través de la recta creada con alpha y beta) y \texttt{calculoSSy()} (que calcula la dispersión de los valores y observados de los datos iniciales) para calcular R-squared, que se mide entre 0 y 1 y muestra el ajuste de la recta sobre los datos iniciales.
 
 			\end{itemize}
 \end{document}

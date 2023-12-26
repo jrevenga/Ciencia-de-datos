@@ -257,16 +257,15 @@ Available components:
 	\begin{itemize}
 \begin{Schunk}
 \begin{Sinput}
-> install.packages("LearnClust")
 > library(LearnClust)
 > search()
 \end{Sinput}
 \begin{Soutput}
- [1] ".GlobalEnv"         "package:rpart"      "package:LearnClust"
- [4] "package:magick"     "package:arules"     "package:Matrix"    
- [7] "package:stats"      "package:graphics"   "package:grDevices" 
-[10] "package:utils"      "package:datasets"   "package:methods"   
-[13] "Autoloads"          "package:base"      
+ [1] ".GlobalEnv"         "package:LearnClust" "package:magick"    
+ [4] "package:arules"     "package:Matrix"     "package:stats"     
+ [7] "package:graphics"   "package:grDevices"  "package:utils"     
+[10] "package:datasets"   "package:methods"    "Autoloads"         
+[13] "package:base"      
 \end{Soutput}
 \end{Schunk}
 		\item \texttt{}: 
@@ -590,7 +589,6 @@ $groupedClusters
 	  \item Primero creamos un txt con los datos del problema en cuestión, para después mediante el uso del paquete ''rpart´´ realizar la clasificación.
 \begin{Schunk}
 \begin{Sinput}
-> install.packages("rpart")
 > library("rpart")
 > (muestra=read.table("calificaciones.txt"))
 \end{Sinput}
@@ -664,7 +662,7 @@ Coefficients:
 (Intercept)   4.3624     1.2050   3.620   0.0685 .
 R             0.1394     0.2466   0.565   0.6289  
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 0.846 on 2 degrees of freedom
 Multiple R-squared:  0.1377,	Adjusted R-squared:  -0.2935 
@@ -1048,15 +1046,6 @@ Number of objects: 15
 		\item Primero instalamos la libreria ''readr´´ y se leen los datos del archivo .csv para guardarlos en la variable ''datos´´.
 \begin{Schunk}
 \begin{Sinput}
-> install.packages("readr")
-\end{Sinput}
-\begin{Soutput}
-package ‘readr’ successfully unpacked and MD5 sums checked
-
-The downloaded binary packages are in
-	C:\Users\angy7\AppData\Local\Temp\RtmpemczRZ\downloaded_packages
-\end{Soutput}
-\begin{Sinput}
 > library(readr)
 > (datos=read.csv('Datos2.3.csv'))
 \end{Sinput}
@@ -1089,15 +1078,6 @@ The downloaded binary packages are in
 \end{Schunk}
     \item Una vez hecho esto procedemos a instalar el paquete ''tree´´, el cual construye árboles de decisión y haciendo uso de la función \texttt{tree()}. La función tree recibe la variable sobre la que queremos predecir, en este caso \texttt(TipoVehiculo), además de usar ''.´´ para que prediga respecto al resto de variables. También recibe el dataset que hemos creado previamente y del cual obtiene todos los datos. Por último recibe la función para que el árbol se ajuste a los datos en cuestión, \texttt{tree.control()}, que recibe los parámetros el número de observaciones (10), \texttt{minsize=2} y \texttt{mindev=0}.
 \begin{Schunk}
-\begin{Sinput}
-> install.packages("tree")
-\end{Sinput}
-\begin{Soutput}
-package ‘tree’ successfully unpacked and MD5 sums checked
-
-The downloaded binary packages are in
-	C:\Users\angy7\AppData\Local\Temp\RtmpemczRZ\downloaded_packages
-\end{Soutput}
 \begin{Sinput}
 > library(tree)
 > arbol <- tree(TipoVehiculo ~ ., data=muestra, control=tree.control(10,minsize=2,mindev=0))
@@ -1133,20 +1113,99 @@ node), split, n, deviance, yval, (yprob)
 				\item[-] Para empezar tenemos que introducir los datos en un archivo con extensión .txt 
 \begin{Schunk}
 \begin{Sinput}
-> #(muestra = read.table("datos2.4"))
+> source("regresion_lineal.R")
+> source("R-squared.R")
+> # Leer el archivo del primer subconjunto de datos
+> muestra <- read.table("datos2.4.1.txt")
+> muestra2 <- read.table("datos2.4.2.txt")
+> muestra3 <- read.table("datos2.4.3.txt")
+> muestra4 <- read.table("datos2.4.4.txt")
+> # Llamar a la función de regresión lineal
+> resultado <- regresion_lineal(muestra$x,muestra$y)
+> resultado2 <- regresion_lineal(muestra2$x,muestra2$y)
+> resultado3 <- regresion_lineal(muestra3$x,muestra3$y)
+> resultado4 <- regresion_lineal(muestra4$x,muestra4$y)
+> # Mostrar los coeficientes de las rectas
+> resultado
 \end{Sinput}
+\begin{Soutput}
+$alpha
+[1] 3.000091
+
+$beta
+[1] 0.5000909
+\end{Soutput}
+\begin{Sinput}
+> resultado2
+\end{Sinput}
+\begin{Soutput}
+$alpha
+[1] 3.000909
+
+$beta
+[1] 0.5
+\end{Soutput}
+\begin{Sinput}
+> resultado3
+\end{Sinput}
+\begin{Soutput}
+$alpha
+[1] 3.002455
+
+$beta
+[1] 0.4997273
+\end{Soutput}
+\begin{Sinput}
+> resultado4
+\end{Sinput}
+\begin{Soutput}
+$alpha
+[1] 3.001727
+
+$beta
+[1] 0.4999091
+\end{Soutput}
+\begin{Sinput}
+> # Llamar a la función de R-squared
+> Rsquared <- calculo_R_cuadrado(muestra$x,muestra$y,resultado$alpha,resultado$beta)
+> Rsquared2 <- calculo_R_cuadrado(muestra2$x,muestra2$y,resultado2$alpha,resultado2$beta)
+> Rsquared3 <- calculo_R_cuadrado(muestra3$x,muestra3$y,resultado3$alpha,resultado3$beta)
+> Rsquared4 <- calculo_R_cuadrado(muestra4$x,muestra4$y,resultado4$alpha,resultado4$beta)
+> #Mostrar bonanza regresión
+> print(paste("R^2:", Rsquared))
+\end{Sinput}
+\begin{Soutput}
+[1] "R^2: 0.666542459508774"
+\end{Soutput}
+\begin{Sinput}
+> print(paste("R^2:", Rsquared2))
+\end{Sinput}
+\begin{Soutput}
+[1] "R^2: 0.666242033727482"
+\end{Soutput}
+\begin{Sinput}
+> print(paste("R^2:", Rsquared3))
+\end{Sinput}
+\begin{Soutput}
+[1] "R^2: 0.666324041066559"
+\end{Soutput}
+\begin{Sinput}
+> print(paste("R^2:", Rsquared4))
+\end{Sinput}
+\begin{Soutput}
+[1] "R^2: 0.666707256898466"
+\end{Soutput}
 \end{Schunk}
 				
-				\item[-] Retorno: 
+				\item[-] Retorno:
+				\begin{itemize}
+				  \item La función \texttt{regresion\_lineal()} retorna una lista con los coeficientes alpha y beta.
+				  \item La función \texttt{calculo\_R\_cuadrado()} retorna un double con el valor del ajuste (R-squared).
+				  \item La función \texttt{calculoSSR()} retorna un double con la dispersión de y calculados.
+				  \item La función \texttt{calculoSSy()} retorna un double con la dispersión de y observados.
+				\end{itemize}
 				
-				\item[-] Explicación: 
+				\item[-] Explicación: La función \texttt{regresion\_lineal()}, calcula los coeficientes alpha y beta de la recta que forman los datos introducidos por parámetros. Después la función \texttt{calculo\_R\_cuadrado()} recibe como parámetros dichos coeficientes más los datos, con ello hace uso de las funciones \texttt{calculoSSR()} (que calcula la dispersión de los valores de y calculados a través de la recta creada con alpha y beta) y \texttt{calculoSSy()} (que calcula la dispersión de los valores y observados de los datos iniciales) para calcular R-squared, que se mide entre 0 y 1 y muestra el ajuste de la recta sobre los datos iniciales.
 
 			\end{itemize}
-\begin{Schunk}
-\begin{Sinput}
-> 
-\end{Sinput}
-\end{Schunk}
-
-  
 \end{document}
