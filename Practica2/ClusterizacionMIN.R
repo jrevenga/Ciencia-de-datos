@@ -68,9 +68,6 @@ while (length(clusters) > 1) {
   
   # Agregar el nuevo cluster
   clusters <- c(clusters, list(new_cluster))
-  
-  # Agregar una condición de salida para detener el bucle si la longitud de clusters es 1
-  if (length(clusters) == 1) break
 }
 
 # Imprimir el resultado final
