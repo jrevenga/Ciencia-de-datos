@@ -31,7 +31,16 @@ while (length(clusters) > 1) {
     for (j in (i + 1):length(clusters)) {
       # Evitar imprimir Inf en la matriz
       dist <- calcular_distancia_grupo_promedio(clusters[[i]], clusters[[j]], matriz_distancias_original)
-      distancias_clusters[j, i] <- if (is.finite(dist)) round(dist, 2) else ""
+      distancias_clusters[j, i] <- if (is.finite(dist)) {
+        # Imprimir los valores utilizados para calcular la media si hay más de un valor
+        valores_usados <- matriz_distancias_original[clusters[[i]]$elementos, clusters[[j]]$elementos]
+        if (length(valores_usados) > 1) {
+          cat("Calcular la media entre", clusters[[i]]$etiqueta, "y", clusters[[j]]$etiqueta, ":", round(valores_usados, 2), "\n")
+        }
+        round(dist, 2)
+      } else {
+        ""
+      }
     }
   }
   
@@ -61,7 +70,8 @@ while (length(clusters) > 1) {
   cat("Se unen los clusters", iteraciones[[etiqueta]]$cluster1$etiqueta,
       "y", iteraciones[[etiqueta]]$cluster2$etiqueta, "con una distancia de",
       round(iteraciones[[etiqueta]]$distancia, 2), "para formar el cluster",
-      iteraciones[[etiqueta]]$nuevo_cluster$etiqueta, "\n\n")
+      iteraciones[[etiqueta]]$nuevo_cluster$etiqueta, "\n")
+  cat("-----------------\n\n")
   
   # Incrementar la etiqueta para la próxima iteración
   etiqueta <- etiqueta + 1
