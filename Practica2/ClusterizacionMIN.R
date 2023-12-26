@@ -1,5 +1,7 @@
 # Datos proporcionados
-datos <- matrix(c(0.89, 2.94, 4.36, 5.21, 3.75, 1.12, 6.25, 3.14, 4.1, 1.8, 3.9, 4.27), ncol = 2, byrow = TRUE)
+datos <- matrix(c(3.5, 4.5, 0.75, 3.25, 0, 3, 1.75, 0.75, 3, 3.75,
+                  3.75, 4.5, 1.25, 0.75, 0.25, 3, 3.5, 4.25, 1.5, 0.5,
+                  1, 1, 3, 4, 0.5, 3, 2, 0.25, 0, 2.5), ncol = 2, byrow = TRUE)
 
 # Número de puntos
 n_puntos <- nrow(datos)
@@ -40,8 +42,8 @@ while (length(clusters) > 1) {
   }
   
   # Encontrar el par de clusters más cercano
-  min_dist <- min(as.numeric(distancias_clusters[distancias_clusters != ""]), na.rm = TRUE)
-  min_index <- which(distancias_clusters == format(min_dist, nsmall = 2), arr.ind = TRUE)
+  min_dist <- min(as.numeric(distancias_clusters), na.rm = TRUE)
+  min_index <- which(distancias_clusters == min_dist, arr.ind = TRUE)
   
   # Unir los dos clusters más cercanos en uno nuevo
   new_cluster <- list(etiqueta = paste("C", etiqueta, sep = ""),

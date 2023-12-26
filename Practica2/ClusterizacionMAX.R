@@ -1,5 +1,7 @@
 # Datos proporcionados
-datos <- matrix(c(0.89, 2.94, 4.36, 5.21, 3.75, 1.12, 6.25, 3.14, 4.1, 1.8, 3.9, 4.27), ncol = 2, byrow = TRUE)
+datos <- matrix(c(3.5, 4.5, 0.75, 3.25, 0, 3, 1.75, 0.75, 3, 3.75,
+                  3.75, 4.5, 1.25, 0.75, 0.25, 3, 3.5, 4.25, 1.5, 0.5,
+                  1, 1, 3, 4, 0.5, 3, 2, 0.25, 0, 2.5), ncol = 2, byrow = TRUE)
 
 # Número de puntos
 n_puntos <- nrow(datos)
@@ -29,7 +31,7 @@ while (length(clusters) > 1) {
       # Evitar imprimir Inf en la matriz
       dist <- calcular_distancia_maxima(clusters[[i]], clusters[[j]], matriz_distancias_original)
       distancias_clusters[j, i] <- if (is.finite(dist)) {
-        # Imprimir los valores utilizados para calcular la media si hay más de un valor
+        # Imprimir los valores utilizados para calcular el max entre los clusters
         valores_usados <- matriz_distancias_original[clusters[[i]]$elementos, clusters[[j]]$elementos]
         if (length(valores_usados) > 1) {
           cat("Valores para calcular el max entre", clusters[[i]]$etiqueta, "y", clusters[[j]]$etiqueta, ":", round(valores_usados, 2), "\n")
@@ -54,7 +56,7 @@ while (length(clusters) > 1) {
   min_index <- which(distancias_clusters == min_dist, arr.ind = TRUE)
   
   # Imprimir la distancia seleccionada y opciones
-  cat("Se elige la menor distancia de entre los max :", round(max_dists, 2), "\n")
+  cat("En la iteración", etiqueta, "se elige la distancia", round(min_dist, 2), "de entre las opciones:", round(max_dists, 2), "\n")
   
   # Unir los dos clusters más cercanos en uno nuevo
   new_cluster <- list(etiqueta = paste("C", etiqueta, sep = ""),
@@ -62,8 +64,8 @@ while (length(clusters) > 1) {
                                     clusters[[min_index[2]]]$elementos))
   
   # Guardar la iteración actual
-  iteraciones[[etiqueta]] <- list(cluster1 = clusters[[min_index[1, 1]]],
-                                  cluster2 = clusters[[min_index[1, 2]]],
+  iteraciones[[etiqueta]] <- list(cluster1 = clusters[[min_index[1]]],
+                                  cluster2 = clusters[[min_index[2]]],
                                   nuevo_cluster = new_cluster,
                                   distancia = min_dist)
   
@@ -78,7 +80,7 @@ while (length(clusters) > 1) {
   etiqueta <- etiqueta + 1
   
   # Eliminar los clusters antiguos
-  clusters <- clusters[-c(min_index[1, 1], min_index[1, 2])]
+  clusters <- clusters[-c(min_index[1], min_index[2])]
   
   # Agregar el nuevo cluster
   clusters <- append(clusters, list(new_cluster))
@@ -92,7 +94,6 @@ for (i in seq_len(length(iteraciones))) {
       round(iteraciones[[i]]$distancia, 2), "para formar el cluster",
       iteraciones[[i]]$nuevo_cluster$etiqueta, "\n")
 }
-
 
 
 
