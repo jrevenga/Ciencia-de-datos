@@ -423,102 +423,48 @@ print(arbol)
 				\item[-] Para empezar tenemos que introducir los datos en un archivo con extensión .txt 
 <<>>=
 source("regresion_lineal.R")
+source("R-squared.R")
 
 # Leer el archivo del primer subconjunto de datos
-lineas <- readLines("datos2.4.1.txt")
-
-# Inicializar vectores para x e y
-x <- numeric()
-y <- numeric()
-
-# Iterar sobre las líneas y extraer los datos
-for (linea in lineas) {
-  datos <- as.numeric(strsplit(linea, " ")[[1]])
-  x <- c(x, datos[1])
-  y <- c(y, datos[2])
-}
+muestra <- read.table("datos2.4.1.txt")
+muestra2 <- read.table("datos2.4.2.txt")
+muestra3 <- read.table("datos2.4.3.txt")
+muestra4 <- read.table("datos2.4.4.txt")
 
 # Llamar a la función de regresión lineal
-resultado <- regresion_lineal(x, y)
+resultado <- regresion_lineal(muestra$x,muestra$y)
+resultado2 <- regresion_lineal(muestra2$x,muestra2$y)
+resultado3 <- regresion_lineal(muestra3$x,muestra3$y)
+resultado4 <- regresion_lineal(muestra4$x,muestra4$y)
 
-# Mostrar los resultados
-cat("Intercepto (alpha):", resultado$alpha, "\n")
-cat("Coeficiente (beta):", resultado$beta, "\n")
+# Mostrar los coeficientes de las rectas
+resultado
+resultado2
+resultado3
+resultado4
 
-# Leer el archivo del segundo subconjunto de datos
-lineas <- readLines("datos2.4.2.txt")
+# Llamar a la función de R-squared
+Rsquared <- calculo_R_cuadrado(muestra$x,muestra$y,resultado$alpha,resultado$beta)
+Rsquared2 <- calculo_R_cuadrado(muestra2$x,muestra2$y,resultado2$alpha,resultado2$beta)
+Rsquared3 <- calculo_R_cuadrado(muestra3$x,muestra3$y,resultado3$alpha,resultado3$beta)
+Rsquared4 <- calculo_R_cuadrado(muestra4$x,muestra4$y,resultado4$alpha,resultado4$beta)
 
-# Inicializar vectores para x e y
-x <- numeric()
-y <- numeric()
-
-# Iterar sobre las líneas y extraer los datos
-for (linea in lineas) {
-  datos <- as.numeric(strsplit(linea, " ")[[1]])
-  x <- c(x, datos[1])
-  y <- c(y, datos[2])
-}
-
-# Llamar a la función de regresión lineal
-resultado <- regresion_lineal(x, y)
-
-# Mostrar los resultados
-cat("Intercepto (alpha):", resultado$alpha, "\n")
-cat("Coeficiente (beta):", resultado$beta, "\n")
-
-# Leer el archivo del tercer subconjunto de datos
-lineas <- readLines("datos2.4.3.txt")
-
-# Inicializar vectores para x e y
-x <- numeric()
-y <- numeric()
-
-# Iterar sobre las líneas y extraer los datos
-for (linea in lineas) {
-  datos <- as.numeric(strsplit(linea, " ")[[1]])
-  x <- c(x, datos[1])
-  y <- c(y, datos[2])
-}
-
-# Llamar a la función de regresión lineal
-resultado <- regresion_lineal(x, y)
-
-# Mostrar los resultados
-cat("Intercepto (alpha):", resultado$alpha, "\n")
-cat("Coeficiente (beta):", resultado$beta, "\n")
-
-# Leer el archivo del cuarto subconjunto de datos
-lineas <- readLines("datos2.4.4.txt")
-
-# Inicializar vectores para x e y
-x <- numeric()
-y <- numeric()
-
-# Iterar sobre las líneas y extraer los datos
-for (linea in lineas) {
-  datos <- as.numeric(strsplit(linea, " ")[[1]])
-  x <- c(x, datos[1])
-  y <- c(y, datos[2])
-}
-
-# Llamar a la función de regresión lineal
-resultado <- regresion_lineal(x, y)
-
-# Mostrar los resultados
-cat("Intercepto (alpha):", resultado$alpha, "\n")
-cat("Coeficiente (beta):", resultado$beta, "\n")
-
-
+#Mostrar bonanza regresión
+print(paste("R^2:", Rsquared))
+print(paste("R^2:", Rsquared2))
+print(paste("R^2:", Rsquared3))
+print(paste("R^2:", Rsquared4))
 @
 				
-				\item[-] Retorno: 
+				\item[-] Retorno:
+				\begin{itemize}
+				  \item La función \texttt{regresion_lineal()} retorna una lista con los coeficientes alpha y beta.
+				  \item La función \texttt{calculo_R_cuadrado()} retorna un double con el valor del ajuste (R-squared).
+				  \item La función \texttt{calculoSSR()} retorna un double con la dispersión de y calculados.
+				  \item La función \texttt{calculoSSy()} retorna un double con la dispersión de y observados.
+				\end{itemize}
 				
-				\item[-] Explicación: 
+				\item[-] Explicación: La función \texttt{regresion_lineal()}, calcula los coeficientes alpha y beta de la recta que forman los datos introducidos por parámetros. Después la función \texttt{calculo_R_cuadrado()} recibe como parámetros dichos coeficientes más los datos, con ello hace uso de las funciones \texttt{calculoSSR()} (que calcula la dispersión de los valores de y calculados a través de la recta creada con alpha y beta) y \texttt{calculoSSy()} (que calcula la dispersión de los valores y observados de los datos iniciales) para calcular R-squared, que se mide entre 0 y 1 y muestra el ajuste de la recta sobre los datos iniciales.
 
 			\end{itemize}
-<<>>=
-
-@
-
-  
 \end{document}
