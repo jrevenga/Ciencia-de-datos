@@ -50,13 +50,16 @@ while (length(clusters) > 1) {
   
   # Encontrar el par de clusters más cercano
   max_dists <- as.numeric(distancias_clusters[distancias_clusters != ""])
-  min_dist <- min(as.numeric(distancias_clusters[distancias_clusters != ""]), na.rm = TRUE)
-  min_index <- which(distancias_clusters == format(min_dist, nsmall = 2), arr.ind = TRUE)
+  min_dist <- min(as.numeric(distancias_clusters), na.rm = TRUE)
+  min_index <- which(distancias_clusters == min_dist, arr.ind = TRUE)
+  
+  # Imprimir la distancia seleccionada y opciones
+  cat("Se elige la menor distancia de entre los max :", round(max_dists, 2), "\n")
   
   # Unir los dos clusters más cercanos en uno nuevo
   new_cluster <- list(etiqueta = paste("C", etiqueta, sep = ""),
-                      elementos = c(clusters[[min_index[1, 1]]]$elementos,
-                                    clusters[[min_index[1, 2]]]$elementos))
+                      elementos = c(clusters[[min_index[1]]]$elementos,
+                                    clusters[[min_index[2]]]$elementos))
   
   # Guardar la iteración actual
   iteraciones[[etiqueta]] <- list(cluster1 = clusters[[min_index[1, 1]]],
