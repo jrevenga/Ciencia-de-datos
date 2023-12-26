@@ -11,7 +11,7 @@ matriz_distancias_original <- as.matrix(dist(datos))
 clusters <- lapply(1:n_puntos, function(i) list(etiqueta = as.character(i), elementos = i))
 
 # Función para calcular la distancia con MIN (single link)
-dist_clusters <- function(cluster1, cluster2, matriz_distancias) {
+calcular_distancia_minima <- function(cluster1, cluster2, matriz_distancias) {
   min_dist <- min(matriz_distancias[cluster1$elementos, cluster2$elementos])
   return(min_dist)
 }
@@ -27,8 +27,8 @@ while (length(clusters) > 1) {
   for (i in 1:(length(clusters) - 1)) {
     for (j in (i + 1):length(clusters)) {
       # Evitar imprimir Inf en la matriz
-      dist <- dist_clusters(clusters[[i]], clusters[[j]], matriz_distancias_original)
-      distancias_clusters[j, i] <- if (is.finite(dist)) sprintf("%.2f", dist) else ""
+      dist <- calcular_distancia_minima(clusters[[i]], clusters[[j]], matriz_distancias_original)
+      distancias_clusters[j, i] <- if (is.finite(dist)) round(dist, 2) else ""
     }
   }
   
@@ -41,7 +41,7 @@ while (length(clusters) > 1) {
   
   # Encontrar el par de clusters más cercano
   min_dist <- min(as.numeric(distancias_clusters[distancias_clusters != ""]), na.rm = TRUE)
-  min_index <- which(distancias_clusters == sprintf("%.2f", min_dist), arr.ind = TRUE)
+  min_index <- which(distancias_clusters == format(min_dist, nsmall = 2), arr.ind = TRUE)
   
   # Unir los dos clusters más cercanos en uno nuevo
   new_cluster <- list(etiqueta = paste("C", etiqueta, sep = ""),
@@ -67,12 +67,12 @@ while (length(clusters) > 1) {
   clusters <- clusters[-c(min_index[1, 1], min_index[1, 2])]
   
   # Agregar el nuevo cluster
-  clusters <- c(clusters, list(new_cluster))
+  clusters <- append(clusters, list(new_cluster))
 }
 
 # Imprimir el resultado final
 cat("Resumen:\n")
-for (i in seq_along(iteraciones)) {
+for (i in seq_len(length(iteraciones))) {
   cat("Iteración", i, ": Se unen los clusters", iteraciones[[i]]$cluster1$etiqueta,
       "y", iteraciones[[i]]$cluster2$etiqueta, "con una distancia de",
       round(iteraciones[[i]]$distancia, 2), "para formar el cluster",
