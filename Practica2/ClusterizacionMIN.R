@@ -21,23 +21,27 @@ iteraciones <- list()
 etiqueta <- 1
 while (length(clusters) > 1) {
   # Inicializar la matriz de distancias entre clusters con Inf
-  distancias_clusters <- matrix(Inf, nrow = length(clusters), ncol = length(clusters))
+  distancias_clusters <- matrix("", nrow = length(clusters), ncol = length(clusters))
   
   # Calcular la distancia entre cada par de clusters utilizando la copia de la matriz original
   for (i in 1:(length(clusters) - 1)) {
     for (j in (i + 1):length(clusters)) {
-      distancias_clusters[j, i] <- dist_clusters(clusters[[i]], clusters[[j]], matriz_distancias_original)
+      # Evitar imprimir Inf en la matriz
+      dist <- dist_clusters(clusters[[i]], clusters[[j]], matriz_distancias_original)
+      distancias_clusters[j, i] <- if (is.finite(dist)) sprintf("%.2f", dist) else ""
     }
   }
   
-  # Guardar la matriz de distancias actualizada
-  cat("Iteración", etiqueta, ":\n")
-  cat("Matriz de distancias", etiqueta, ":\n")
-  print(distancias_clusters)
+  # Si la matriz está completamente vacía (todos los elementos son ""), no imprimir
+  if (any(distancias_clusters != "")) {
+    # Guardar la matriz de distancias actualizada
+    cat("Matriz de distancias", etiqueta, ":\n")
+    print(distancias_clusters, quote = FALSE)
+  }
   
   # Encontrar el par de clusters más cercano
-  min_dist <- min(distancias_clusters)
-  min_index <- which(distancias_clusters == min_dist, arr.ind = TRUE)
+  min_dist <- min(as.numeric(distancias_clusters[distancias_clusters != ""]), na.rm = TRUE)
+  min_index <- which(distancias_clusters == sprintf("%.2f", min_dist), arr.ind = TRUE)
   
   # Unir los dos clusters más cercanos en uno nuevo
   new_cluster <- list(etiqueta = paste("C", etiqueta, sep = ""),
@@ -64,6 +68,9 @@ while (length(clusters) > 1) {
   
   # Agregar el nuevo cluster
   clusters <- c(clusters, list(new_cluster))
+  
+  # Agregar una condición de salida para detener el bucle si la longitud de clusters es 1
+  if (length(clusters) == 1) break
 }
 
 # Imprimir el resultado final
@@ -74,7 +81,6 @@ for (i in seq_along(iteraciones)) {
       round(iteraciones[[i]]$distancia, 2), "para formar el cluster",
       iteraciones[[i]]$nuevo_cluster$etiqueta, "\n")
 }
-
 
 
 
