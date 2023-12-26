@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.26)  26 DEC 2023 19:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.26)  26 DEC 2023 22:43
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -303,14 +303,14 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout4 = `Grupo.16-PL2.toc'.
 
 [1]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 56.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 64.
 (c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 93.
-(c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1cmtt.fd
-File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-)
+Overfull \hbox (5.01256pt too wide) in paragraph at lines 64--67
+[]\T1/cmtt/m/n/12 m<-matrix(c(4,4, 3,5, 1,2, 5,5, 0,1, 2,2, 4,5, 2,1),2,8)\T1/cmr/m/n/12 : In-tro-duc-ción de
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -327,10 +327,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [3]
-Overfull \hbox (5.01256pt too wide) in paragraph at lines 117--120
-[]\T1/cmtt/m/n/12 m<-matrix(c(4,4, 3,5, 1,2, 5,5, 0,1, 2,2, 4,5, 2,1),2,8)\T1/cmr/m/n/12 : In-tro-duc-ción de
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -339,6 +335,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [4]
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 241.
+(c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ts1cmtt.fd
+File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -419,6 +419,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [14]
+Overfull \hbox (0.10156pt too wide) in paragraph at lines 644--645
+[]\T1/cmtt/m/n/12 clasificacionns <- kmedias(datos, num_clusters = 3, mostrar_proceso =
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -435,10 +439,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [16]
-Overfull \hbox (0.10156pt too wide) in paragraph at lines 697--698
-[]\T1/cmtt/m/n/12 clasificacionns <- kmedias(datos, num_clusters = 3, mostrar_proceso =
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -463,23 +463,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [19]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[20]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[21]
-Overfull \hbox (1.93025pt too wide) in paragraph at lines 938--939
+Overfull \hbox (1.93025pt too wide) in paragraph at lines 885--886
 []\T1/cmtt/m/n/12 (clMax<-agglomerative_clustering(datos,''complete\TS1/cmtt/m/n/12 ´´\T1/cmtt/m/n/12 ,FALSE,FALSE))\T1/cmr/m/n/12 : Clus-
  []
 
@@ -490,11 +474,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[22]
-Overfull \hbox (5.54605pt too wide) in paragraph at lines 985--986
+[20]
+Overfull \hbox (5.54605pt too wide) in paragraph at lines 932--933
 []\T1/cmtt/m/n/12 (clAvg<-agglomerative_clustering(datos,''average\TS1/cmtt/m/n/12 ´´\T1/cmtt/m/n/12 ,FALSE,FALSE))\T1/cmr/m/n/12 : Clus-te-
  []
 
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[21]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[22]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -646,23 +646,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[41]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[42]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[43] (./Grupo.16-PL2.aux
+[41] (./Grupo.16-PL2.aux
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
 )
@@ -672,18 +656,18 @@ L3 programming layer <2023-12-11>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5754 strings out of 476117
- 93119 string characters out of 5792395
+ 5753 strings out of 476117
+ 93103 string characters out of 5792395
  1937460 words of memory out of 5000000
- 27709 multiletter control sequences out of 15000+600000
+ 27708 multiletter control sequences out of 15000+600000
  572798 words of font info for 71 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 61i,11n,69p,1120b,563s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcst1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecst1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1728.600pk><c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on Grupo.16-PL2.pdf (44 pages, 576497 bytes).
+ 61i,11n,69p,1115b,565s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcst1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecst1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> <c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1728.600pk><c:/Users/Jorge/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on Grupo.16-PL2.pdf (42 pages, 566183 bytes).
 PDF statistics:
- 662 PDF objects out of 1000 (max. 8388607)
- 160 compressed objects within 2 object streams
+ 632 PDF objects out of 1000 (max. 8388607)
+ 155 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  10 words of extra memory for PDF output out of 10000 (max. 10000000)
 

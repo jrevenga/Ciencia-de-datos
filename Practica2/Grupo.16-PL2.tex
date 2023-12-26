@@ -50,59 +50,6 @@
 	
 	\newpage
 	
-	\section{Introducción - Consideraciones previas}
-	
-	\subsection{Uso de RStudio}
-	Para utilizar una función en R se escribe el nombre de la función, seguido de los parámetros de entrada entre paréntesis e.g.: \texttt{función(parámetros)}
-	
-	\begin{itemize}
-		\item[-]Función \texttt{contributors()}: Muestra los creadores del programa (R)
-		
-		\item[-]Función \texttt{help()}: Abre un HTML con información sobre la función \texttt{help()} o de la función entre paréntesis de haberla. Para todas las funciones que programemos (para todas las que existan) en R debe poder usarse la función \texttt{help()}.
-		
-		En el archivo HTML se distinguen varios elementos:
-		
-		\begin{itemize}
-			\item función \{paquete\}: la función de la que se obtiene información seguida del paquete al que pertenece.
-			\item Description: descripción de la función.
-			\item Usage: aparece la función y todos los argumentos que se le pueden introducir.
-			\item Arguments: Explicación de los argumentos o parámetros.
-			\item Details: Detalles adicionales de la función.
-			\item Offline help: Ayuda sin conexión.
-			\item Note: Nota del autor.
-			\item References: Referencias.
-			\item Examples: Ejemplos de uso de la función.
-		\end{itemize}
-		
-		\item[-]Función \texttt{getwd()} se utiliza para obtener el directorio de trabajo actual (working directory).
-		
-		\item[-]Función \texttt{setwd(\string"C:/…")} permite cambiar el nuevo directorio de trabajo en el que queramos trabajar.
-		
-		\item[-] \texttt{help.start()}: Manda a un compendio de todas las ayudas disponibles para trabajar con R.
-		
-		\item[-]Función \texttt{list.files()}: Muestra todos los archivos en el directorio. \texttt{dir()} hace lo mismo. 
-	\end{itemize}
-	
-	\subsection{Introducción de datos de Excel/CSV en R}
-	Para poder leer archivos .xlsx y .csv seguimos un par de pasos:
-
-	\begin{itemize}
-		\item[-] Archivos .csv:
-		\begin{itemize}
-			\item Primero se crea el archivo .csv y se introducen los datos por filas (los datos de la fila i, se escriben en la celda (i,1)) y separando dichos datos con un delimitador ('',´´ o '';´´).
-			\item Después se usa la función \texttt{read.csv(''ruta del archivo´´, sep = '';´´)}, la cual es parte del paquete base de R, para leer los datos del archivo. Recibe como parámetros la ruta del archivo y el delimitador que usa para separar los datos.
-		\end{itemize}
-		
-		\item[-] Archivos .xlsx:
-		\begin{itemize}
-			\item Primero se crea el archivo .xlsc y se introducen los datos en forma de matriz, escribiendo cada dato en una celda.
-			\item Después se carga la librería \emph{openxlsx} y se usa la función \texttt{read\_excel(''ruta del archivo´´)}, introduciendo la ruta del archivo por parámetro.
-		\end{itemize}
-	\end{itemize}
-	
-	
-  \newpage
-	
 	\section{Ejercicios con ayuda del profesor}
 	Realización de cuatro ejercicios con ayuda del profesor en los que se van a realizar, utilizando el entorno R, dos análisis de clasificación no supervisada y dos análisis de clasificación supervisada, aplicando todos los conceptos teóricos vistos en cada lección.
 
@@ -1033,8 +980,8 @@ Number of objects: 15
 	
 	\begin{itemize}
 	  \item[-] Explicación:
-	Este código en R implementa un algoritmo jerárquico aglomerativo para la agrupación de datos. El algoritmo utiliza matrices de distancia entre puntos y fusiona iterativamente los clusters más cercanos hasta que queda un único cluster que contiene todos los puntos. Los datos de entrada están representados en la matriz 'datos'. El código proporciona tres funciones para calcular la distancia entre clusters: MIN (single link), MAX (complete link), y Group Average. El algoritmo utiliza una de estas funciones según el método de distancia especificado. Durante cada iteración, se calcula la matriz de distancias entre clusters, se encuentra el par de clusters más cercano, se fusionan en un nuevo cluster, y se repite el proceso hasta que solo queda un cluster. El código imprime la matriz de distancias en cada iteración y muestra los clusters que se fusionan. Al final, se presenta un resumen de las iteraciones, mostrando qué clusters se fusionaron en cada paso y la distancia correspondiente.
-	En el propio codigo hay comentarios con una breve explicación de cada parte
+	Este código implementa un algoritmo jerárquico aglomerativo para la agrupación de datos. El algoritmo utiliza matrices de distancia entre puntos y fusiona iterativamente los clusters más cercanos hasta que queda un único cluster que contiene todos los puntos. Los datos de entrada están representados en la matriz 'datos'. El código proporciona tres funciones para calcular la distancia entre clusters: MIN (single link), MAX (complete link), y Group Average. El algoritmo utiliza una de estas funciones según el método de distancia especificado. Durante cada iteración, se calcula la matriz de distancias entre clusters, se encuentra el par de clusters más cercano, se fusionan en un nuevo cluster, y se repite el proceso hasta que solo queda un cluster. El código imprime la matriz de distancias en cada iteración y muestra los clusters que se fusionan. Al final, se presenta un resumen de las iteraciones, mostrando qué clusters se fusionaron en cada paso y la distancia correspondiente.
+	En el propio codigo hay comentarios con una breve explicación de cada parte.
 	\end{itemize}
 \begin{Schunk}
 \begin{Sinput}
